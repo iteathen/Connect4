@@ -1,3 +1,77 @@
+owner_20261020_K4_WIDTH3_WIDTH4_HEIGHT3_HEIGHT4_PHASE_TRANSITIONS:
+  PRIORITY: CURRENT
+  owner_hypothesis: "Below width5 defensive pair structure must change at width4 and again at width3; determine corresponding height changes and relation to exact no-search WDL"
+  branch: research/semantic-quotient
+  strict_original_game: {K: 4, gravity: true, alternating: true, first_win_stops: true, cyclic_winlines: false}
+  source_exact_line_count:
+    x: "max(0,W-3)"
+    y: "max(0,H-3)"
+    horizontal: "H*x"
+    vertical: "W*y"
+    rising_diagonal: "x*y"
+    falling_diagonal: "x*y"
+    total: "H*x+W*y+2*x*y"
+  source_exact_incidence_topology:
+    both_axes_below4: "zero K4 lines, zero nontrivial components, every physical cell isolated"
+    W_below4_H_atleast4: "exactly W vertical cell-line components; no horizontal or diagonal K4"
+    W_atleast4_H_below4: "exactly H horizontal cell-line components; no vertical or diagonal K4"
+    both_axes_atleast4: "one connected four-direction original cell-line interaction graph"
+    algebraically_proved_for: "any K>=2 on replacing 4 by K"
+    source_K4_W_H_1to8_controls: 64
+    independent_K3_K5_K6_controls: 48
+    checked_mismatches: 0
+  width_transitions:
+    W5_to4: "two overlapping length4 horizontal spans -> one span, three common blocker columns -> four, graph remains connected when H>=4"
+    W4_to3: "one length4 horizontal span -> none, ALL horizontal+diagonal winning requirements disappear; vertical-only independent physical columns; new complete two-sided gravity vertical mate policy"
+    W4_K4_infinite_follower_common_span_options: 4
+    W5_K4_infinite_follower_common_span_options: 3
+    W6_K4_infinite_follower_common_span_options: 2
+    W7_K4_infinite_follower_common_span_options: 1
+    W8_K4_infinite_follower_common_span_options: 0
+  height_transitions:
+    H5_to4: "two length4 vertical spans -> one, three common vertical blocking ROW options -> four, geometric interaction graph remains connected at W>=4"
+    H4_to3: "one length4 vertical span -> none; vertical+diagonal disappear; horizontal-only rows become disconnected K4 incidence components"
+    causal_asymmetry: "Gravity requires filling lower rows first, unlike unrestricted column choice; horizontal-only row geometry still coupled by legal gravity; odd/even H changes unmatched top response debt and legal releases"
+    after_first_P0_middle_column: "J=floor((H-1)/2)+(W-1)*floor(H/2), U=(H-1 mod2)+(W-1)*(H mod2), WH-1=2J+U"
+    K4_W7H3: {J: 7, U: 6, K4_lines: 12, original_components: 3, external_WDL: UNREPORTED}
+    K4_W7H4: {J: 13, U: 1, K4_lines: 31, original_components: 1, external_WDL: DRAW}
+    K4_W7H5: {J: 14, U: 6, K4_lines: 50, original_components: 1, external_WDL: DRAW}
+    K4_W7H6: {J: 20, U: 1, K4_lines: 69, original_components: 1, external_WDL: P0_WIN}
+  game_truth_and_falsifiers:
+    W3_any_positive_H_K4_empty_root: "SOURCE-PROVED EXACT DRAW via BOTH P0 and P1 vertical adjacent-pair defender policies"
+    independent_W3_dual_defender_tests: {H: [5,6,7,8], scenarios: 8, distinct_defender_turn_states: 1004, attacker_legal_actions: 2055, attacker_firstwins: 0, illegal_responses: 0}
+    W4_H4_vertical_only_P1_policy_fails: "onebased legal firstwin 1122334; P0 bottom horizontal on ply7"
+    W5_H4_wrong_edge_P0_upper_followup_fails: "onebased legal firstwin 12233445; P1 bottom right window cols2-5 on ply8"
+    W4_H4_horizontal_only_P1_policy_fails: "onebased legal firstwin 1212121; P0 vertical col1 on ply7"
+    W4_H3_negative_vertical_win_control: "onebased legal 121212, no win, col1 top full"
+    published_K4_W4_W5_H4to13_outcomes: "20/20 DRAW; external solver labels, NOT universal source theorem"
+    historical_K4_H_less4_all_DRAW_pair_proof: "AUDITED INCOMPLETE due P0 first turn and odd unmatched column legal reply gaps; use guarded newer subfamilies"
+    geometry_does_not_prove_WDL: "W6 H6 P1 WIN, W7 H6 P0 WIN, W8 H6 P1 WIN all have same 1 connected K4 incidence component"
+  durable:
+    frozen_plan: docs/research/2026-10-20-narrow-width-3-4-and-height-3-4-transition-frozen.md
+    theorem_and_disposition: docs/research/2026-10-20-exact-K4-width3-width4-height3-height4-geometry-response-phase-transition-synthesis.md
+    source_geometry_script: research/isograph/discovery/2026-10-20-narrow-phase-transitions/source-k4-width-height-incidence-response-filtration.mjs
+    source_geometry_evidence: research/isograph/discovery/2026-10-20-narrow-phase-transitions/K4_WIDTH3_4_5_HEIGHT3_4_5_SOURCE_DIRECTION_COUPLING_0_1.json
+    physical_policy_runner: research/isograph/discovery/2026-10-20-narrow-phase-transitions/independent-original-vertical-horizontal-response-policy-controls.mjs
+    physical_controls: research/isograph/discovery/2026-10-20-narrow-phase-transitions/K4_NARROW_WIDTH_DUAL_VERTICAL_POLICY_2055_ACTIONS_AND_GEOMETRY_BOUNDARY_WITNESSES_0_1.json
+    external_WDL_after_freeze: research/isograph/discovery/2026-10-20-narrow-phase-transitions/POSTFROZEN_NARROW_WIDTH_AND_HEIGHT_PUBLISHED_WDL_CHECKS_0_1.json
+  next_exact_nonsearch_WDL_proof_gate: >-
+    Derive strategy-sufficient guarded Connect4 ORIGINAL two-owner 69-line
+    online response-contract algebra that ADDS horizontal+diagonal obligations
+    at W3->W4, composes overlapping K4-column spans at W4->W5,
+    and ADDS vertical+diagonal obligations and release/deadline constraints at
+    H3->H4. It must handle all physical firstwin stopping, no-pass alternating
+    ownership, multiple demand discharge by ONE legal reply, and proved
+    strategies for BOTH sides to assert DRAW or one forced-WIN. From these
+    dimension mechanisms target W6/W7 K4 H6 transition and unrestricted
+    source-only exact WDL without valuing distinct future strategic games.
+    Treat historical 28 strong terminal lines only as held-back validation.
+  arbitrary_dimension_exact_nonsearch_WDL: OPEN
+  standard7x6_empty_source_exact_WDL: OPEN
+  maintained_Node26_CI: NOT_RUN
+  external_formal_proof_assistant: NOT_RUN
+  production_solver_and_gameplay_IsoGraph1_2_changed: false
+
 owner_20261020_UI_DESYNC_RESUME_RANK33_SOURCE_WIN:
   PRIORITY: CURRENT
   status: "NEW internally independently verified guarded exact P0 win SOURCE at genuine ORIGINAL 7x6 K4 occupied rank33; unrestricted empty-root source WDL OPEN"
