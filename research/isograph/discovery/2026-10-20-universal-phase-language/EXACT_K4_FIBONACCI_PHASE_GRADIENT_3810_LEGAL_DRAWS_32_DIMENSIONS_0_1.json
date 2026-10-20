@@ -1,0 +1,484 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "PASS_UNIVERSAL_SOURCE_K4_STATIC_PHASE_REGULAR_LANGUAGE_AND_GUARDED_PHYSICAL_DRAW_REALIZABILITY",
+  "frozenPrior": "docs/research/2026-10-20-frozen-column-phase-gradient-fibonacci-gravity-realizability.md",
+  "sourceFile": "research/isograph/discovery/2026-10-20-universal-phase-language/verify-original-k4-fibonacci-gradient-and-physical-draw-realizability.mjs",
+  "resultType": "EXACT restricted columnwise-alternating owner phase compatibility and real legal cooperative full-board DRAW history existence, NOT full strategic WDL",
+  "originalGame": {
+    "K": 4,
+    "unwrapped4Orientations": true,
+    "alternatingP0First": true,
+    "trueGravity": true,
+    "firstwinnerAbsorbing": true
+  },
+  "definitions": {
+    "phaseWord": "epsilon_c=owner in bottom row c, with owner(c,r)=(epsilon_c+r) mod2, P0=0 P1=1 for a complete columnwise-alternating owner coloring",
+    "phaseForbidden4Block": [
+      "0000",
+      "1111",
+      "0101",
+      "1010"
+    ],
+    "phaseGradient": "delta_c=epsilon_c XOR epsilon_(c+1); no 000 or111 substring across three consecutive delta bits",
+    "originalK4Safety": "For W>=5,H>=5 columnwise alternating owners, neither player has a completed real original H/V/rising/falling K4 iff EVERY 4-consecutive-column phase word avoids the forbidden four strings",
+    "count": "Nstatic(W)=4*F_W for any W>=4,H>=5 (F1=F2=1)",
+    "spectralMechanism": "Forbidden four-phase words are exactly gradient runs 000 and111; admissible 1D gradient bit words have Fibonacci run-length recurrence, exponential dominant eigenvalue golden ratio; two phase-origin choices",
+    "oddHeightRule": "Exactly ceil(W/2) columns must be P0-bottom first to match global alternating move ownership count at full WH moves",
+    "oddHeightCount": "[z^ceil(W/2)] polynomial P_W(z)=sum_{valid epsilon} z^(#P0-first columns)",
+    "evenHeightRule": "Every static admissible phase word is reachable by full original strictly alternating gravity firstwin-free game; explicitly seed one P0-first column, use it to shuttle all P1-first columns, finish seed, then complete other P0-first columns",
+    "oddHeightConstructiveRule": "For balanced phase word alternate filling complete H-odd P0-first and P1-first columns one at a time, starting P0"
+  },
+  "internalIndependentPhysicalValidation": {
+    "totalParameterBoards": 32,
+    "widths": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "heights": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "originalPhysicallyCompletedFullBoardDrawMoveWords": 3810,
+    "actualPhysicalAlternatingGravityFirstwinFreeMovesReplayed": 271940,
+    "independentPhysicalChecker": "Python 4-direction local ray win detector separately authored from committed JS source, each original move checked and final every cell owner compared against phase word",
+    "observedSourceVsOriginalPhysicalViolations": 0,
+    "codeExecutionScope": "independent Python run and JS phase+Fibonacci recomputation; committed Node runner not executed in maintained Node26 CI"
+  },
+  "original7x6Special": {
+    "allCompatibleStaticPhaseWords": 52,
+    "allDistinctLegallyRealizableFullBoardDrawColoringsInThisRestrictedClass": 52,
+    "staticPhaseWordsWithCenterP0BottomOwnership": 26,
+    "all26CenterFirstCompletedAsLegalNoFirstwin42MoveGames": true,
+    "examplePhaseWordC1ToC7": "1000100",
+    "exampleActualLegal42MoveHistoryOneBased": "411111155555544444222222333333666666777777",
+    "originalCenterP0FirstMoveOneBased": 4,
+    "actualWinnerInThisHistory": "DRAW",
+    "publishedStrongRootOutcome": "P0 WIN under perfect play",
+    "interpretation": "A winning-root game may still have numerous genuine legal drawn paths even with center first, because both sides on those paths make non-best moves. Static or existential draw compatibility is NOT defender-enforceable draw."
+  },
+  "dimensionRows": [
+    {
+      "W": 5,
+      "H": 5,
+      "actualK4Windows": 28,
+      "allStaticNoK4ColumnPhaseWords": 20,
+      "physicallyRealizableFullDrawColumnPhases": 7,
+      "oddHeightGlobalTurnBalanceExcluded": 13
+    },
+    {
+      "W": 5,
+      "H": 6,
+      "actualK4Windows": 39,
+      "allStaticNoK4ColumnPhaseWords": 20,
+      "physicallyRealizableFullDrawColumnPhases": 20,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 5,
+      "H": 7,
+      "actualK4Windows": 50,
+      "allStaticNoK4ColumnPhaseWords": 20,
+      "physicallyRealizableFullDrawColumnPhases": 7,
+      "oddHeightGlobalTurnBalanceExcluded": 13
+    },
+    {
+      "W": 5,
+      "H": 8,
+      "actualK4Windows": 61,
+      "allStaticNoK4ColumnPhaseWords": 20,
+      "physicallyRealizableFullDrawColumnPhases": 20,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 6,
+      "H": 5,
+      "actualK4Windows": 39,
+      "allStaticNoK4ColumnPhaseWords": 32,
+      "physicallyRealizableFullDrawColumnPhases": 12,
+      "oddHeightGlobalTurnBalanceExcluded": 20
+    },
+    {
+      "W": 6,
+      "H": 6,
+      "actualK4Windows": 54,
+      "allStaticNoK4ColumnPhaseWords": 32,
+      "physicallyRealizableFullDrawColumnPhases": 32,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 6,
+      "H": 7,
+      "actualK4Windows": 69,
+      "allStaticNoK4ColumnPhaseWords": 32,
+      "physicallyRealizableFullDrawColumnPhases": 12,
+      "oddHeightGlobalTurnBalanceExcluded": 20
+    },
+    {
+      "W": 6,
+      "H": 8,
+      "actualK4Windows": 84,
+      "allStaticNoK4ColumnPhaseWords": 32,
+      "physicallyRealizableFullDrawColumnPhases": 32,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 7,
+      "H": 5,
+      "actualK4Windows": 50,
+      "allStaticNoK4ColumnPhaseWords": 52,
+      "physicallyRealizableFullDrawColumnPhases": 16,
+      "oddHeightGlobalTurnBalanceExcluded": 36
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "actualK4Windows": 69,
+      "allStaticNoK4ColumnPhaseWords": 52,
+      "physicallyRealizableFullDrawColumnPhases": 52,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 7,
+      "H": 7,
+      "actualK4Windows": 88,
+      "allStaticNoK4ColumnPhaseWords": 52,
+      "physicallyRealizableFullDrawColumnPhases": 16,
+      "oddHeightGlobalTurnBalanceExcluded": 36
+    },
+    {
+      "W": 7,
+      "H": 8,
+      "actualK4Windows": 107,
+      "allStaticNoK4ColumnPhaseWords": 52,
+      "physicallyRealizableFullDrawColumnPhases": 52,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 8,
+      "H": 5,
+      "actualK4Windows": 61,
+      "allStaticNoK4ColumnPhaseWords": 84,
+      "physicallyRealizableFullDrawColumnPhases": 28,
+      "oddHeightGlobalTurnBalanceExcluded": 56
+    },
+    {
+      "W": 8,
+      "H": 6,
+      "actualK4Windows": 84,
+      "allStaticNoK4ColumnPhaseWords": 84,
+      "physicallyRealizableFullDrawColumnPhases": 84,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 8,
+      "H": 7,
+      "actualK4Windows": 107,
+      "allStaticNoK4ColumnPhaseWords": 84,
+      "physicallyRealizableFullDrawColumnPhases": 28,
+      "oddHeightGlobalTurnBalanceExcluded": 56
+    },
+    {
+      "W": 8,
+      "H": 8,
+      "actualK4Windows": 130,
+      "allStaticNoK4ColumnPhaseWords": 84,
+      "physicallyRealizableFullDrawColumnPhases": 84,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 9,
+      "H": 5,
+      "actualK4Windows": 72,
+      "allStaticNoK4ColumnPhaseWords": 136,
+      "physicallyRealizableFullDrawColumnPhases": 40,
+      "oddHeightGlobalTurnBalanceExcluded": 96
+    },
+    {
+      "W": 9,
+      "H": 6,
+      "actualK4Windows": 99,
+      "allStaticNoK4ColumnPhaseWords": 136,
+      "physicallyRealizableFullDrawColumnPhases": 136,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 9,
+      "H": 7,
+      "actualK4Windows": 126,
+      "allStaticNoK4ColumnPhaseWords": 136,
+      "physicallyRealizableFullDrawColumnPhases": 40,
+      "oddHeightGlobalTurnBalanceExcluded": 96
+    },
+    {
+      "W": 9,
+      "H": 8,
+      "actualK4Windows": 153,
+      "allStaticNoK4ColumnPhaseWords": 136,
+      "physicallyRealizableFullDrawColumnPhases": 136,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 10,
+      "H": 5,
+      "actualK4Windows": 83,
+      "allStaticNoK4ColumnPhaseWords": 220,
+      "physicallyRealizableFullDrawColumnPhases": 66,
+      "oddHeightGlobalTurnBalanceExcluded": 154
+    },
+    {
+      "W": 10,
+      "H": 6,
+      "actualK4Windows": 114,
+      "allStaticNoK4ColumnPhaseWords": 220,
+      "physicallyRealizableFullDrawColumnPhases": 220,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 10,
+      "H": 7,
+      "actualK4Windows": 145,
+      "allStaticNoK4ColumnPhaseWords": 220,
+      "physicallyRealizableFullDrawColumnPhases": 66,
+      "oddHeightGlobalTurnBalanceExcluded": 154
+    },
+    {
+      "W": 10,
+      "H": 8,
+      "actualK4Windows": 176,
+      "allStaticNoK4ColumnPhaseWords": 220,
+      "physicallyRealizableFullDrawColumnPhases": 220,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 11,
+      "H": 5,
+      "actualK4Windows": 94,
+      "allStaticNoK4ColumnPhaseWords": 356,
+      "physicallyRealizableFullDrawColumnPhases": 98,
+      "oddHeightGlobalTurnBalanceExcluded": 258
+    },
+    {
+      "W": 11,
+      "H": 6,
+      "actualK4Windows": 129,
+      "allStaticNoK4ColumnPhaseWords": 356,
+      "physicallyRealizableFullDrawColumnPhases": 356,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 11,
+      "H": 7,
+      "actualK4Windows": 164,
+      "allStaticNoK4ColumnPhaseWords": 356,
+      "physicallyRealizableFullDrawColumnPhases": 98,
+      "oddHeightGlobalTurnBalanceExcluded": 258
+    },
+    {
+      "W": 11,
+      "H": 8,
+      "actualK4Windows": 199,
+      "allStaticNoK4ColumnPhaseWords": 356,
+      "physicallyRealizableFullDrawColumnPhases": 356,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 12,
+      "H": 5,
+      "actualK4Windows": 105,
+      "allStaticNoK4ColumnPhaseWords": 576,
+      "physicallyRealizableFullDrawColumnPhases": 162,
+      "oddHeightGlobalTurnBalanceExcluded": 414
+    },
+    {
+      "W": 12,
+      "H": 6,
+      "actualK4Windows": 144,
+      "allStaticNoK4ColumnPhaseWords": 576,
+      "physicallyRealizableFullDrawColumnPhases": 576,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    },
+    {
+      "W": 12,
+      "H": 7,
+      "actualK4Windows": 183,
+      "allStaticNoK4ColumnPhaseWords": 576,
+      "physicallyRealizableFullDrawColumnPhases": 162,
+      "oddHeightGlobalTurnBalanceExcluded": 414
+    },
+    {
+      "W": 12,
+      "H": 8,
+      "actualK4Windows": 222,
+      "allStaticNoK4ColumnPhaseWords": 576,
+      "physicallyRealizableFullDrawColumnPhases": 576,
+      "oddHeightGlobalTurnBalanceExcluded": 0
+    }
+  ],
+  "separateCompanionPairingObstruction": "docs/research/2026-10-20-frozen-universal-distance-two-phase-pair-cover-cut.md",
+  "companionPairingRows": [
+    {
+      "W": 4,
+      "numberOfFourColumnSpans": 1,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 0,
+      "explicitMatchingUnprotectedStartsZeroBased": []
+    },
+    {
+      "W": 5,
+      "numberOfFourColumnSpans": 2,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 0,
+      "explicitMatchingUnprotectedStartsZeroBased": []
+    },
+    {
+      "W": 6,
+      "numberOfFourColumnSpans": 3,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 0,
+      "explicitMatchingUnprotectedStartsZeroBased": []
+    },
+    {
+      "W": 7,
+      "numberOfFourColumnSpans": 4,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 1,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3
+      ]
+    },
+    {
+      "W": 8,
+      "numberOfFourColumnSpans": 5,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 1,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3
+      ]
+    },
+    {
+      "W": 9,
+      "numberOfFourColumnSpans": 6,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 1,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3
+      ]
+    },
+    {
+      "W": 10,
+      "numberOfFourColumnSpans": 7,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 1,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3
+      ]
+    },
+    {
+      "W": 11,
+      "numberOfFourColumnSpans": 8,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 2,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3,
+        7
+      ]
+    },
+    {
+      "W": 12,
+      "numberOfFourColumnSpans": 9,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 2,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3,
+        7
+      ]
+    },
+    {
+      "W": 13,
+      "numberOfFourColumnSpans": 10,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 2,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3,
+        7
+      ]
+    },
+    {
+      "W": 14,
+      "numberOfFourColumnSpans": 11,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 2,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3,
+        7
+      ]
+    },
+    {
+      "W": 15,
+      "numberOfFourColumnSpans": 12,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 3,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3,
+        7,
+        11
+      ]
+    },
+    {
+      "W": 16,
+      "numberOfFourColumnSpans": 13,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 3,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3,
+        7,
+        11
+      ]
+    },
+    {
+      "W": 17,
+      "numberOfFourColumnSpans": 14,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 3,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3,
+        7,
+        11
+      ]
+    },
+    {
+      "W": 18,
+      "numberOfFourColumnSpans": 15,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 3,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3,
+        7,
+        11
+      ]
+    },
+    {
+      "W": 19,
+      "numberOfFourColumnSpans": 16,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 4,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3,
+        7,
+        11,
+        15
+      ]
+    },
+    {
+      "W": 20,
+      "numberOfFourColumnSpans": 17,
+      "minimumUnprotectedSpansAmongAllDisjointStep2Pairs": 4,
+      "explicitMatchingUnprotectedStartsZeroBased": [
+        3,
+        7,
+        11,
+        15
+      ]
+    }
+  ],
+  "explicitlyNonClaims": [
+    "4F_W is NOT the count of all full-board DRAW colorings, but of alternating-ownership column phase restricted class",
+    "No claim all compatible end colorings are enforceable by P1 versus P0 from EMPTY",
+    "No new root signed WDL derived, nor proof all current q belong to this pairing family",
+    "No teacher labels or historical28 line IDs used as formula inputs, only postfreeze outcome contrasts",
+    "No qualified IsoGraph1.2 gameplay authority and production solver changed"
+  ]
+}
