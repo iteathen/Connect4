@@ -1,3 +1,60 @@
+owner_20261020_UI_DESYNC_REJOIN_UNIVERSAL_K4_PHASE_PAIR_CUT:
+  priority: CURRENT_DISCOVERY_FRONTIER
+  pre_recovery_HEAD: 6b66764dcafad30bbd43cb86716b65a7b464ea19
+  new_commits_since_prior_checkpoint: 9
+  qualified_IsoGraph1_2_gameplay_changed: false
+  production_solver_changed: false
+  original_K4_primary_W_H: "W>=5,H>=5; strict interior W,H>=6; width<5 or height<5 only boundary falsifiers"
+  established_exact_restricted_static_results:
+    column_owner_phase: "owner(c,r)=(epsilon_c+r) mod2, bottom phase epsilon_c in {0,1}"
+    forbidden_original_K4_4_column_phases: ["0000","1111","0101","1010"]
+    phase_gradient_guard: "delta_c=epsilon_c XOR epsilon_(c+1); forbid any 000 or111 length3 run"
+    safe_static_column_phase_word_count: "4*F_W with Fibonacci F1=F2=1; W5 20,W6 32,W7 52,W8 84,W10 220"
+    actual_full_draw_realizability_even_H: "ALL static-safe phase words yield genuine legal P0/P1 alternating gravity full draws under cooperative choices"
+    odd_H_physical_role_balance: "exactly ceil(W/2) P0-bottom-first columns; count [z^ceil(W/2)] sum_safe_epsilon z^(#P0-bottom)"
+    internal_original_physical_checks: {parameter_boards: 32, completed_draw_histories: 3810, actual_moves: 271940, recorded_firstwins: 0}
+    W7_H6_legal_cooperative_draws_in_this_restricted_class: 52
+    W7_H6_center_P0_first_legal_cooperative_draws: 26
+  exact_fixed_complementary_width_matching_cut:
+    assumption: "STATIC disjoint column pairs with OPPOSITE bottom ownership phases; each guaranteed safe 4-column span must contain a matched distance-TWO pair"
+    minimal_unprotected_original_K4_4_column_windows: "U4(W)=max(0,ceil((W-6)/4)), W>=4"
+    first_nonzero_width: 7
+    dimension_controls: "All-width proof and independently matched W4..20, 17 controls; W7 cannot protect all four spans via disjoint step2 pairs"
+    K5plus_comparison: "For any K>=5,W>=K, repeating distance2 matched pairs at starts 4j+1 and4j+2 cover every K-span; restricted static promise only"
+    K5_K6_K7_controls: {physical_static_owner_colored_boards: 2880, original_span_pair_checks: 361}
+  critical_epistemic_boundary: >-
+    Fibonacci compatibility and minimal uncovered spans are exact ONLY for
+    columnwise alternating OWNER phase colorings and fixed complementary
+    column-start matchings. These are not complete adaptive Connect4
+    defensive strategies or a source game-value theorem. Full legal DRAW
+    words exist even on P0-winning 7x6 with nonoptimal choices.
+  mandatory_WDL_falsifiers:
+    - "W5xH6 DRAW although fixed match U4=0"
+    - "W6xH6 P1-WIN although fixed match U4=0"
+    - "W7xH5 DRAW although fixed match U4=1"
+    - "W7xH6 P0-WIN although fixed match U4=1"
+    - "W8xH6 P1-WIN although fixed match U4=1"
+    - "W10xH6 P0-WIN although fixed match U4=1"
+  exact_next_theorem_goal: >-
+    Find a dimension-parameterized SOURCE ONLINE PHASE-REPAIR / defender
+    obligation compatibility and deadline theorem that includes physically
+    legal gravity support release, ownership correlations, counter-firstwin,
+    and observed-opponent reply transport, valid against ALL adaptive P0/P1
+    choices. Prove signed forced WDL or both-party nonloss DRAW when guard
+    succeeds. Never assume the fixed phase pairing family is strategically
+    exhaustive and never recursively value alternate future game states.
+    Freeze any source rule before comparing externally solved labels.
+  prior_root_source_empty7x6_WDL: OPEN
+  arbitrary_q_total_nonsearch_source_WDL: OPEN
+  strong_distance_sensitive_28_terminal_lineIDs: "held-back output validation only; 27 chosen historical witness words and selected graph gradient rank27 are DISTINCT objects"
+  research_synthesis: docs/research/2026-10-20-universal-phase-gradient-seven-column-defense-cut-and-WDL-gap.md
+  machine_evidence:
+    - research/isograph/discovery/2026-10-20-universal-phase-language/EXACT_K4_FIBONACCI_PHASE_GRADIENT_3810_LEGAL_DRAWS_32_DIMENSIONS_0_1.json
+    - research/isograph/discovery/2026-10-20-universal-phase-language/UNIVERSAL_FIXED_PHASE_MATCHING_K4_SEVEN_COLUMN_CUT_W4_TO20_0_1.json
+    - research/isograph/discovery/2026-10-20-universal-phase-language/K4_EXCEPTIONAL_VS_K5PLUS_PERIODIC_MATCHING_2880_FULL_STATIC_OWNER_CHECKS_0_1.json
+  maintained_Node26_CI_run: false
+  independent_formal_proof_assistant_run: false
+
 owner_20261020_UNIVERSAL_SOURCE_WDL_NOT_LOCAL_MOVE_IDENTITIES:
   priority: CURRENT_OWNER_OVERRIDE
   owner_assessment: "The exact 69-line two-owner causal transfer mostly restates the rules. It is not a broadly applicable win/draw/loss theorem. Do not mistake more local forced-win q or 27-mode demonstrations for a solution."
