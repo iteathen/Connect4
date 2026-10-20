@@ -1,3 +1,84 @@
+owner_20261020_MISSING_FIBONACCI_COMPONENT_FULL_TERMINAL_CAUSAL_ADVERSARIAL:
+  priority: CURRENT_DISCOVERY_FRONTIER
+  canonical_branch: research/semantic-quotient
+  owner_goal: "Find broadly applicable exact nonrecursive source W/H/K,q WDL; determine why P1 can or cannot MAINTAIN defensive responses under all P0 actions, rather than count static drawn arrangements."
+  new_exact_full_board_terminal_language:
+    K: 4
+    vertical_column_alphabet: "A_H = all H-bit P0/P1 owner columns excluding 0000 and1111 contiguous 4 rows"
+    width_transfer: "State last3 real physical full owner column words (a,b,c), transition to (b,c,d) iff no original K4 horizontal/rising/falling 4-column window is monochromatic"
+    owner_balance_polynomial: "Z_WH(q;z)=sum original K4-free complete owner extensions of q, weighted z^(#P0 sites)"
+    static_correct_turn_count: "D_static(q)=[z^ceil(W*H/2)]Z_WH(q;z)"
+    necessary_draw_not_sufficient_for_legal: true
+    monotone_draw_obstruction: "D_static(q)=0 => NO legal firstwin-free completely filled DRAW continuation; any next true original move preserves this no-draw conclusion"
+    fullK4FreeOriginal7x6Static: 3152419330
+    exactlyP0P1_21_21Original7x6Static: 713305820
+    priorStationaryFibonacci7x6Static: 52
+    original7x6_numeric_alphabet_size: 48
+    independentlyBruteforced4x4: {allStaticK4Free: 16688,balancedExactly8P0: 5356}
+    other_qualified_counts:
+      W5H5balanced: 339543
+      W5H6balanced: 3595514
+      W6H6balanced: 49986108
+      W7H5balanced: 34075872
+      W8H6balanced: 10520898876
+    caveat: "All full static counts can include gravity-unreachable owner schedules. Numeric implementation uses IEEE exact integers only for W*H<=52, and width Boolean feasibility generalizes without arithmetic overflow."
+  three_distinct_feasibility_layers:
+    stationary_Fibonacci_phase: "strict vertically alternating owner phase words, only restricted drawing coloring class"
+    full_original_balanced_static_K4free: "ANY complete 2-owner original K4-free coloring extending q; gravity and turns not enforced in continuation"
+    original_legal_COOPERATIVE_draw: "exists some gravity-valid, alternating, firstwin-free fully played continuation; NO adversarial guarantee"
+    missing_fourth_game_theory_layer: "ability of an owner to guarantee required safe outcome against ALL opponent current and future legal actions"
+    true_fibonacci_loss_but_draw_possible_example:
+      oneBasedFullOriginal42MoveDRAW: "414121111222223333334444655555566666777777"
+      firstThreeOneBased: "414"
+      P0OwnsSameCenterColumnRows1and2: true
+      sourceRank3StaticBalancedFullK4FreeExtensions: 80498171
+      stationaryPhasePossibleRank3: false
+    true_static_exists_but_illegal_schedule_example:
+      originalHistoricalDistinctWordIndex: 4
+      rank: 39
+      heights: [3,6,6,6,6,6,6]
+      staticSafeP0P1BalancedFullColorings: 1
+      uniqueSourceOwnerRequirement: "P1 c1r4, P1 c1r5, P0 c1r6"
+      illegalReason: "P1 must occupy c1r4, then next P0 forced c1r5, contradicting unique static owner assignment"
+    same_actual_q_SOURCE_P0_WINS_but_legal_draw_possible:
+      originalRank: 31
+      zeroBasedOriginalHistoryPrefix: "3333332154444421222115651241000"
+      independentlyPreprovedSourceP0WIN: true
+      legalCooperativeDrawSuffixOneBased: "16116677777"
+      completeOriginalLegalOneBasedDRAW: "444444326555553233322676235211116116677777"
+      lesson: "Exists legal draw and P0 can FORCE win are compatible because P0 may voluntarily play non-winning continuation."
+    archive27FirstLossRanks:
+      fibonacciPhase: {9: 1,11: 1,12: 4,13: 6,14: 1,15: 5,16: 1,21: 1,22: 2,23: 2,24: 2,25: 1}
+      allStaticBalancedTerminal: {35: 1,37: 1,39: 1,40: 10,41: 14}
+      allLegalCooperativeDraw: {35: 1,37: 1,39: 7,40: 7,41: 11}
+      legalDrawPossibleRank31: 27
+      legalDrawPossibleRank39: 18
+      staticColoringPossibleRank39: 24
+      staticColoringPossibleButUnschedulableRank39: 6
+    archiveScoreRerun: false
+  new_general_conditional_signed_WDL_guard:
+    theorem: "For genuine nonterminal q, source-proved Safe_p(q) (strategy preventing opponent firstwin) AND D_static(q)==0 => player p FORCES FIRSTWIN (signed V +1 for P0, -1 for P1). Both Safe_P0 and Safe_P1 => DRAW."
+    firstWinAndNoPassSemantics: "actual original Connect4 gravity and firstwinner stop; legal full draws cannot exist when D_static zero"
+    does_NOT_derive_Safe_p_from_arbitrary_q: true
+    does_NOT_prove_root_7x6_P0_win_from_source: true
+    source_can_be_reused_with: "existing Allis second-player nonloss strategy W<=6 H even, strictly preserving all strategy guards, and other independently source-qualified response policies"
+  mandatory_next_source_proof:
+    question: "What CLOSED original W/H/K-dependent online defender response-compatibility/deadline invariant computes Safe_p(q) against ALL original legal opponent strategies without recursive successor value branching?"
+    must_include: ["full owner-specific original K4 winning-line residuals, including nonalternating column defects","gravity support/release and every turn's owner polarity","firstwin counterthreat preemption","the spatial terminal-language drawing obstruction only where source-qualified","multiple K4 constraints discharged by one opponent reply","dimension W6H6 P1,W7H5 DRAW,W7H6 P0,W8H6 P1,W10H6 P0 strict controls"]
+    strong28_terminal_lineIDs_not_source_inputs: true
+    avoid: "Adding further example-specific retrospective optimal-root histories or treating a positive geometric/legal DRAW possibility as a P1 forceable DRAW"
+  durable:
+    frozen_source_math: docs/research/2026-10-20-frozen-full-physical-draw-language-automaton-and-safety-to-win-composition.md
+    full_synthesis: docs/research/2026-10-20-full-owner-terminal-language-causal-draw-gap-and-guarded-WDL-reduction.md
+    full_static_width_automaton: research/isograph/discovery/2026-10-20-universal-phase-language/full-original-k4-draw-language-column-transfer.mjs
+    machine_color_counts: research/isograph/discovery/2026-10-20-universal-phase-language/FULL_ORIGINAL_K4_ALL_OWNER_TERMINAL_LANGUAGE_COUNTS_AND_NONSTATIONARY_REAL_DRAW_0_1.json
+    machine_timing_layers: research/isograph/discovery/2026-10-20-universal-phase-language/THREE_DRAW_FEASIBILITY_LAYERS_27_HISTORICAL_GAMES_RANK3_TO41_0_1.json
+    independent_physical_schedule_checker: research/isograph/discovery/2026-10-20-universal-phase-language/independent-original-7x6-cooperative-draw-suffix-controls.py
+  production_solver_changed: false
+  qualified_IsoGraph1_2_changed: false
+  maintained_Node26_CI_run: false
+  external_formal_qualification: false
+
 owner_20261020_UI_DESYNC_REJOIN_UNIVERSAL_K4_PHASE_PAIR_CUT:
   priority: CURRENT_DISCOVERY_FRONTIER
   pre_recovery_HEAD: 6b66764dcafad30bbd43cb86716b65a7b464ea19
