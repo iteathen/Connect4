@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "strictBoard": [
+    7,
+    6,
+    4
+  ],
+  "status": "INVALID_CHECKER_PREFLIGHT_STRAND_OBJECT_AS_INDEX",
+  "source": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-original7x6-unfoldFIRST-owner-projector-wave-junctions.mjs",
+  "independentChecker": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/independent-original7x6-unfoldFIRST-owner-interference-graph.mjs",
+  "failure": "TypeError: Cannot read properties of undefined (reading 'ids') in frame preparation",
+  "cause": "Independent test built its list of (strand,FourierMode) descriptors by storing full strand object as .s, then mistakenly indexed physicalStrands[mode.s] as if .s were an integer. The fix is to pass mode.s directly to the separately implemented spectralMode.",
+  "mathematicalDisposition": "NO_GEOMETRY_OR_OWNER_WAVE_CLAIM_EVALUATED_IN_THIS_INVALID_PREFLIGHT",
+  "qualification": "INVALID_TEST_HARNESS_BEFORE_NUMERICAL_CONTROLS",
+  "repair": "Update only independent tester, preserve frozen SOURCE, and reexecute all 42x42 complex isometry entries and P0/P1 cross-mode junction checks."
+}
