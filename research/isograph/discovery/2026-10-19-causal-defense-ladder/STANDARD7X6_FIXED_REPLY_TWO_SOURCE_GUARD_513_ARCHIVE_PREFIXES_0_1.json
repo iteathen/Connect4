@@ -1,0 +1,204 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "PASS_INTERNAL_GUARDED_SOURCE_CERTIFICATES_WITH_INDEPENDENT_DIRECTIONAL_RAY_AND_DRAW_CONTROL",
+  "sourceFrozenBeforeValidation": "docs/research/2026-10-19-frozen-single-fixed-reply-two-contract-bridge-rank33.md",
+  "sourceImplementation": "research/isograph/discovery/2026-10-19-causal-defense-ladder/standard7x6-single-fixed-response-two-guard-source.mjs",
+  "requiredDependencies": [
+    "research/isograph/discovery/2026-10-19-causal-defense-ladder/standard7x6-single-forced-opponent-lane-source.mjs",
+    "research/isograph/discovery/2026-10-19-causal-defense-ladder/standard7x6-two-column-latent-pair-clock-source.mjs"
+  ],
+  "game": "ORIGINAL Connect4 W7 H6 K4, first-win stops, P0 initially moves and P1 responds; no alternative future game WDL valuation",
+  "inputData": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/STRONG28_ISSUE41_HISTORICAL_WITNESS_FIXTURE_0_1.json",
+  "sample": {
+    "archivedStrongOptimalTerminalLineWitnesses": 28,
+    "distinctRealFullGameWords": 27,
+    "genuineP1OddRankHistoriesFromRank1Through37": 513,
+    "sourceWinnerCertificationsByRootRank": {
+      "33": 1,
+      "35": 2,
+      "37": 8
+    },
+    "allOtherRootRanks": 0,
+    "sourceCertifiedRootOccurrences": 11,
+    "distinctHistoricalGamesWithAtLeastOneNewCertificate": 10,
+    "earliestCertifiedRootRankByDistinctHistoricalGame": {
+      "33": 1,
+      "35": 2,
+      "37": 7,
+      "INCOMPLETE": 17
+    },
+    "negativeLegalFullDrawControl": "123456123456654321654321123456123456777777",
+    "all19OddP1RankSourceTestsOnDrawControl": "INCOMPLETE",
+    "exactHistoricalStrongMoveScoresRecomputed": false
+  },
+  "proof": {
+    "currentSelection": "one fixed P0 column selected from ORIGINAL SOURCE nearest currently unplayable P0 residual singleton site, with deterministic support-distance then column/row order; not selecting from solved history suffix",
+    "conjunction": "for ALL current legal P1 action labels a, source-derive one original P1 immediate winning guard, then P0 plays the SAME fixed b for all a; P0 can firstwin immediately or the resulting source q has Z=1 or the previously source-proved two-column even-pair-reservoir clock",
+    "proofSemantics": "Z=1 entails ALL next P1 legal choices allow immediate P0 original winning response; pair clock entails P1 cannot enter latent-danger column without opening original P0 winning upper while remaining safe B consumes EVEN pairs and eventually fills",
+    "noStrategicallyInequivalentFutureGameValues": true,
+    "extraScopeCaution": "This proof enumerates the CURRENT P1 current-action labels to check one-step sufficient source guards. It is not algebraic elimination of all conditional branching and is not a universal arbitrary-q WDL classifier."
+  },
+  "originalIndependentValidation": {
+    "oneStepAlternateP1PhysicalRayChecks": 1419,
+    "P1ImmediateTerminalAlternativesCorrectlyDetectedAndRejected": 52,
+    "timerIndependentPhysicalRayChecks": 23,
+    "sourceVsDirectionalRayMismatches": 0,
+    "originalPhysicalK4WindowCount": 69,
+    "falseP0WINonKnownLegalFullDRAW": 0,
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalProofAssistant": "NOT_RUN"
+  },
+  "provenEarlyExample": {
+    "sourceHistoricalWitnessLineId": 13,
+    "initialRootRank": 33,
+    "actualHistoryFirst33ColumnsZeroBased": "333332222200444444565500013501255",
+    "allOriginalRootHeightsZeroBased": [
+      6,
+      2,
+      6,
+      6,
+      6,
+      6,
+      1
+    ],
+    "currentP1legalColumnsOneBased": [
+      2,
+      7
+    ],
+    "singleFixedP0ResponseColumnOneBased": 2,
+    "rootLatentP0WinningCellOneBased": [
+      2,
+      5
+    ],
+    "exhaustiveCurrentActionGuards": [
+      {
+        "P1onebased": 2,
+        "P0fixedOnebased": 2,
+        "afterPairRank": 35,
+        "guard": "Z35=1: both P1 subsequent columns 2 and7 expose direct P0 original firstwin by column2"
+      },
+      {
+        "P1onebased": 7,
+        "P0fixedOnebased": 2,
+        "afterPairRank": 35,
+        "guard": "P0 source latent danger A=column2 residual3, safe B=column7 residual4=2 even pairs. All P1 entering A permits P0 win immediately above; all P1 B choices can be responded to by ONE upper mate in B, until B is full and A forced."
+      }
+    ],
+    "expectedForcedLongestTerminalAbsolutePly": 41,
+    "proofOnlyFromThisMidgameRank33": true
+  },
+  "negativeOwnerSwap": {
+    "rank33SourceState": "same as early example",
+    "twoLegalOrderings": "P1 col2/P0 col7 and P1 col7/P0 col2 give identical resulting h=[6,3,6,6,6,6,2]",
+    "outcomeGuardDifference": "In P1col2/P0col7 P1 has immediate winning col2 vertical rows1..4 on next move; alternate assignment does not",
+    "machine": "research/isograph/discovery/2026-10-19-causal-defense-ladder/RANK33_SAME_HEIGHT_DIFFERENT_OWNERSHIP_P1_PREEMPTION_0_1.json"
+  },
+  "allSourceSuccesses": [
+    {
+      "archivedLineId": 4,
+      "sourceRank": 37,
+      "fixedP0Column": 1,
+      "sourceGuards": [
+        "DIRECT",
+        "Z",
+        "Z"
+      ]
+    },
+    {
+      "archivedLineId": 13,
+      "sourceRank": 33,
+      "fixedP0Column": 2,
+      "sourceGuards": [
+        "Z",
+        "TIMER"
+      ]
+    },
+    {
+      "archivedLineId": 13,
+      "sourceRank": 37,
+      "fixedP0Column": 2,
+      "sourceGuards": [
+        "DIRECT",
+        "Z"
+      ]
+    },
+    {
+      "archivedLineId": 19,
+      "sourceRank": 37,
+      "fixedP0Column": 2,
+      "sourceGuards": [
+        "DIRECT",
+        "Z"
+      ]
+    },
+    {
+      "archivedLineId": 27,
+      "sourceRank": 35,
+      "fixedP0Column": 2,
+      "sourceGuards": [
+        "DIRECT",
+        "TIMER"
+      ]
+    },
+    {
+      "archivedLineId": 34,
+      "sourceRank": 37,
+      "fixedP0Column": 3,
+      "sourceGuards": [
+        "Z",
+        "DIRECT"
+      ]
+    },
+    {
+      "archivedLineId": 43,
+      "sourceRank": 37,
+      "fixedP0Column": 5,
+      "sourceGuards": [
+        "DIRECT",
+        "Z"
+      ]
+    },
+    {
+      "archivedLineId": 53,
+      "sourceRank": 35,
+      "fixedP0Column": 6,
+      "sourceGuards": [
+        "TIMER",
+        "DIRECT"
+      ]
+    },
+    {
+      "archivedLineId": 58,
+      "sourceRank": 37,
+      "fixedP0Column": 5,
+      "sourceGuards": [
+        "Z",
+        "DIRECT"
+      ]
+    },
+    {
+      "archivedLineId": 64,
+      "sourceRank": 37,
+      "fixedP0Column": 6,
+      "sourceGuards": [
+        "Z",
+        "Z",
+        "DIRECT"
+      ]
+    },
+    {
+      "archivedLineId": 67,
+      "sourceRank": 37,
+      "fixedP0Column": 7,
+      "sourceGuards": [
+        "Z",
+        "Z",
+        "Z"
+      ]
+    }
+  ],
+  "nextStep": "Generalize SOURCE guard from ONE fixed b and current direct opponent-action cofactor conjunction to symbolic adaptive support/defense obligation resource-compatibility that handles several P1 safe actions and P0 replies without valuing future games. Do not equate failure of source candidate on earlier root with true P0 loss; full empty-root source WDL remains OPEN.",
+  "gameplayAuthorityChanged": false,
+  "productionSolverChanged": false
+}
