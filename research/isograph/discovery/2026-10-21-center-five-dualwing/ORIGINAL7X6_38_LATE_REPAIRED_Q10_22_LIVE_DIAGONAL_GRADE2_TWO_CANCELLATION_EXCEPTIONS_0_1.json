@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "CONDITIONAL_ORIGINAL_CENTER5_P0_SOURCE_SECOND_WAVE_AFTER_BOTH_P1_WING_REPAIRS__DIAGONAL_GRADE2_OR_TWO_EXCEPTIONS",
+  "frozen": "docs/research/2026-10-21-frozen-center5-rank10-second-wave-diagonal-grade2-and-two-cancellation-exceptions.md",
+  "scope": "Only real original firstwin-free standard7x6 K4 histories obtained from source conditional q5=44444 via previously fixed P0 center/wing forcing policy, with late P1 repairs by ply10; no solved-game prior knowledge.",
+  "sourceOriginalK4Windows": 69,
+  "noOriginal28OracleInput": true,
+  "ownerGrading": "At q, P0 degree2 original live K4=original line with exactly two current physical P0 stones and two physically empty missing cells, zero P1 stone. Supporting gravity debt d counts additional below-target empty sites outside original K4 required owner sites.",
+  "lateRepairSurvey": {
+    "P1HasBottomStoneOnBothWingsByPly10Histories": 38,
+    "physicallyDistinctColoredQ10BoardsAcrossThose38": 28,
+    "casesP0HasImmediateOriginalWinOnMove11DespiteP1TwoBottomWingStones": 14,
+    "casesP1SurvivesImmediateP0Win11": 24,
+    "physicallyDistinctSurvivingColoredQ10Boards": 18,
+    "among24P1SurvivingHistoriesOriginalP0Grade2Nonempty": 22,
+    "among24P1SurvivingHistoriesOriginalP0Grade2Empty": 2,
+    "P0grade2OriginalOrientationsAmong22": {
+      "R": 15,
+      "F": 7,
+      "H": 0,
+      "V": 0
+    },
+    "P0grade2GravitySupportDebts": {
+      "R": {
+        "d1": 1,
+        "d2": 6,
+        "d3": 8
+      },
+      "F": {
+        "d1": 1,
+        "d2": 6
+      }
+    },
+    "P0CanForceOriginalFirstwinByMove13FromAnyOfThese24Q10": false,
+    "independentControl": "Separately reconstructed true69 original K4 windows and literal directional ray; one-sided P0 immediate winning site enumeration move11 and separate 3-ply P0/P1/P0 firstwinner race check move11..13."
+  },
+  "exceptionalRepairedQ10WordsThatAvoidP0Move11AndAnnihilateAllP0Grade2": [
+    {
+      "wordOneBased": "4444435567",
+      "earlyP1Col6": 3,
+      "earlyP0Col7": 5,
+      "P1Move8": 5,
+      "earlyP0Col9": 6,
+      "P1Move10": 7,
+      "sourceMechanism": "P1 had already claimed original bottom c3 on6, claims c5 row2 on8 (a REQUIRED missing cell of P0 falling diagonal c3r4-c4r3-c5r2-c6r1), then bottom c7 on10. Therefore P0 falling two-missing original diagonal is pre-blocked before P0 claims c6 bottom, while the P1 also meets two wing repairs.",
+      "P1LiveGrade2OriginalK4Count": 5,
+      "P0LiveGrade2OriginalK4Count": 0
+    },
+    {
+      "wordOneBased": "4444445632",
+      "P1Move6": 4,
+      "P0Move7": 5,
+      "P1Move8": 6,
+      "P0Move9": 3,
+      "P1Move10": 2,
+      "sourceMechanism": "P1 claims c6 bottom on8, preventing the P0 alternative c6 pivot that would create falling diagonal with P0 center row3; P0 takes c3 bottom and P1 covers opposite low-row c2 on10, eliminating all existing P0 grade2 K4s.",
+      "P1LiveGrade2OriginalK4Count": 0,
+      "P0LiveGrade2OriginalK4Count": 0
+    }
+  ],
+  "crucialMath": {
+    "crossdirectionResult": "Among q10 states under the fixed source policy that actually avoid P0 immediate WIN11, most have one surviving original P0 rising/falling two-missing diagonal. The required P1 bottom blockers have eliminated P0 horizontal row1 completions and simultaneously provided gravity support to original upper row P0 lines.",
+    "negativeCounterexamples": "The two exception histories show this higher-directional two-missing continuation is NOT universally forced. P1 can erase it by pre-occupying one necessary diagonal physical site or by preempting its source horizontal pivot.",
+    "insufficiencyOfGrade2": "Even when a source live grade2 diagonal remains, P0 does not automatically force a win in its next two turns: all24 survival states fail exact P0 mate3. Correct gravity support debt, P1 block/release response and counterwinning K4 threats remain essential.",
+    "earlierP1BothWingRepairedByPly8Cases": 12,
+    "guard": "These 12 were stopped as soon as the dual-wing defensive obligation was met, and are NOT included in the38 q10 late-repair classification. Therefore this is NOT an exhaustive all-legal-P1 q10 original family."
+  },
+  "rootStatus": "Independent source proof of P0 WIN from EMPTY remains OPEN; original q44444 is conditional and not proven forced in optimal play.",
+  "qualification": {
+    "independentLocalReimplementation": "PASS",
+    "originalFirstWinRayAnd69WindowAgreement": "PASS",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalAssistant": "NOT_RUN",
+    "qualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false
+  }
+}
