@@ -1,0 +1,21 @@
+# FROZEN before source controls: defender obligation insolvency on historic perfect-play rank39; links to 31/28/27
+
+Date: 2026-10-20 Pacific. Owner: Josh Oshiro. Canonical Connect4 research/semantic-quotient. This explicitly corrects earlier misdirection: arbitrary gravity-legal P1 winning games and terminal 31-charge sensor failure are not perfect-play tests. Focus on why P1 cannot meet defensive obligations against perfectly played P0.
+
+SOURCE first, historical T28 held back. True 7x6 original 69 unwrapped K4 lines, P0 initial player, P1 defender, original legal gravity and first-win absorption. Define for genuine FIRSTWIN-FREE rank39 q, P1 to move:
+- F(q): current legal gravity landing cells.
+- A_p(q): original EMPTY sites e for which some player p K4 line has precisely e missing (other 3 sites owned by p). May be latent; do not require gravity playability.
+- T_p(q)=A_p(q) intersect F(q): immediately playable K4 winning target landings.
+- Any P1 choice x in F that lies in T_1(q) directly WINS and disproves forced P0 victory by41.
+- Otherwise exactly: T_0(q after P1 x) = (T_0(q) minus {x}) union ({above(x)} intersect A_0(q)), using true gravity newly released immediate physical upper cell only.
+- The direct original P1 DEFENSE INSOLVENCY certificate is: T_1(q) empty AND for EVERY physically legal P1 choice x, (T_0(q) minus{x}) nonempty OR above(x) in A_0(q). Then P0 may FIRSTWIN immediately on its next move41 whatever P1 chooses. No full successor WDL values.
+
+When |T_0(q)|>=2 distinct physical landing sites, one P1 stone cannot block both (unless P1 wins immediately). When |T_0|=1, P1 can cover its sole cell x, unless x releases a newly playable P0 K4 above it; otherwise avoid loss by41. If T_0 empty, only forced gravity-release trap can create a P0 win in every P1 response column. Distinguish number of WINNING LINES from number of PHYSICALLY DISTINCT REQUIRED DEFENSE CELL TARGETS.
+
+Source fixture controls: independently regenerate original 69 lines, replay historical archived 28 strong-optimal P0-firstwinner line witnesses (27 distinct literal 41-ply words) from genuinely empty, verify true firstwin-free through rank40, take each rank39 q where P1 is to move. Compute source T_0,T_1, latent above and certificate WITHOUT using historical28 line mask or Oracle values. Independently enumerate every legal P1 move40 and P0 immediate WIN move41 using physical four-ray code (not game valuation). Compare certificate with independent physical result. Record distinct rank39 boards and horizontal reflection, source rank39 P1 defensive options, rank39 fork/release classification, real line-winning union, and fixed source line-label overlap with historical strong28 as held-back check.
+
+31/28/27 typed connection: Full original rational line syzygy space31=18 dipole cycles+13 base gluing is proven an exact local observer for 7x6 grade1 p-threat line-ID indicator AT FIXED LANDING CELL together with ONE physical additive site-count scalar. Hence 31 is a representation of the obligation incidence algebra, not count of moves/lines that P1 must defend. The historical28 is a union of potential FIRSTWINNING LINE IDs across many root-strong paths, not simultaneous obligations in one game. The terminal graph27 relative modes is a property of the selected 28 line IDs and may not preserve response-edge gravity and cover structure. A spanning-tree graph connectivity certificate is not a no-defense capacity theorem.
+
+Falsify with genuine near-terminal q39 in which multiple immediate winning lines share one playable target and P1 can block all of them with one move (unless a gravity-released line creates another obligation); contrast true two-DISTINCT-target source forks. Also check earlier q37 and q35 only as time development, without implying rank39 certificate proves empty-root. Do not use arbitrary legal P1-winning game as negative control for perfect P0 play.
+
+Success: direct exact rank39 P1 impossibility of meeting one-move obligations in historical root-perfect prefixes, then derive a source-closed precursor invariant BACK TO EMPTY without game-tree valuation. No broader firstwin sensor distraction, no imperfect-opponent classification yet. Qualification: no maintained Node26 CI, no qualified IsoGraph1.2 or solver modification.
