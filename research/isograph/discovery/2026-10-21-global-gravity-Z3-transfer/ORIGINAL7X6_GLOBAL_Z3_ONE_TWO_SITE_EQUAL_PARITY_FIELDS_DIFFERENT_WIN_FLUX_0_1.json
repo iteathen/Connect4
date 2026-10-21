@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "canonicalRepoBranch": "iteathen/Connect4@research/semantic-quotient",
+  "status": "PROVED_Z3_FOURIER_DEGREE_LE2_NOT_CLOSED_UNDER_TRUE_ORIGINAL_CONNECT4_FIRSTWIN_OPERATOR",
+  "frozen": "docs/research/2026-10-21-frozen-global-Z3-Fourier-moment-degree2-nonclosure-under-original-firstwinner-operator.md",
+  "reproducer": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-two-legal-ensembles-pairwise-Z3-identical-different-P0-winning-flux.py",
+  "game": "True original W7H6K4, 69 H/V/R/F, one physical owner per cell, gravity, alternating turns, firstwin stops.",
+  "construction": {
+    "scope": "Eight TRUE gravity-legal firstwin-free actual rank8 board positions, all share owner heights [2,2,2,0,0,0,2], P0 moves on rank9.",
+    "constantColumn7OwnersBottomTop": [
+      "P0",
+      "P1"
+    ],
+    "switchColumnsOneBased": [
+      1,
+      2,
+      3
+    ],
+    "switch0": [
+      "P1",
+      "P0"
+    ],
+    "switch1": [
+      "P0",
+      "P1"
+    ],
+    "ensembleEVEN": {
+      "uniformCountingWeightEach": 1,
+      "bitAssignments": [
+        "000",
+        "011",
+        "101",
+        "110"
+      ],
+      "actualLegalFirstwinfreeOneBasedHistoryWords": [
+        "71122337",
+        "71172233",
+        "72271133",
+        "73371122"
+      ]
+    },
+    "ensembleODD": {
+      "uniformCountingWeightEach": 1,
+      "bitAssignments": [
+        "001",
+        "010",
+        "100",
+        "111"
+      ],
+      "actualLegalFirstwinfreeOneBasedHistoryWords": [
+        "71122733",
+        "71133722",
+        "72233711",
+        "77112233"
+      ]
+    },
+    "eachEnsembleTotalMass": 4,
+    "exactMarginalEqualities": {
+      "allPhysicalOneSiteOwnerJointHistogramsCount": 42,
+      "allPhysicalUnorderedPairSiteOwnerJointHistogramsCount": 861,
+      "sameGravityHeights": true,
+      "sameMover": "P0",
+      "equivalentStatement": "Every Z3 physical owner Fourier character supported on at most2 actual sites has identical expectation/unnormalized field moment across the even and odd ensembles. This follows from parity-family pairwise independence and exact inverse ternary DFT."
+    },
+    "distinguishingTrueSourceThirdBody": {
+      "jointEvent": "P0 owns all physical bottom sites (1,1),(2,1),(3,1)",
+      "evenEnsembleOccurrence": 0,
+      "oddEnsembleOccurrence": 1
+    },
+    "nextOriginalP0FirstwinningAbsorbedChannel": {
+      "even": 0,
+      "odd": 1,
+      "onlyOddActualFirstwinningTransition": {
+        "assignment": "111",
+        "oneBasedInitialHistory": "77112233",
+        "P0NewMove9Column": 4,
+        "originalK4Orientation": "H",
+        "winningPhysicalCellsOneBased": [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      "otherAllLegalPhysicalP0MovesFromAllEightBoardsFirstWin": false
+    }
+  },
+  "proof": "Two distinct positive counting field ensembles each supported entirely on legal ORIGINAL reachable firstwin-free q8 are identical when projected to full tensor of all physical Z3 1-/2-site owner moments, but T_P0 absorbing physical firstwin flux differs. Thus no EXACT field-evolution law for original terminal flux can depend solely on all degree<=2 owner Fourier observables. At least a three-site correlation is necessary even at rank8→9; this does not claim degree3 sufficient for later game or adversarial root WDL.",
+  "exactLocalExecution": {
+    "purePythonAll69TrueOriginalLineReplayOfEightLegalHistories": "PASS",
+    "all42Marginals": "PASS",
+    "all861JointMarginals": "PASS",
+    "trueOriginalNextP0FirstwinnerAllPhysicalLegalColumns": "PASS",
+    "committedExactGithubPythonBytesRunUnderCI": "NOT_RUN",
+    "thirdPartyFormalAssistant": "NOT_RUN"
+  },
+  "qualification": {
+    "notHistoricalSolvedData": true,
+    "notAssumedOptimalPlayEnsembles": true,
+    "notFullOriginal7x6EmptyRootWinProof": true,
+    "productionSolverChanged": false,
+    "qualifiedIsoGraph1p2Changed": false
+  }
+}
