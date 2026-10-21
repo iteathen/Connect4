@@ -1,0 +1,372 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "branch": "research/semantic-quotient",
+  "status": "PROVED_SOURCE_GEOMETRIC_CONDITIONAL_T28_STATIC_DUAL_HITTING_AND_RANK__NO_EMPTY_ROOT_WDL",
+  "preregister": "docs/research/2026-10-20-frozen-root7x6-independent-certificate-T28-holdout-constructive-draw-and-owner-hypergraph.md",
+  "standaloneReproducer": "research/isograph/discovery/2026-10-20-root7x6-proof-without-oracle/verify-conditional28-static-hitting8-and-center5-legal-draw26.mjs",
+  "original7x6": {
+    "physicalSites": 42,
+    "sourceOriginalK4Windows": 69,
+    "playedInFirst5CenterColumnOneBased": 4,
+    "firstFiveLiteral": "44444",
+    "candidateLastP0WinningSitesTopTwoRowsExcludingCenterR5": 13,
+    "sourceConditionalP0LastWinningLineWindows": 28,
+    "historical28LineSetEqualToSourceGeneratedT28": "TRUE, verified AFTER source geometry through original archived witness coordinates; no fixture inputs to source producer",
+    "historicalRootWDLOrPliesDerivedWithoutSolvedData": false
+  },
+  "staticBlockingCertificates": {
+    "P1StaticMinimumAnyOriginalPhysicalSite": 7,
+    "sevenPairwiseCellDisjointOriginalT28WinningWindowsOneBased": [
+      [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      [
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      [
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      [
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      [
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ]
+      ],
+      [
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      [
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          6
+        ]
+      ]
+    ],
+    "originalStaticSevenP1BlockingSitesOneBased": [
+      [
+        1,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        5,
+        4
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        4,
+        6
+      ]
+    ],
+    "proof": "Seven disjoint source terminal candidate K4 windows require at least seven distinct P1 blocker physical cells. Explicit seven physical site hitting set covers all28, so exact minimum7. No Connect4 solver or game-tree values.",
+    "P1StaticMinimumRestrictedToEligible13LastLandingCells": 8,
+    "forcedEightLandingSitesOneBased": [
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "forcedSiteOrientedSingletonWindowCounts": [
+      {
+        "cell": [
+          1,
+          5
+        ],
+        "n": 1
+      },
+      {
+        "cell": [
+          2,
+          5
+        ],
+        "n": 2
+      },
+      {
+        "cell": [
+          3,
+          5
+        ],
+        "n": 1
+      },
+      {
+        "cell": [
+          5,
+          5
+        ],
+        "n": 1
+      },
+      {
+        "cell": [
+          6,
+          5
+        ],
+        "n": 2
+      },
+      {
+        "cell": [
+          7,
+          5
+        ],
+        "n": 1
+      },
+      {
+        "cell": [
+          3,
+          6
+        ],
+        "n": 1
+      },
+      {
+        "cell": [
+          5,
+          6
+        ],
+        "n": 1
+      }
+    ],
+    "candidateK4IntersectionWith13SiteFrontierMultiplicity": {
+      "oneEligible": 10,
+      "twoEligible": 10,
+      "threeEligible": 4,
+      "fourEligible": 4
+    },
+    "topFrontierHittingSubsetsEnumerated": 8192,
+    "allCoveringSubsetsByCardinality": {
+      "8": 1,
+      "9": 5,
+      "10": 10,
+      "11": 10,
+      "12": 5,
+      "13": 1
+    },
+    "totalCoveringSubsets": 32,
+    "uniqueForcedEightSubset": true,
+    "BooleanFactorization": "In Boolean algebra of the13 candidate-last-landing P1 blocker site indicator variables, AND over28 clauses (OR over eligible landing cells of each source T28 K4) = PRODUCT over eight forced site variables, with remaining five variables algebraically free.",
+    "factorizationProof": "Ten singleton-late-landing-source-line clauses compel exactly eight sites; every one of the other18 T28 source windows contains at least one of those same eight late sites. Consequently the 28-clause AND equals the 8-atom conjunction in the Boolean ring.",
+    "importantGuard": "The eight-site obstruction is ONLY for hypothetical blocking at eligible LAST landing sites. Actual P1 may kill candidate K4 lines at OTHER earlier cells; this is not a complete WDL or guaranteed defensive obligation list."
+  },
+  "originalLiteralFirstFiveCenterDrawControl": {
+    "numberOfDistinctPhaseProfilesWithCenterBottomP0": 26,
+    "all26TrueOriginalLegalAlternatingCompletedDRAWsAfterFiveCenter": true,
+    "exampleOneBasedFull42MoveWord": "444443333337777774111111222222555555666666",
+    "exampleBottomOwnerBitsZeroP0OneP1": "0010001",
+    "proofConstruction": "For each of26 source K4-free vertically alternating complete owner-column phase profiles with center bottom P0, play P0/P1/P0/P1/P0 center first, fill every P1-bottom column as six consecutive alternating drops, play the one remaining center P1 top, then fill every P0-bottom other column as six consecutive alternating drops. This always realizes an actual legal 42-move draw due full K4-free final owner coloring.",
+    "meaning": "Even after the five-center prefix, no original K4 is unavoidably completed on EVERY legal play. A P0 ROOT-WIN proof must require perfect adaptive P0 defense pressure, not naked structural impossibility of a static draw."
+  },
+  "spectralBridge": {
+    "sourceFullSyzygyDim": 31,
+    "sourceFourStepCycleDim": 18,
+    "sourceBaseGluingQuotientDim": 13,
+    "conditionalT28LineSignalDim": 28,
+    "projectedOriginalSourceFourStepCycleRank": 18,
+    "physicalMandatoryEightLandingStarRank": 8,
+    "cycleIntersectionMandatoryEightSiteStarRank": 0,
+    "combinedCycleAndMandatoryEightStarRank": 26,
+    "remainingPhysicalOptionalFiveLandingStarsRank": 5,
+    "fullCombinedCycleAndAllThirteenLandingStarsRank": 28,
+    "optionalFiveAddsOnlyTwoIndependentDirectionsAfterTwentySix": 2,
+    "identities": [
+      "28=18 projected source cycles +8 mandatory defender landing stars +2 late optional-site quotient modes",
+      "27=18 projected cycles +8 mandatory landing stars +1 nonuniform relative optional quotient mode"
+    ],
+    "uniformLineSignalNotInCyclePlusEight": true,
+    "uniformLineSignalInFullCyclePlusThirteen": true,
+    "reflectionEvenOdd": {
+      "sourceCycle18": [
+        8,
+        10
+      ],
+      "mandatoryEightStar": [
+        4,
+        4
+      ],
+      "joinedTwentySix": [
+        12,
+        14
+      ],
+      "terminalTwentyEight": [
+        14,
+        14
+      ],
+      "additionalTwoTerminalModes": [
+        2,
+        0
+      ],
+      "afterUniformGaugeAdditionalOneRelativeMode": [
+        1,
+        0
+      ]
+    },
+    "exactRankChecks": [
+      "SymPy rational physical source 44 four-step dipole graph cycle basis",
+      "independent modular primes2,1009,1013 reproduce ranks18,8,26,28",
+      "reflection operator/source cycles and mandatory eight physical site-star invariance"
+    ],
+    "importantGuard": "These are conditional T28 geometric subspace relations, not a source guaranteed win indicator or equality of distinct 13D source base and landing spaces."
+  },
+  "independentCrossDomainMethodResearch": {
+    "AllisOriginal1988": "Original nine knowledge-based strategic rules mathematically sound; standard7x6 root positive result also used search. Usable as mathematical source mechanisms, not import of old solved root value.",
+    "symbolicProofCandidates": [
+      "source K4 hypergraph transversal dual with gravity deadlines",
+      "online Hall/matroid defense capacity violation",
+      "finite symbolic fixed-point invariant of four-way owner-cofactor transformation",
+      "proof-carrying small Boolean QBF/polynomial constraint certificate generated independent of prior solved Connect4 results"
+    ],
+    "status": "No universal P0 empty-root forced WIN algebraic certificate yet."
+  },
+  "independentExecution": {
+    "PythonPureStdlibExactSiteEnumerations": "PASS, 26 historical-prefix legal draws, 8192 candidate static covers",
+    "ScipyMILPStaticCrossCheck": "PASS optimum unrestricted7 and lateF-only8, original balanced static draw with F8 P1 feasible but actual chronology not certified",
+    "SympyRationalAndPrimeRank": "PASS original C18 plus C8 rank26, plus optional5 rank28",
+    "GithubNodeReproducer": "COMMITTED, not yet executed as exact GitHub bytes under maintained Node26 CI",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalProofAssistant": "NOT_RUN",
+    "noProductionSolverChanges": true,
+    "noQualifiedIsoGraph1p2Changes": true
+  }
+}
