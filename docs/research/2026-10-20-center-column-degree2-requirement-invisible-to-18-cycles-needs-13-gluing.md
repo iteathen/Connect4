@@ -1,0 +1,20 @@
+# Original center-column early winning requirement invisible to 18 dipole-cycle interference modes
+
+2026-10-20 Pacific. Research direction: Josh Oshiro; canonical Connect4 research/semantic-quotient. Status: exact original7x6 firstwin-free source witness; independently reconstructed four-step physical graph geometry, source 18-cycle basis and complete 31 rational kernel. No root perfect-play WDL or solver changes.
+
+**Physically original legal rank3 history:** one-based "424": P0 drops into center column4 row1; P1 drops column2 row1; P0 drops center column4 row2. No K4 completed. P0 owns center (4,1),(4,2); P1 owns (2,1). Original vertical K4 center column4 rows1,2,3,4 remains viable and has TWO missing cells S={(4,3),(4,4)}. The original K4 line is a genuine degree2 P0 future-winning requirement with no P1 blocker and both cells gravity-scheduled for future play.
+
+The source line is part of three K4 windows containing S (the other two do not have their complementary two cells both P0 owned). The pair-residual line vector is therefore (1,0,0) in those physical source line coordinates.
+
+**Unexpected spectral split:** every vector in the source18-dimensional FOUR-STEP PHYSICAL DIPOLE CYCLE syzygy subspace has ZERO coefficient on that original center vertical K4 window. Accordingly the P0 two-missing residual source jet J_(P0,z,S) of ALL18 cycle charges is ZERO. But the full 31-dimensional rational source line syzygy projection is nonzero and identifies its original winning line uniquely. It is detected precisely by the missing source13 base-gluing complement, not the cycle18.
+
+**Exact geometric reason:** in original7x6 physical four-step dipole endpoint graph (42 vertices44 edges16 mod4 components), eight edges are GRAPH BRIDGES and cannot participate in any dipole cycle. They are:
+- six H direction four-step bridges across physical horizontal rows3 and4 (one-based), three adjacent 4-step pairs in each;
+- two V direction four-step bridges inside the center column4, original row pairs1→5 and2→6.
+Both adjacent-window differences of the original center vertical 3-window strand lie on those two bridges, so its first window is entirely absent from ALL source18 cycle dependencies. This is basis-independent.
+
+In fact exact rational source cycle basis coefficients vanish on FIFTEEN original K4 window coordinates: eight horizontal windows on rows3 and4; three vertical center-column windows; and four length4 near-boundary diagonal strand windows with no adjacent four-step difference path. Thus the 18-cycle sector misses15 entire true original winlines, including two mirrored historical T28 terminal winning windows and the early center vertical K4 requirement. ALL remaining original K4 windows have some cycle charge participation. A line-coordinate can be invisible to the cycle18 without being strategically unimportant.
+
+**Strategic meaning:** the original center is part of the historically known strong-optimal opening, but the literal "424" is not certified a perfect-play prefix; it is only a true original legal firstwin-free proof witness that the cyclic18 interference representation cannot encode its live two-cell defensive obligations. In the present incomplete source-only perfect WDL project, both 18 cyclic relations and13 base-gluing source relations are needed to avoid losing genuine early future K4 structure. The full31 mode set is complete for the282 original pair residual stars on standard7x6, but firstwin all-star requires an additive observer.
+
+**Controls:** independently source enumerate full69 originals, 37 ribbons, 44 four-step dipoles, 18 fundamental graph cycles; check exactly eight physical bridge edges; reconstruct 15 line-coordinate cycle-zero positions, original center q424 grade2 source vector and full31 projection. Verify 15 and8 are source properties independent of historical28. Then held-back compare T28, finding two source cycle-invisible line labels (one rising, one falling), do not use historical28 as source input. Finite fields Q and GF prime1009; guard potential chronological ownership vs degree2 source residual. No formal proof assistant or maintained Node26 CI run.
