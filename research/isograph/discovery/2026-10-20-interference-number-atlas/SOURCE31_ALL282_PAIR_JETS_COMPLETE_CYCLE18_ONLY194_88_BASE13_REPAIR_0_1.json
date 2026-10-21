@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "branch": "research/semantic-quotient",
+  "status": "EXACT_ORIGINAL7X6_K4_GRADED31_SYZYGY_LOCAL_TOMOGRAPHY_AND_FINITE_PHYSICAL_CONTROLS",
+  "preregistered": "docs/research/2026-10-20-frozen-31-charge-pairwise-grade2-complete-residual-tomography-and-18cycle-13base-synergy.md",
+  "reproducer": "research/isograph/discovery/2026-10-20-interference-number-atlas/verify-source31-grade2-residual-tomography-and-gated-jet.py",
+  "originalSource": {
+    "cells": 42,
+    "winningWindows": 69,
+    "rationalSiteLineIncidenceRank": 38,
+    "signedLineSyzygyModes": 31,
+    "sourceFourStepCycleModes": 18,
+    "baseGluingComplementDimension": 13
+  },
+  "degree2": {
+    "distinctOriginalK4TwoMissingCellPairs": 282,
+    "multiplicities": {
+      "oneLine": 173,
+      "twoLines": 86,
+      "threeLines": 23
+    },
+    "totalOriginalPairIncidences": 414,
+    "source31ProjectionInjectiveForAll282": true,
+    "cycle18AloneSufficientPairCount": 194,
+    "cycle18AloneFailsPairCount": 88,
+    "cycle18RankDistribution": [
+      [
+        1,
+        1,
+        126
+      ],
+      [
+        1,
+        0,
+        47
+      ],
+      [
+        2,
+        2,
+        60
+      ],
+      [
+        2,
+        1,
+        12
+      ],
+      [
+        2,
+        0,
+        14
+      ],
+      [
+        3,
+        3,
+        8
+      ],
+      [
+        3,
+        2,
+        10
+      ],
+      [
+        3,
+        0,
+        5
+      ]
+    ],
+    "rankDistributionShape": "[incident line count, cycle18 projection rank, number of original physical site pairs]",
+    "full31RepairsEveryOneOf88": true
+  },
+  "degree3": {
+    "distinctTriples": 232,
+    "multiplicities": {
+      "oneLine": 188,
+      "twoLines": 44
+    },
+    "totalOriginalTripleIncidences": 276,
+    "source31ProjectionInjectiveEveryTriple": true,
+    "cycle18Sufficient": 176,
+    "cycle18Incomplete": 56
+  },
+  "degree1": {
+    "originalPhysicalSiteStars": 42,
+    "full31ProjectionRank": "incident K4 degree minus1 at all42 physical sites",
+    "onlyUndetectedStar": "all winning lines through same physical landing simultaneously",
+    "onePerSiteAdditiveScalar": "number of player-p K4 lines with one missing cell x, restores unique local line-indicator reconstruction",
+    "realP1WinningFullStarChargeZeroWitnessOneBased": "211121414222627373333374455555577676646461"
+  },
+  "exactCofactorRule": {
+    "definition": "J(p,z,S;q)=sum_(original L containing S) z_L prod_(e in L except S) n_p(e;q)",
+    "pMoveAtEmptyXOutsideS": "J(p,z,S;q after x)-J(p,z,S;q)=J(p,z,S union {x};q)",
+    "opponentMoveAtEmptyXOutsideS": "raw owner-p jet unchanged; actual physically blocked target S including x must be dropped",
+    "terminalRule": "firstwin stops original game",
+    "directIndependentPythonChecks": {
+      "ownGrade1": 297,
+      "ownGrade2": 1435,
+      "opponentSameJet": 1732,
+      "errors": 0
+    },
+    "histories": [
+      "",
+      "121",
+      "44444",
+      "12345612345665432165432112345612",
+      "21112141422262737333337445555557767664646"
+    ],
+    "early121Source": "Two P0 stones in column1 give nonzero original K4 degree2 jet at rank3 for original vertical rows1-4 missing rows3-4, before any full K4"
+  },
+  "independentSourceChecks": {
+    "full31ExactSympyRationalPairRankChecks": 282,
+    "independentMod1009IncidenceDeletionPairRankChecks": 282,
+    "full31TripleRankChecks": 232,
+    "source18FourStepPhysicalCycleExactBasisChecks": 18
+  },
+  "scopeFalsifiers": {
+    "fiveByFive": {
+      "starDropRanks": {
+        "one": 16,
+        "two": 8,
+        "three": 1
+      },
+      "pairProjectionRankFailures": 6
+    },
+    "fiveBySix": {
+      "pairProjectionRankFailures": 0
+    },
+    "sixByFive": {
+      "pairProjectionRankFailures": 0
+    },
+    "sixBySix": {
+      "pairProjectionRankFailures": 0
+    },
+    "sevenByFive": {
+      "pairProjectionRankFailures": 0
+    },
+    "sevenBySix": {
+      "pairProjectionRankFailures": 0
+    },
+    "eightBySix": {
+      "pairProjectionRankFailures": 0
+    },
+    "warning": "5x5 refutes unrestricted W,H>=5 pair tomography claim; finite clean dimensions do not prove arbitrary dimensions."
+  },
+  "boundaries": [
+    "Not a root perfect-play signed WDL formula",
+    "No game-valued search or historical optimal28 input",
+    "Grade2 exact K4 residual decoding still requires actual source q and pair S",
+    "Maintained Node26 CI and external formal proof assistant NOT RUN",
+    "Committed Python reproducer not separately executed under maintained CI"
+  ],
+  "qualifiedIsoGraph1p2Changed": false,
+  "productionSolverChanged": false
+}
