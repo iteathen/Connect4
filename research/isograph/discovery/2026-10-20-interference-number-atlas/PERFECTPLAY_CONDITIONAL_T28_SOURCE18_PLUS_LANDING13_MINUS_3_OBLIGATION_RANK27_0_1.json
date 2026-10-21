@@ -140,5 +140,44 @@
     "productionSolverChanged": false,
     "qualifiedIsoGraph1p2Changed": false,
     "universalNonsearchWDL": "OPEN"
+  },
+  "relativeTerminalDifferenceControl": {
+    "sourceGraph": "28 literal original K4 terminal line vertices and 102 true shared eligible landing-cell pair edges, connected",
+    "rank_d": 27,
+    "rank_dCycle18": 18,
+    "rank_dLanding13": 13,
+    "combinedRank": 27,
+    "relativeOverlap": 4,
+    "identities": [
+      "28=18+13-3 absolute line signals",
+      "27=18+13-4 relative line signals"
+    ],
+    "mechanism": "The uniform terminal line potential is in the cycle-plus-landing JOIN but in neither summand separately, so taking graph differences creates one additional mixed overlap direction.",
+    "absoluteOverlapReflection": {
+      "even": 1,
+      "odd": 2
+    },
+    "relativeOverlapReflection": {
+      "even": 2,
+      "odd": 2
+    },
+    "originalSiteInvisibleSpatialFourier4Reflection": {
+      "even": 3,
+      "odd": 1
+    },
+    "fourEqualsFourNotIsomorphism": true,
+    "independentExactSympy": "28x102 true graph directed coboundary rank27; d*CT rank18, d*J rank13, joint27",
+    "source13ToLanding13NaiveNaturalMapNegative": {
+      "sourceBaseSyzygyQuotient": 13,
+      "terminalLandingStarDimension": 13,
+      "bothHorizontalReflectionCharacters": {
+        "even": 7,
+        "odd": 6
+      },
+      "entireSourceStrandPhysicalIncidenceTransportRank": 11,
+      "firstOriginalFourCellsPerActiveStrandTransportRank": 7,
+      "lastOriginalFourCellsPerActiveStrandTransportRank": 10,
+      "result": "None of these direct unweighted incidence maps is injective, so no canonical source-base13 to terminal-landing13 identification has been proved. Gravity/source temporal cofactor weights may be essential."
+    }
   }
 }
