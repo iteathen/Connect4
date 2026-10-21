@@ -1,0 +1,18 @@
+# Frozen 7x6 source algebraic proof attempt: historical T28 as holdout, not circular premise
+
+Date 2026-10-20 Pacific, canonical iteathen/Connect4 research/semantic-quotient, owner research direction Josh Oshiro. Root question is a NEW solver-independent source mathematical certificate P0-WIN from the EMPTY W7 H6 K4 original game. Historical 28 P0 firstwinning line IDs from distance-sensitive strong optimal play and old WDL-tie 61 line IDs are allowed as DISCOVERY TARGETS, a posteriori checks or potential assumptions to eliminate, but not proof axioms. Do not consult a Connect Four oracle/solver to certify the proposed algebraic theorem.
+
+Three different formal claims:
+(A) P0 can force a win from EMPTY under all legal P1 responses with P0 making appropriately optimal choices (needed);
+(B) every legal/firstwin-free cooperative 42-ply play must contain one of historical P0 firstwinner28 (false if any legal DRAW is found; not needed);
+(C) every distance-strong-optimal root continuation firstwins in T28 by ply41 (archived solved-game fact, tautological if admitted as a premise; must NOT be substituted for source proof).
+Broader WDL-only winning-continuation support61 is distinct; 28 is not a universal source geometric census for every form of winning strategy.
+
+Frozen source-only independent controls:
+1. Rebuild all69 original unwrapped K4 windows as a 42-vertex, four-direction incidence hypergraph.
+2. Set first FIVE positions one-based center-column4, alternating P0/P1/P0/P1/P0 solely as a voluntary experiment (not as a proved necessary perfect-play opening). Use a general integer linear SAT feasibility reduction, not a Connect Four game solver, to find a balanced complete 42-cell coloring (21 P0/21 P1) extending this prefix with at least one P0 and P1 cell in every actual K4 window. This directly tests whether selected T28 can be escaped by static ownership.
+3. If such coloring exists, independently determine whether the specified per-column owner orders can be interleaved into the alternating global legal turn sequence with first FIVE center-column drops. If so, emit a concrete 42-move original legal DRAW witness, independently replay gravity/turn/all69 firstwin, and show it avoids all P0 completed T28 because no one completes any original K4. A constructively solved legal DRAW path is NOT a defensive guarantee against optimal P0 and therefore does not refute any forced P0 WIN root claim. If none, preserve exact infeasibility/unknown distinction, don't infer root P0 WIN from a single failure.
+4. Analyze historical T28 static hypergraph as a source-restricted candidate alone with a row/column/orientation obstruction: compute blocker incidences, signed K31 projection and minimum owner hitting-set estimates for P1. Do NOT let any historical line list into a source P0 strategy certificate.
+5. Research primary non-solver methods: strong positional games and strategy stealing, hypergraph Maker/Breaker pairings, Hall-type matroid obligation overload, symbolic invariant closure, algebraic proof systems, known Allis nine defense rules. Use the latter's rules as mathematics, but NOT its searched endgame result as a theorem premise.
+
+Success requires a source first-principles invariant/certificate on EMPTY that implies P0 forced WIN against ALL adaptive P1 responses; the minimal stationary 7-clause UNSAT core and historical 28 matched terminal witnesses do not alone suffice. A compact independent checker for a novel algebraic certificate would be preferable to exhaustive game-tree exploration. All unproved steps/falsifiers remain OPEN. No production solver/qualified IsoGraph 1.2 mutations; maintained Node26 CI/third-party formal assistant not claimed without running.
