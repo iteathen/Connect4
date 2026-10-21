@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "VERIFIED_TRUE_K4_P4_FACE_SAME_HEIGHT_OWNER_COUNTERTEMPO_FALSIFIER",
+  "originalBoard": {
+    "width": 7,
+    "height": 6,
+    "K": 4,
+    "physicalCells": 42,
+    "originalK4Windows": 69
+  },
+  "preregistrations": [
+    "docs/research/2026-10-21-frozen-first-row3-crossing-q18-upper-H-P4-two-repair-vs-P1-counterwins.md",
+    "docs/research/2026-10-21-frozen-q18-saturated-row3-P4-owner-conditioned-P1-vertical-countertempo-scan.md"
+  ],
+  "theorem": "docs/research/2026-10-21-saturated-q18-upper-row-P4-same-geometry-opposite-firstwinner-from-VR-support.md",
+  "reproducer": "research/isograph/discovery/2026-10-21-q18-highrow-P4-crossing/verify-q18-face-P4-and-P1-vertical-countertempo.py",
+  "guard": "Real firstwinfree center-five q18, heights [2,2,2,6,2,2,2], P0 to move19. Original owner K4 and gravity only.",
+  "physicalQuarticRow3Residuals": {
+    "P0c3r3": "x1*x2+x2*x5+x5*x6",
+    "P0c5r3": "x2*x3+x3*x6+x6*x7",
+    "graph": "P4, static minimum 2-site blocker cover in both."
+  },
+  "witnessA": {
+    "word": "444446526337114725",
+    "afterP0Move19Column5": {
+      "P0ForcesFirstWinBy23": false,
+      "P1Move20Defenses": [
+        3,
+        6,
+        7
+      ]
+    },
+    "P1AlreadyC7BottomTwo": true,
+    "P1CanTakeC7r3On20": true,
+    "P1WinsVerticallyC7r4On22IfP0DoesNotBlock": true,
+    "P0ImmediateFirstwin21AfterP1C7": false,
+    "consequence": "P0 move21 must take c7r4 to block P1 vertical, rather than extend row3 P4 path."
+  },
+  "witnessB": {
+    "word": "444443152537166724",
+    "afterP0Move19Column5": {
+      "P0ForcesFirstWinBy23": true,
+      "P1Move20Defenses": []
+    },
+    "P1AlreadyC7BottomTwo": true,
+    "P1PotentialC7VerticalWin22": true,
+    "P0Firstwins21AfterP1C7": {
+      "P0Move": "c5r4",
+      "originalK4Direction": "R",
+      "fourCells": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          4
+        ]
+      ]
+    },
+    "gravitySupport": "P0 c5r3 on19 unlocks previously latent rising target c5r4; P0 wins on21 before P1 c7 could win22."
+  },
+  "diagnosticFaceSample": {
+    "randomSeed": 20261021,
+    "shuffled13MoveWordsAttempted": 318,
+    "sampledTrueFirstwinfreeQ18": 160,
+    "additionalPreservedSourceWitnessA": 1,
+    "distinctQ18PhysicalStates": 161,
+    "P0C3OrC5CrossingTests": 322,
+    "allMatchedExactRow3P4": 322,
+    "testsWithAtLeastOneP1DirectWin20": 96,
+    "testsWithAtLeastOneP1TwoStepVertical20to22": 286,
+    "testsWithP0ForceFirstWinBy23": 98,
+    "testsWithoutP0ForceFirstWinBy23": 224,
+    "categoriesMayOverlap": true,
+    "samplesAreNotRootPerfectPlay": true
+  },
+  "independentChecks": {
+    "pythonBitboardTrueFirstWinAndBoundedFourPly": "RUN",
+    "independentJSOriginal69WindowPlusRayEightConcreteQ19Controls": "PASS, zero mismatches",
+    "historicSolvedResultUsedAsPremise": false,
+    "original28TerminalIDsUsedAsPremise": false,
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalAssistant": "NOT_RUN",
+    "emptyRootP0WINIndependentlyProved": false,
+    "productionSolverChanged": false,
+    "qualifiedIsoGraph1p2Changed": false
+  }
+}
