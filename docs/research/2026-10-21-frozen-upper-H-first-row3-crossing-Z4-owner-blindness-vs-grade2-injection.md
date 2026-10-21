@@ -1,0 +1,16 @@
+# FROZEN upper-H Z4 harmonic blind spot at first outer third-row crossing: same character, different owner-K4 grade
+
+2026-10-21 PDT, original physical 7x6 (with 6x6 contrast), canonical research/semantic-quotient; owner direction: independent solver-free root P0 theorem. Source q may be any actual firstwin-free ORIGINAL K4 board extending conditional physical prefix44444, P0 center stone row3/row5, P1 center row2/row4, and all OUTER height h_c<=2. Let one selected outer column c have h_c=2, so next current legal gravity placement x=(c,row3) CROSSES the guarded upper-H row3/row5 Fourier cancellation boundary, irrespective whether mover is P0 or P1.
+
+For each original four-column span I containing c and center c4, prior actual H row3/5 P0 grade3 K4 pair has three outer target cells EMPTY and no P1 upper-row blockers. Let d_I=SUM_{j in I excluding c4}(2-h_j). Its paired support debts are d3=d_I and d5=d_I+6. At z=i they cancel i^d3+i^(d3+6)=0. After a real physical placement at x, BOTH possible owner choices REMOVE row3 K4 from the original P0 GRADE3 sector: if P0 occupies x, original H row3 line is PROMOTED from grade3 to grade2; if P1 occupies x, original H row3 line is PERMANENTLY killed. The P0 original H row5 grade3 survives and its debt reduces by1 from d3+6 to d3+5, giving exactly i^(d3+5). Thus the change in the P0 original upper-H GRADE3 order-four character is the SAME for either owner,
+   Delta H_grade3(i) = SUM_{I containing c and c4} i^(d_I+5).
+But the P0 original H GRADE2 character differs: when P0 takes x, EXACTLY one new H row3 grade2 original line for each such span is born with gravity debt d_I, contributing SUM_I i^d_I to the degree2 character; when P1 takes x, no such P0 line appears, and the H grade2 injection is ZERO.
+This is a precise information-loss counterexample for the single upper-H Z4 projected grade3 Fourier observable, not an ambiguity in full physically tagged owner-K4 algebra.
+
+Freeze independent controls:
+ - independently regenerate all original H/V/R/F W7 69 and W6 54 true K4 windows; compare original H row3/5 grade3 and H row3 grade2 coefficients on physical legal firstwinfree q18 (W7) and q16 (W6) from already recorded source words 444446526337114725 and 4444432311255466. Every outer h=2 and P0 on max-boundary move, so a_c W7=[1,2,3,3,2,1], W6=[1,2,3,2,1]. q before crossing upper pair exactly ZERO. After a P0 current outer row3 move, paired H grade3 changes +a_c*i; P0 grade2 row3 now a_c distinct true K4s, each d=0. Check no premature win.
+ - independently find an actual firstwinfree P1-to-move center-five guard with h_outer_c=2 (e.g. 4444411, P1 ply8 to claim original c1 row3), and check the SAME row3 grade3 death/row5 advance with grade2 P0 injection ZERO on P1 crossing. Compare predictions for nonzero d_I at early crossing.
+ - if an owner-specific full polynomial is used, DO NOT conclude identical states or same WDL: owner matters through grade2 source and future turn and counterthreats.
+ - no historic28 / solved WDL as theorem input; no CI/external formal assistant claims. Keep the root forcing lemma OPEN.
+
+Any mismatch must be recorded. This is not the independent empty7x6 P0 strategy theorem; no global root winner inferred.
