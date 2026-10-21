@@ -1,0 +1,245 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "branch": "research/semantic-quotient",
+  "status": "INDEPENDENT_ORIGINAL_PHYSICAL_5040_FIRSTWIN_AND_SOURCE31_CHARGE_SIGNATURES_CERTIFIED_BOUNDED",
+  "prereg": "docs/research/2026-10-20-frozen-firstwinner-31-charge-cubic-cofactor-and-preterminal-blindness-falsifiers.md",
+  "source_reproducer": "research/isograph/discovery/2026-10-20-interference-number-atlas/verify-31-cubic-charge-temporal-firstwinner-and-local-star.py",
+  "original_game": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "lines": 69,
+    "truePhysicalCells": 42,
+    "P0First": true,
+    "gravity": true,
+    "firstWinStops": true
+  },
+  "source_math": {
+    "rationalSiteToLineRank": 38,
+    "sourceOriginalLineSyzygyBasisDim": 31,
+    "cofactorIdentity": "C_z(q) = sum_originalK4 z_L (W_P0(L;q)-W_P1(L;q))=0 at ALL firstwinfree actual played source states. A mover p taking previously empty landing x changes C_z by (-1)^p sum_(L contains x) z_L prod_(e in L minus x) n_p(e;q); actual firstwin absorbing gate forbids future updates.",
+    "allZeroAtAnyFirstWinnerFreeSource": true
+  },
+  "bounded_5040": {
+    "actualFirstwinFreePrefixOneBased": "12345612345665432165432112345612",
+    "rank": 32,
+    "remainingCapacitiesOneBasedColumns": [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      6
+    ],
+    "completeFutureGravityColumnInterleavings": 5040,
+    "actualEarliestFirstwinner": {
+      "P0_WIN": 1350,
+      "P1_WIN": 564,
+      "DRAW": 3126
+    },
+    "firstwinnerAbsolutePlyCounts": {
+      "37/P0": 480,
+      "38/P1": 42,
+      "39/P0": 522,
+      "40/P1": 156,
+      "41/P0": 348,
+      "42/P1": 366
+    },
+    "actualFirstwinnerK4Multiplicity": {
+      "one": 1872,
+      "two": 42
+    },
+    "originalFirstwinner31ChargeSignatures": {
+      "distinct": 13,
+      "spanRankQ": 7,
+      "actualP0Signatures": 7,
+      "actualP1Signatures": 5,
+      "drawSignatures": 1,
+      "numberOfWinSignaturesAllZero": 0,
+      "differentOutcomeClassesSharingSameChargeVector": 0,
+      "scope": "Observed only from ONE rank32 source, NOT a universal terminal-outcome theorem or exact minimax classifier"
+    },
+    "hypotheticalContinueAfterFirstwinnerToFull42": {
+      "distinctOriginal31ChargeVectors": 26,
+      "completionsWhoseUnabsorbedFinal42ChargeDiffersFromActualFirstwinnerAbsorbedCharge": 222,
+      "full42UnphysicalBothOwnersHaveK4": 174,
+      "ofBothOwnersTerminalButActualP0Winner": 114,
+      "ofBothOwnersTerminalButActualP1Winner": 60,
+      "differenceInterpretation": "Genuine firstwin absorption suppresses later owner syzygy charge impulses; uniform continuation is NOT perfect play."
+    }
+  },
+  "allstar_winner_falsifier": {
+    "actualOneBasedOriginal42MoveWord": "211121414222627373333374455555577676646461",
+    "winner": "P1",
+    "firstwinningPly": 42,
+    "originalLandingOneBased": [
+      1,
+      6
+    ],
+    "completeFirstwinningWindowsOneBased": [
+      [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      [
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      [
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          3
+        ]
+      ]
+    ],
+    "originalK4IncidentStarSize": 3,
+    "allIncidentWindowsCompleteByFinalMove": true,
+    "all31SourceLineSyzygyTerminalChargesExactlyZero": true,
+    "proof": "Newly completed original K4 line indicator is exactly B^T e_x, a physical-cell additive source signal; every z in ker_Q(B),dim31, satisfies z^T B^T e_x=0. Thus full31 completed-line Fourier charge signature collides with a true legal DRAW signature zero.",
+    "independentJSOriginalPhysicalRayCheck": true,
+    "independentPythonFull69CooperativeHistoryCheck": true,
+    "fullWinFirst41Free": true,
+    "generationMethod": "Bounded integer linear feasibility for full owner coloring, then deterministic causal gravity/turn interleaving feasibility; no game-tree WDL search."
+  },
+  "local_star_source_projection": {
+    "scope": "Q, original W7H6 42 physical sites and all69 unwrapped K4 lines",
+    "incidenceStarPerSiteRank": "rank of projection ker B31 onto Lambda_x = |Lambda_x|-1 at every one of42 sites",
+    "onlyKernelAtEachStar": "the all-ones incident-line star B^T e_x",
+    "interpretation": "FULL31 source charges detect every proper nonempty subset of K4 lines completed on a move, but they cannot detect complete all-star simultaneous win; one additive per-site count is needed to resolve the missing mode.",
+    "independentMod1009AndExactRationalChecks": 42
+  },
+  "multi_board_source_local_star_falsifiers": [
+    {
+      "W": 5,
+      "H": 5,
+      "sites": 25,
+      "rankLossByDeletingIncidentK4": {
+        "one": 16,
+        "two": 8,
+        "three": 1
+      },
+      "exception": true
+    },
+    {
+      "W": 5,
+      "H": 6,
+      "sites": 30,
+      "rankLossByDeletingIncidentK4": {
+        "one": 30
+      }
+    },
+    {
+      "W": 6,
+      "H": 5,
+      "sites": 30,
+      "rankLossByDeletingIncidentK4": {
+        "one": 30
+      }
+    },
+    {
+      "W": 6,
+      "H": 6,
+      "sites": 36,
+      "rankLossByDeletingIncidentK4": {
+        "one": 36
+      }
+    },
+    {
+      "W": 7,
+      "H": 5,
+      "sites": 35,
+      "rankLossByDeletingIncidentK4": {
+        "one": 35
+      }
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "sites": 42,
+      "rankLossByDeletingIncidentK4": {
+        "one": 42
+      }
+    },
+    {
+      "W": 8,
+      "H": 6,
+      "sites": 48,
+      "rankLossByDeletingIncidentK4": {
+        "one": 48
+      }
+    },
+    {
+      "W": 10,
+      "H": 6,
+      "sites": 60,
+      "rankLossByDeletingIncidentK4": {
+        "one": 60
+      }
+    },
+    {
+      "W": 8,
+      "H": 8,
+      "sites": 64,
+      "rankLossByDeletingIncidentK4": {
+        "one": 64
+      }
+    }
+  ],
+  "history_heldback": {
+    "historicalSelectedStrongFirstwinningWords": 27,
+    "historicalStrongFirstwinningWordsWithAll31ChargesZero": 0,
+    "scope": "the historical selection's result only; true P1 all-star win outside root-strong paths disproves unconditional charge completeness"
+  },
+  "qualifications": {
+    "independentOriginalPythonSympyAndGFPrimeControls": "RUN_LOCAL",
+    "independentOriginalJavaScriptRayCrossCheck": "RUN_CONNECTOR_ISOLATE",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalProofAssistant": "NOT_RUN",
+    "githubCommittedReproducerExecution": "NOT_RUN_AS_COMMITTED_FILE",
+    "rootNoSearchPerfectWDL": "OPEN",
+    "qualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false
+  }
+}
