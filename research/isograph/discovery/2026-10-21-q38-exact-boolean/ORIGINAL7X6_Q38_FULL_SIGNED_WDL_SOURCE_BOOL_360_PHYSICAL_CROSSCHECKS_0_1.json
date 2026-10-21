@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "SOURCE_EXACT_SIGNED_WDL_Q38_PLUS_PERMANENT_ORIGINAL69_OWNER_K4_BLOCKER",
+  "priorFrozen": "docs/research/2026-10-21-frozen-q38-complete-signed-WDL-oneply-K4-cofactor-lift-and-transversal-closure.md",
+  "theorem": {
+    "U_p": "U_p(e)=OR over ALL69 original K4 lines containing currently EMPTY e of PRODUCT of player-p owned occupancy at other3 sites",
+    "V_p": "V_p(e,f)=OR over ALL69 original K4 lines containing DISTINCT currently EMPTY e,f of PRODUCT of player-p owned occupancy at the other2 sites",
+    "P0ActionX": "If U0(x)=1, P0 immediately firstwins on original ply39.",
+    "cofactorTransport": [
+      "U0_after_x(e)=U0_before(e) OR V0_before(x,e)",
+      "U1_after_x(e)=U1_before(e) for all remaining empty e",
+      "V1_after_x(e,f)=V1_before(e,f) for all remaining distinct empty e,f"
+    ],
+    "q39Theorem": "Use COMPLETE source-only 3-empty signed P0WIN/DRAW/P1WIN Boolean closed forms in docs/research/2026-10-21-exact-full-original7x6-q39-three-empty-source-K4-cofactor-Boolean-WDL.md for post-P0-move remaining-column heights and transformed cofactor bits, without recursive game value.",
+    "signedWDL": {
+      "P0WIN": "OR over presently legal gravity P0 landing x: P0 immediate U0(x) OR source q39 expression says P0WIN after algebraic cofactor promotion",
+      "P1WIN": "AND over presently legal P0 landing x: NOT immediate U0(x) AND q39 source expression says P1WIN after algebraic cofactor promotion",
+      "DRAW": "neither of above",
+      "valueCoding": {
+        "P0WIN": 1,
+        "DRAW": 0,
+        "P1WIN": -1
+      }
+    },
+    "exactGravityCapacityPartititions": [
+      "4",
+      "3+1",
+      "2+2",
+      "2+1+1",
+      "1+1+1+1"
+    ],
+    "nonrecursiveBound": "At most4 current playable action branches as a finite Boolean disjunction/conjunction. No game-valued successor lookups. This is not proof of eliminating strategic branching from EMPTY."
+  },
+  "reproducibleSource": "research/isograph/discovery/2026-10-21-q38-exact-boolean/verify-q38-complete-signed-WDL-source-cofactor-transport.mjs",
+  "sourceGeometry": {
+    "originalW": 7,
+    "originalH": 6,
+    "originalK": 4,
+    "realCells": 42,
+    "unwrappedOriginalK4Lines": 69,
+    "originalOwnerJunctionCopiesPerCell": 4,
+    "firstWinnerStops": true,
+    "gravity": true,
+    "ownerTurnsAlternate": true
+  },
+  "scope": {
+    "rank": 38,
+    "mover": "P0",
+    "emptyRealPhysicalSites": 4,
+    "precondition": "q is a genuine physically reachable firstwin-free original7x6 board",
+    "historicT28OrRootSolvedDataUsedInFormula": false,
+    "sourceOnlyInputs": [
+      "true original K4 site ownership projectors",
+      "current column heights/physical gravity",
+      "current mover",
+      "one- and two-missing original K4 cofactors"
+    ]
+  },
+  "physicallyIndependentFiniteControls": {
+    "distinctGenuineQ38Sources": 360,
+    "groups": [
+      {
+        "name": "historically root-strong prefixes at q38 (heldback test)",
+        "n": 27,
+        "P0WIN": 27,
+        "DRAW": 0,
+        "P1WIN": 0
+      },
+      {
+        "name": "genuine firstwinfree owner-history adjacent-swapped q38 (not root-optimal)",
+        "n": 306,
+        "P0WIN": 248,
+        "DRAW": 46,
+        "P1WIN": 12
+      },
+      {
+        "name": "original source earliest all mandatory8 P1 blocker completion q38",
+        "n": 1,
+        "P0WIN": 0,
+        "DRAW": 1,
+        "P1WIN": 0
+      },
+      {
+        "name": "independently constructed physical DRAW full game truncated to q38",
+        "n": 26,
+        "P0WIN": 1,
+        "DRAW": 25,
+        "P1WIN": 0
+      }
+    ],
+    "aggregate": {
+      "n": 360,
+      "P0WIN": 276,
+      "DRAW": 72,
+      "P1WIN": 12
+    },
+    "physicalIndependentFinalFourPlyGameWDLDisagreements": 0,
+    "originalK4RayVsWindowFirstWinDisagreements": 0,
+    "originalFourEmptyCellShapeHistogram": {
+      "4": 25,
+      "3+1": 260,
+      "2+2": 39,
+      "2+1+1": 35,
+      "1+1+1+1": 1
+    },
+    "legalCurrentP0ColumnChoicesHistogram": {
+      "1": 25,
+      "2": 299,
+      "3": 35,
+      "4": 1
+    },
+    "heldbackHistoric28IdsNotConsumedByWDLProducer": true,
+    "validationOnly": "A separately implemented physical directional-ray and true K4 window at most4-ply perfect game evaluator compared against computed source Boolean results, but is not invoked inside the formula."
+  },
+  "independentGeometricOneSidedProof": {
+    "ownerPotentiallyLiveK4Definition": "LIVE_p(q)={true original69 K4 window L | no physical cell of L is currently owned by 1-p}",
+    "permanentClosure": "CLOSED_p(q)=AND over original69 K4 L of OR over physical e in L [owner(e)==1-p]",
+    "monotonicity": "No future move can remove an opponent-owned stone, so CLOSED_p is permanently true once reached.",
+    "soundInferences": [
+      "CLOSED_P0 ⇒ P0 can never WIN in any legal future",
+      "CLOSED_P1 ⇒ P1 can never WIN in any legal future",
+      "CLOSED_P0 AND CLOSED_P1 at a real nonterminal q ⇒ forced DRAW against every future play, regardless of strategy"
+    ],
+    "originalEarlyMandatory8Witness38": {
+      "wordOneBased": "44444316171121213232325353556575766677",
+      "rank": 38,
+      "allMandatory8LastLandingC8OwnedByP1": true,
+      "firstWinFree": true,
+      "CLOSED_P0": true,
+      "perfectContinuationFromThisQ38": "DRAW",
+      "verdict": "True original source nonwin certificate for P0; source q38 formula additionally confirms DRAW."
+    },
+    "originalBothOwnersPermanentlyBlockedRank40": {
+      "wordOneBased": "4444422222266666641111113333335555557777",
+      "rank": 40,
+      "remainingCellsOneBased": [
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "firstWinFree": true,
+      "CLOSED_P0": true,
+      "CLOSED_P1": true,
+      "verdict": "Unconditional source geometry-determined DRAW at actual q40, requiring no future move choices."
+    },
+    "earlierIndependentlyConstructedCenterFiveDrawFamily": {
+      "fullLegalHistories": 26,
+      "bothOwnersCLOSEDFirstSeenAtRank": {
+        "40": 20,
+        "41": 1,
+        "42": 5
+      },
+      "guard": "This is a cooperative draw existence and permanent closed-owner WDL certificate from the attained q; not empty root WDL."
+    }
+  },
+  "nextProofTarget": {
+    "originalEmptyRoot7x6P0WIN": "OPEN as solver-independent proof",
+    "preferred": "Derive a true online source invariant or four-way gravity/deadline capacity law that shows optimal P0 forces a P1 defensive contradiction before firstwinning, rather than repeatedly expanding the Boolean action alternation backwards.",
+    "badInference": "Simple q38/q39 Boolean contraction can be iterated toward EMPTY, but uncompressed alternation of P0 OR/P1 AND simply recreates minimax search.",
+    "validationHint": "Historical28 terminal line support and conditional8 blocking sites remain held-back hints, not producer premises."
+  },
+  "qualification": {
+    "sourceExactAlgebra": "PROVED_BY_OWNER_K4_COFATOR_IDENTITIES",
+    "independentOriginalPhysicalControls": "RUN 360 q38, zero WDL mismatches",
+    "trueRank40BothOwnersFullK4Transversal": "INDEPENDENTLY_REPLAYED",
+    "checkedInStandaloneNodeHarness": "COMMITTED",
+    "checkedInHarnessExactBytesExecutedUnderCI": "NOT_RUN",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalAssistant": "NOT_RUN",
+    "qualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false
+  }
+}
