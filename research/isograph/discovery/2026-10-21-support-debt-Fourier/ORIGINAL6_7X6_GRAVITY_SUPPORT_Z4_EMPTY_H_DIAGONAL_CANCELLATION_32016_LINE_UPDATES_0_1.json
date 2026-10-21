@@ -1,0 +1,226 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "EXACT_ORIGINAL_6X6_7X6_GRAVITY_SUPPORT_GRADED_FOURWAY_K4_BLOCK_ENABLE_AND_EMPTY_Z4_CANCELLATION",
+  "frozen": "docs/research/2026-10-21-frozen-original-K4-fourway-support-debt-Fourier-mod4-exact-block-vs-release-polynomial.md",
+  "theorem": "docs/research/2026-10-21-original6x6-7x6-fourway-graded-support-Fourier-empty-cancellation-and-exact-opponent-release.md",
+  "reproducer": "research/isograph/discovery/2026-10-21-support-debt-Fourier/verify-original-K4-support-debt-mod4.py",
+  "sourceDefinition": {
+    "owner": "original p in{P0,P1}; each physical site belongs to exactly one owner/EMPTY; all69 on7x6 and54 on6x6 original unwrapped H/V/R/F K4s",
+    "residual": "R_{p,L}(q)=EMPTY cells of an original owner-p K4 with zero opponent stones",
+    "support": "S_q(R)=all currently empty cells at or below highest R target in each target column, from current height h_c upward to that target",
+    "grades": "k=|R|, d=|S\\R|, gravity support-debt nonnegative",
+    "polynomial": "Phi_p(q;t,z)=SUM over original live owner-p K4 lines t^k z^d",
+    "opponentMove": "x in R removes line, x in S\\R reduces d by1, outside S no effect",
+    "ownMove": "x in R reduces k by1, x in S\\R reduces d by1, outside S no effect; terminate on firstwinning k=0",
+    "signedOperator": "Delta_x^{opponent}Phi_p= -SUM_{live L:x in R} t^k z^d + (z^-1 -1)SUM_{live L:x in S\\R} t^k z^d"
+  },
+  "emptySpectrum": {
+    "generalH6K4": "t^4*((W-3)*SUM_{r=0..5}z^(4r)+W*(1+z+z^2)+2*(W-3)*(z^6+z^10+z^14))",
+    "zEqualsOneOriginalK4LineCounts": {
+      "6": 54,
+      "7": 69
+    },
+    "zEqualsIOriginalSupportDebtFourier": {
+      "6": {
+        "horizontal": [
+          18,
+          0
+        ],
+        "rising": [
+          -9,
+          0
+        ],
+        "falling": [
+          -9,
+          0
+        ],
+        "vertical": [
+          0,
+          6
+        ],
+        "sum": [
+          0,
+          6
+        ]
+      },
+      "7": {
+        "horizontal": [
+          24,
+          0
+        ],
+        "rising": [
+          -12,
+          0
+        ],
+        "falling": [
+          -12,
+          0
+        ],
+        "vertical": [
+          0,
+          7
+        ],
+        "sum": [
+          0,
+          7
+        ]
+      }
+    },
+    "exactIdentity": "H plus R plus F=0 at order-four Fourier character z=i on BOTH original W6H6 and W7H6, so Phi_empty(1,i)=iW.",
+    "importantType": "Z4 gravity-support-debt Fourier layer is distinct from previously proved local Z3 four-way ternary OWNERSHIP alias Fourier transform.",
+    "WDLQualification": "Same cancellation occurs for W6 whose known perfect winner is P1 and W7 whose known perfect winner is P0, so cancellation is not itself a root signed WDL classifier."
+  },
+  "selectedOriginalCurrentQOwnerFourierMode": {
+    "4": {
+      "P0": [
+        4,
+        9
+      ],
+      "P1": [
+        1,
+        9
+      ],
+      "signed": [
+        3,
+        0
+      ]
+    },
+    "44": {
+      "P0": [
+        5,
+        6
+      ],
+      "P1": [
+        4,
+        6
+      ],
+      "signed": [
+        1,
+        0
+      ]
+    },
+    "445": {
+      "P0": [
+        6,
+        5
+      ],
+      "P1": [
+        2,
+        4
+      ],
+      "signed": [
+        4,
+        1
+      ]
+    },
+    "44444": {
+      "P0": [
+        4,
+        4
+      ],
+      "P1": [
+        0,
+        2
+      ],
+      "signed": [
+        4,
+        2
+      ]
+    },
+    "EMPTY": {
+      "P0": [
+        0,
+        7
+      ],
+      "P1": [
+        0,
+        7
+      ],
+      "signed": [
+        0,
+        0
+      ]
+    },
+    "444443333636613412225777255525666717751": {
+      "P0": [
+        3,
+        1
+      ],
+      "P1": [
+        0,
+        0
+      ],
+      "signed": [
+        3,
+        1
+      ]
+    },
+    "44444316171121213232325353556575766677": {
+      "P0": [
+        0,
+        0
+      ],
+      "P1": [
+        5,
+        0
+      ],
+      "signed": [
+        -5,
+        0
+      ]
+    }
+  },
+  "mixedDefenderBlockAndReleaseAtOriginalRank39": {
+    "oneBasedWord": "444443333636613412225777255525666717751",
+    "actualNextMover": "P1",
+    "P1MovePhysicalSite": [
+      1,
+      5
+    ],
+    "currentP0OriginalOneMissingK4sDestroyedByP1Stone": 2,
+    "currentP0OriginalTwoMissingK4sDestroyedByP1Stone": 1,
+    "currentP0OriginalOneMissingK4sEnabledByGravitySupport": 1,
+    "enabledK4Direction": "FALLING",
+    "actualNewP0WinningLanding": [
+      1,
+      6
+    ],
+    "meaning": "Same actual four-way physical junction P1 occupancy blocks V/H requirements directly while advancing a different falling diagonal missing-site support from1 to0, which now becomes immediately P0 playable."
+  },
+  "successfulDefenderBlockAtOriginalRank37": {
+    "oneBasedWord": "4444431617112121323232535355657576667",
+    "P1MovePhysicalSite": [
+      7,
+      5
+    ],
+    "P0OneMissingVerticalK4Destroyed": 1,
+    "P0TwoMissingVerticalK4Destroyed": 1,
+    "P0OneMissingGravityEnabled": 0,
+    "meaning": "P1 blocks nested V K4 residuals containing her landing x; the newly released y is not an owner-P0 winning target."
+  },
+  "verification": {
+    "originalSourceWindowsRebuiltFromGeometry": true,
+    "independentOriginalTrueFirstwinnerAbsorption": true,
+    "originalBothPlayersPerLineLegalActionGradeRecomputations": 32016,
+    "allMatchedPredictions": true,
+    "testedOnGenuineRealPrefixes": [
+      "empty",
+      "4",
+      "44",
+      "445",
+      "445367",
+      "43556",
+      "44444",
+      "original known root-perfect q39",
+      "original C8 successful P1 q38",
+      "each original rank0..42 prefix of independent full DRAW word"
+    ],
+    "noHistoryOracleReadToGenerateIdentity": true,
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalProofAssistant": "NOT_RUN",
+    "qualifiedLogic1p2Changed": false,
+    "productionSolverChanged": false
+  }
+}
