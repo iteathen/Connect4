@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "PROVED_EXACT_GLOBAL_ORIGINAL7X6_ALL_HISTORY_EULER_HVRF_WINNER_SINK_RANK1_TO10",
+  "prereg": "docs/research/2026-10-21-frozen-global-fourway-Euler-interval-K4-hazard-Fourier-cluster-identity.md",
+  "theorem": "docs/research/2026-10-21-global-fourway-K4-Euler-interval-tensor-WIN-operator-degree16-and-five-switch-null.md",
+  "runner": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-whole-field-Euler-fourway-firstwin-flux-through10.py",
+  "globalCountingField": "At each rank t all genuine firstwinfree alternating gravity-legal original7x6 ordered move histories are summed into one weight per physical owner-colored board, with P0/P1 win absorbing channels. NOT policy posterior/perfect WDL.",
+  "sourceGeometry": {
+    "physicalSites": 42,
+    "originalK4": 69,
+    "orientations": [
+      "H",
+      "V",
+      "R",
+      "F"
+    ],
+    "ownerPerPhysicalSite": 1
+  },
+  "originalTrueLocalWinningOperator": {
+    "perDirection": "C_{p,o,e}=sum_{all original K4 windows L in orientation o through e} product_{u in L\\{e}} n_p(u) - sum_{adjacent actual original K4 windows} product_{u in union(L_i,L_i+1)\\{e}} n_p(u)",
+    "firstwin": "1-product_o (1-C_{p,o,e})",
+    "sourceProof": "Active same-direction window starts always form one interval, Euler characteristic1 if nonempty; four-way Boolean OR exact.",
+    "maxFormalBooleanPhysicalOwnerDegree": 16,
+    "totalOriginalPotentialLandingOwnerOrientationSubsetClusterObservables": 438
+  },
+  "exactGlobalAbsorbingWinFlux": [
+    {
+      "ply": 7,
+      "mover": "P0",
+      "uniqueFirstwinningOrderedHistories": 13032,
+      "rawOriginalK4WindowWinIncidence": 13032,
+      "adjacentSameOrientationEulerCorrection": 0,
+      "crossOrientationDoubleWinMass": 0,
+      "nextLiveColoredStates": 54131,
+      "nextLiveHistoryMass": 810504
+    },
+    {
+      "ply": 8,
+      "mover": "P1",
+      "uniqueFirstwinningOrderedHistories": 44430,
+      "rawOriginalK4WindowWinIncidence": 44430,
+      "adjacentSameOrientationEulerCorrection": 0,
+      "crossOrientationDoubleWinMass": 0,
+      "nextLiveColoredStates": 182383,
+      "nextLiveHistoryMass": 5628804
+    },
+    {
+      "ply": 9,
+      "mover": "P0",
+      "uniqueFirstwinningOrderedHistories": 1086882,
+      "rawOriginalK4WindowWinIncidence": 1163994,
+      "adjacentSameOrientationEulerCorrection": 77112,
+      "crossOrientationDoubleWinMass": 0,
+      "nextLiveColoredStates": 538774,
+      "nextLiveHistoryMass": 38307690
+    },
+    {
+      "ply": 10,
+      "mover": "P1",
+      "uniqueFirstwinningOrderedHistories": 4261058,
+      "rawOriginalK4WindowWinIncidence": 4408874,
+      "adjacentSameOrientationEulerCorrection": 147816,
+      "crossOrientationDoubleWinMass": 0,
+      "nextLiveColoredStates": 1618398,
+      "nextLiveHistoryMass": 263770588
+    }
+  ],
+  "sourceStructuralEarlyBounds": {
+    "withinOneOriginalOrientationAtLeastTwoDistinctK4WindowWinsWithSharedLastLandingRequiresFiveOwnerStones": true,
+    "P0EarliestSameDirectionTwoOriginalK4WinMove": 9,
+    "P1EarliestSameDirectionTwoOriginalK4WinMove": 10,
+    "twoDifferentOriginalOrientationsK4ThroughSamePhysicalLandingShareExactlyThatCell": true,
+    "twoDifferentOrientationsSimultaneousWinRequiresAtLeastSevenOwnerStones": true,
+    "P0EarliestPossibleDifferentOrientationDualWinMove": 13,
+    "P1EarliestPossibleDifferentOrientationDualWinMove": 14,
+    "difference": "Within-orientation interval Euler subtraction corrects overlap already on ply9; cross-direction four-leg Boolean inclusion-exclusion starts no earlier than owner seventh stone ply13/14."
+  },
+  "verification": {
+    "independentGlobalAllHistoryAggregation": "RUN local Python exact 49bit board key ranks0..10, every true original K4 physical winner absorbing, 16.79 sec; peakRSS ~361MB",
+    "separateEarlierUnfactoredOriginalK4FirstwinnerField": "MATCH all rank/flux/overlap counts, from previously committed independent global program",
+    "EulerPerDirectionSourceVsOriginalDirectAnyK4OnEveryCurrentLegalDrop": "PASS",
+    "completeness": "All actual firstwinfree alternating legal physical states and all legal next moves through ply10, not selected principal variations",
+    "maintainedCI": "NOT_RUN",
+    "exactGithubRunnerBytesExecutedUnderMaintainedNode26CI": "NOT_RUN",
+    "formalAssistant": "NOT_RUN",
+    "historicalStrong28OrRootSolverInput": false,
+    "independentRootP0WIN": false,
+    "qualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false
+  },
+  "nextResearch": "Lift Euler four-way emitter and 3-column local K4 tensor to action-indexed controlled transfer that respects existential P0/universal P1. Its moment closure under repeated time updates not yet proved, and perfect-root P0 forced WIN remains open."
+}
