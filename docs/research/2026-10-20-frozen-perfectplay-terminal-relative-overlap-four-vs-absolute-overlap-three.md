@@ -1,0 +1,10 @@
+# Frozen relative-quotient overlap amplification: 27=18+13−4, not 18+13−3
+
+Date 2026-10-20 PDT, canonical research/semantic-quotient. Source result is CONDITIONAL on historical center-five/ply41 terminal geometry. Exact already verified over Q: two original physical-terminal line-coordinate subspaces C=projected source four-step cycle modes dimension18 and J=13 eligible landing-cell stars have intersection3 and sum whole historical T28. The uniform line-coordinate vector u=1_T belongs to C+J (the whole28) BUT belongs to neither C nor J individually, as separately exact SymPy rank-augmentation controls showed. T28 has a connected physical eligible-landing overlap graph with relative coboundary d of rank27 and kernel span(u).
+
+Then image ranks rank(dC)=18, rank(dJ)=13 (neither contains u), while their total image rank27. Therefore in the ACTUAL RELATIVE graph-mode space the images overlap in 18+13−27=4 dimensions, not3. The extra one relative relation is exactly the mixed line-uniform gauge u. This gives two precise compatible but differently typed identities:
+  absolute selected line-coordinate space28 = 18+13−3;
+  RELATIVE selected winning-line mode space27 = 18+13−4.
+In rational reflection symmetry the absolute intersection3 decomposes1 even+2 odd, while relative intersection4 decomposes2 even+2 odd because the single additional gauge is reflection-even. This is the exact source of the transition 28→27 and makes the relation with 31=18+13 structurally explicit.
+
+CAUTION: The relative-overlap4 is NOT established equal to the original source 4D invisible physical spatial Fourier site-sum nullspace; the latter represents a different operator and has distinct Jx reflection characters (3even+1odd for original Fourier four-wave basis). Equal counts cannot be mistaken for natural isomorphism. The two 13D inputs also remain distinct: source13 base-gluing syzygy quotient and physical terminal13 landing-star space. No empty-root perfect WDL follows. Freeze before independent relative graph coboundary computation and exact reflection checks; preserve any negative.
