@@ -1,0 +1,24 @@
+# FROZEN: q-relative four-way junction Fourier rebasing and perfect-continuation frontier
+
+2026-10-20 Pacific. Canonical iteathen/Connect4 research/semantic-quotient. Research direction Josh Oshiro. The owner clarifies that any four-way interference frontier computed for the ORIGINAL EMPTY root applies to perfect-play continuations from that root, not wholesale to an arbitrarily reached nonterminal board. When applying the method to a new q, recompute all board-conditioned Fourier/junction and defender obligation signals, then seek perfect-continuation WDL from q (without pretending root-optimality of the preceding moves).
+
+Exact normalized Fourier four-leg ownership tensor for one actual physical cell with owner s in {0 EMPTY,1 P0,2 P1} and charge K=(k_H+k_V+k_R+k_F) mod3:
+  Jhat_s(K)=omega^(sK)/9, omega=exp(2pi*i/3).
+All 81 entries have magnitude1/9 for each KNOWN state including EMPTY. In contrast the UNWEIGHTED SUM over all three possible s gives (1/3)*indicator[K=0], i.e. 27 surviving and54 canceled charge tuples. Moving P0/P1 into a known empty physical cell changes its Fourier PHASE, not local spectral support; the full network's contractions and directional winning-line constraints are where incompatibility can emerge.
+
+At genuine firstwin-free current q with to-move player p and gravity frontiers x_c=(c,h_c), assign formal one-hot next-action variables a_c, sum_{legal c} a_c=1 and a_c*a_d=0 for distinct actions. The LOCAL Fourier tensor of possible next action at a frontier e=x_c is exactly
+  Jhat_next,e(K;a_c)=[1+a_c*(omega^(pK)-1)]/9.
+At currently occupied e keep Jhat_s(e); at empty sites not currently playable keep Jhat_0=1/9. Choosing one action a_c=1, others0 recovers the actual next board. Do not factor independent Bernoulli actions across different columns or treat formal sums as perfect-play distributions. Global actual owner/gluing/gravity/turn/firstwin constraints must accompany this local identity.
+
+From ALL original physical H,V,R,F K4 windows, define G_(p,o,e)(q)=number of unblocked original K4 windows in orientation o with exactly e missing (all three other sites Pp), including currently LATENT e. Record actual playable frontier F(q), direction-tagged playable g=1[e in F]G, and grade2 original two-missing requirements for early states. The rule for an opposing P1 move at x is: the set of playable P0 singleton K4 targets after x is (old playable P0 singleton target sites excluding x) union (newly released y directly above x, iff it was an old LATENT P0 singleton target). Player1 own firstwinning priority and real firstwin absorption are mandatory guards.
+
+At rank39 P1 to move, current-state one-round exact defender-insolvency certificate is TRUE iff P1 has no current immediate win and every legal P1 move leaves a playable P0 one-missing K4 target on the next ply. This is a true q-relative P0 win-in-two-plies certificate, NOT an unrestricted q-WDL solver.
+
+FROZEN falsifiers before controls:
+1. Independently build ORIGINAL 7x6 69 and6x6 54 K4 H/V/R/F windows, four aliases per real physical cell, exact known-owner Fourier 81 charges and one-hot action phases.
+2. Replay original one-based legal firstwin-free words 424 and 442 on7x6. They have identical column heights (center column4 height2, column2 height1) and identical to-move player, but DIFFERENT stone owners. Compare graded owner-specific two-missing K4 residual and junction-phase vectors. Their q-conditioned fields MUST differ; the EMPTY field/height-only representation cannot be reused.
+3. Replay historical accepted root-strong firstwinner 41-ply witness corpus ONLY for held-back q39 physical validation; recompute all owner/direction/physical-site one-missing fibers and one-round P1-defense insolvency. Construct legal same-height q39 alternatives via swapping consecutive different-column opposite-owner moves in earlier original histories; record any change in certificate without claiming earlier non-perfect history retains root optimality.
+4. Test equivalent ORIGINAL6x6 actual q and a few legal moves; fixed geometry differs in line count and player firstwinner context, but dynamic tensor changes correctly. Do not infer signed6x6 WDL from the local27/54 or restricted stationary defense pairing alone.
+5. Distinguish fixed source graph geometry from changed q owner phases, legal gravity frontier, surviving grade1/2 K4 obligations and firstwinner. Any eventual robust empty-root perfect-play game value needs a source proof of its strategy invariant. Do not reuse an empty-root perfect-play overlay as an exact WDL classifier at arbitrary q.
+
+Scope: Root-perfect P0 win means its strategy can guarantee WIN against all P1 responses, but an imperfect P1 response need not ALWAYS strictly shorten the game. Claims about distance-to-win require a separate theorem. Keep no Oracle labels in source producer. No production/qualified IsoGraph1.2 changes.
