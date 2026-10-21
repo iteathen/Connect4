@@ -1,0 +1,338 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "canonicalOwner": "iteathen/Connect4@research/semantic-quotient",
+  "status": "SOURCE_EXACT_GLOBAL_FIRSTWIN_FREE_GRAVITY_FIELD_THROUGH_RANK10_WITH_SPECTRAL_K4_MOMENTS",
+  "frozenBefore": "docs/research/2026-10-21-frozen-global-gravity-state-space-Z3-Fourier-transfer-and-robust-field-certificate.md",
+  "reproducers": [
+    "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-global-original7x6-early-rank-absorbing-Z3-Fourier-field.mjs",
+    "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-global-original7x6-oriented-absorbing-history-field-through10.py"
+  ],
+  "geometry": {
+    "board": "original 7x6 K4",
+    "truePhysicalCells": 42,
+    "originalHVRFK4Windows": 69,
+    "localColumnOwnerWords": "sum_(h=0..6)2^h = 127",
+    "gravityLegalColoringsBeforeAlternatingReachability": "127^7",
+    "gravityLegalColoringsInteger": 532875860165503,
+    "stateEncoding": "7 independent base128 local owner-column words each 7-bit sentinel 2^h plus owner0/1 occupied bits; 49-bit exact lossless integer",
+    "reflection": "Mirroring all 7 physical original columns preserves full path-count field at each rank checked0..7"
+  },
+  "field": {
+    "symbol": "Psi_t(q)",
+    "type": "nonnegative integer measure counting ALL alternating gravity-legal firstwinfree histories to current q",
+    "initial": "Psi_0(empty)=1",
+    "liveOperator": "Psi_(t+1)(q') = SUM_q SUM_(legal c with q'=q+(c,turn) AND no original firstwinning) Psi_t(q)",
+    "absorbingOwner0Owner1Channels": "Actual original firstwinning K4 after the appended physical turn p moves that path-count to F_p,t+1; no successor q.",
+    "bayesianInterpretation": "Not probability until transition is weighted by chosen conditional policy Pi_p(c|q); flat count is not optimal-play probability and cannot prove root game WDL.",
+    "spectralZ3": "Let physical label s_e=0 EMPTY,1 P0,2 P1; omega=e^(2pi i/3). M_t(k)=SUM_q Psi_t(q)*omega^(SUM_e k_e s_e(q)). Direct numerator pair (A,B) represents (2 Re M, (2/sqrt3)Im M) exactly as integers."
+  },
+  "exactRanks": [
+    {
+      "rank": 0,
+      "distinctFirstwinfreeBoards": 1,
+      "liveOrderedHistoryMass": 1
+    },
+    {
+      "rank": 1,
+      "distinctFirstwinfreeBoards": 7,
+      "liveOrderedHistoryMass": 7
+    },
+    {
+      "rank": 2,
+      "distinctFirstwinfreeBoards": 49,
+      "liveOrderedHistoryMass": 49
+    },
+    {
+      "rank": 3,
+      "distinctFirstwinfreeBoards": 238,
+      "liveOrderedHistoryMass": 343
+    },
+    {
+      "rank": 4,
+      "distinctFirstwinfreeBoards": 1120,
+      "liveOrderedHistoryMass": 2401
+    },
+    {
+      "rank": 5,
+      "distinctFirstwinfreeBoards": 4263,
+      "liveOrderedHistoryMass": 16807
+    },
+    {
+      "rank": 6,
+      "distinctFirstwinfreeBoards": 16422,
+      "liveOrderedHistoryMass": 117649
+    },
+    {
+      "rank": 7,
+      "distinctFirstwinfreeBoards": 54131,
+      "liveOrderedHistoryMass": 810504
+    },
+    {
+      "rank": 8,
+      "distinctFirstwinfreeBoards": 182383,
+      "liveOrderedHistoryMass": 5628804
+    },
+    {
+      "rank": 9,
+      "distinctFirstwinfreeBoards": 538774,
+      "liveOrderedHistoryMass": 38307690
+    },
+    {
+      "rank": 10,
+      "distinctFirstwinfreeBoards": 1618398,
+      "liveOrderedHistoryMass": 263770588
+    }
+  ],
+  "initialRanksHistoryMassProof": "For t<=6 all 7^t physical column-choice words are legal; cannot overfill a column before its seventh drop and neither player can own4 stones (P0 fourth turn first at ply7), so no firstwin absorptions. Starting rank3 distinct boards 238 vs343 histories evidences transposed order histories collapse into a single field board.",
+  "ownerZ3CenterBottomExactNumerator": [
+    {
+      "rank": 0,
+      "twiceReNumerator": 2,
+      "twoOverSqrt3ImNumerator": 0
+    },
+    {
+      "rank": 1,
+      "twiceReNumerator": 11,
+      "twoOverSqrt3ImNumerator": 1
+    },
+    {
+      "rank": 2,
+      "twiceReNumerator": 59,
+      "twoOverSqrt3ImNumerator": 1
+    },
+    {
+      "rank": 3,
+      "twiceReNumerator": 305,
+      "twoOverSqrt3ImNumerator": 43
+    },
+    {
+      "rank": 4,
+      "twiceReNumerator": 1487,
+      "twoOverSqrt3ImNumerator": 85
+    },
+    {
+      "rank": 5,
+      "twiceReNumerator": 6521,
+      "twoOverSqrt3ImNumerator": 1891
+    },
+    {
+      "rank": 6,
+      "twiceReNumerator": 22319,
+      "twoOverSqrt3ImNumerator": 5461
+    },
+    {
+      "rank": 7,
+      "twiceReNumerator": 27036,
+      "twoOverSqrt3ImNumerator": 73692
+    },
+    {
+      "rank": 8,
+      "twiceReNumerator": -617604,
+      "twoOverSqrt3ImNumerator": 267792
+    }
+  ],
+  "originalTwoSiteZ3OrientationMoments": {
+    "rank6": {
+      "H": [
+        -23254,
+        0
+      ],
+      "V": [
+        50633,
+        -4735
+      ],
+      "R": [
+        308,
+        5474
+      ],
+      "F": [
+        308,
+        -5474
+      ]
+    },
+    "rank7": {
+      "H": [
+        -169278,
+        0
+      ],
+      "V": [
+        294282,
+        31530
+      ],
+      "R": [
+        -89433,
+        52401
+      ],
+      "F": [
+        -85545,
+        -49425
+      ]
+    },
+    "physicalRepresentativePairsOneBased": {
+      "H": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "V": [
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "R": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "F": [
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    "momentFormat": "[2Re(sum weighted omega^(s_e-s_f)), (2/sqrt3)Im(sum weighted omega^(s_e-s_f))]. Owner phase Z3, separate from prior Z4 gravity support Fourier."
+  },
+  "winnerAbsorbedFluxByPly": [
+    {
+      "ply": 7,
+      "winner": "P0",
+      "firstwinHistories": 13032,
+      "K4IncidenceByOrientation": {
+        "H": 11520,
+        "V": 1512,
+        "R": 0,
+        "F": 0
+      },
+      "multipleK4SameWinningMoveHistoryMass": 0,
+      "nonterminalHistoryMassAfter": 810504,
+      "nonterminalBoardsAfter": 54131
+    },
+    {
+      "ply": 8,
+      "winner": "P1",
+      "firstwinHistories": 44430,
+      "K4IncidenceByOrientation": {
+        "H": 34272,
+        "V": 10158,
+        "R": 0,
+        "F": 0
+      },
+      "multipleK4SameWinningMoveHistoryMass": 0,
+      "nonterminalHistoryMassAfter": 5628804,
+      "nonterminalBoardsAfter": 182383
+    },
+    {
+      "ply": 9,
+      "winner": "P0",
+      "firstwinHistories": 1086882,
+      "K4IncidenceByOrientation": {
+        "H": 940884,
+        "V": 223110,
+        "R": 0,
+        "F": 0
+      },
+      "multipleK4SameWinningMoveHistoryMass": 77112,
+      "nonterminalHistoryMassAfter": 38307690,
+      "nonterminalBoardsAfter": 538774
+    },
+    {
+      "ply": 10,
+      "winner": "P1",
+      "firstwinHistories": 4261058,
+      "K4IncidenceByOrientation": {
+        "H": 2953464,
+        "V": 1453266,
+        "R": 1072,
+        "F": 1072
+      },
+      "multipleK4SameWinningMoveHistoryMass": 147816,
+      "nonterminalHistoryMassAfter": 263770588,
+      "nonterminalBoardsAfter": 1618398
+    }
+  ],
+  "earlyGlobalK4OwnerGrade3Intensity": {
+    "atRank6BeforeP0Ply7": {
+      "H": 11520,
+      "V": 1512,
+      "R": 0,
+      "F": 0,
+      "total": 13032,
+      "allImmediatelyPlayable": true,
+      "nextP0FirstwinningHistoryMass": 13032
+    },
+    "atRank7BeforeP1Ply8": {
+      "H": 34812,
+      "V": 10158,
+      "R": 112,
+      "F": 112,
+      "total": 45194,
+      "playableFirstwinningFluxByOrientation": {
+        "H": 34272,
+        "V": 10158,
+        "R": 0,
+        "F": 0
+      },
+      "nonplayableLatentOriginalK4MassByOrientation": {
+        "H": 540,
+        "V": 0,
+        "R": 112,
+        "F": 112
+      },
+      "latentOwnerK4Total": 764,
+      "actualP1FirstwinningHistoryMass": 44430
+    },
+    "theorem": "At first 4-stone owner completion each distinct original K4 grade3 requirement maps to its unique missing physical site: no terminal move can complete two different K4s with only4 total owned stones, so original live grade3 weighted K4 intensity = next physical original firstwin absorption mass + non-playable latent owner-grade3 K4 intensity. After each player may already own5 stones, simultaneous completion of overlapping K4 windows causes raw incidence overcount, starting ply9."
+  },
+  "nonlinearFirstwinIncidenceCorrection": {
+    "ply9": {
+      "originalWinningWindowIncidences": 1163994,
+      "distinctPhysicalFirstwinningHistories": 1086882,
+      "overlapDoubleK4": 77112,
+      "allDoubleCompletionsSameOrientation": true
+    },
+    "ply10": {
+      "originalWinningWindowIncidences": 4408874,
+      "distinctPhysicalFirstwinningHistories": 4261058,
+      "overlapDoubleK4": 147816,
+      "allDoubleCompletionsSameOrientation": true
+    },
+    "sourceRequirement": "Physical firstwinner flux is Boolean OR over actual K4 completions, not sum of independent line intensities. From ply9 there are correlated double K4 coincidences; inclusion-exclusion/line-intersection tensors matter."
+  },
+  "qualification": {
+    "allSourcesOriginalBoardAndRules": true,
+    "solvedConnect4OracleQueried": false,
+    "historicalStrong28FixtureUsed": false,
+    "independentLocalPythonFullFieldThroughRank8": "RUN 5.51 seconds (local)",
+    "independentLocalPythonOrientedFluxThroughRank10": "RUN 16.56 seconds with measured peak about361MB",
+    "originalPhysicalWinnerCheckedByAllK4Incidence": true,
+    "originalReflectionAllStatePairs0Through7": "RUN PASS",
+    "committedStandaloneJSExactGithubBytesRunUnderMaintainedNode26CI": "NOT_RUN",
+    "committedStandalonePythonExactGithubBytesRunUnderMaintainedCI": "NOT_RUN",
+    "thirdPartyFormalAssistant": "NOT_RUN",
+    "rootPerfectP0WINIndependentlyEstablished": false,
+    "qualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false
+  },
+  "nextTarget": "Construct robust controlled-invariant Fourier/tensor observable cone on WHOLE physically/legal board-state field, whose P0 choice/forall P1 policy preservation can be proved source algebraically. Averages, owner one-point/two-point moments or line counts alone cannot imply P0 optimal forced outcome. Need moment-closure proof/falsifier and geometric proof of adversarial support inevitability."
+}
