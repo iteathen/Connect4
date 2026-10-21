@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "ORIGINAL7X6_CONDITIONAL_CENTER_FIVE_P0_FORCES_BOTH_P1_BOTTOM_WING_REPAIRS_BY_PLY10_OR_P0_WIN11_PLUS_GRAVITY_SUPPORT_DONATION",
+  "frozenBefore": "docs/research/2026-10-21-frozen-five-center-P0-forces-both-P1-bottom-wing-repairs-by10-or-win11-support-transfer.md",
+  "sourceCurrentBoard": "44444",
+  "sourceOriginalWinningLineGeometry": "69 original unwrapped H/V/R/F K4, one owner per physical site",
+  "historicalStrong28Used": false,
+  "gameSolverRootValuesUsed": false,
+  "sourceTheorem": {
+    "guard": "Actual firstwin-free original7x6 firstfive literal 44444; P0 center physical row1,row3,row5, P1 center row2,row4; P1 ply6 to move.",
+    "wingSets": {
+      "LEFT": [
+        1,
+        2,
+        3
+      ],
+      "RIGHT": [
+        5,
+        6,
+        7
+      ]
+    },
+    "claim": "Exists literal legal online P0 policy ensuring FOR ALL P1 legal moves6,8,10: either P0 FIRSTWINS on/before move11 or P1 has claimed at least one physical bottom-cell site in EACH wing by ply10.",
+    "ifP1move6OuterWing": "Choose fully untouched opposite 3-cell wing; P0 takes its 3 bottom cells on7,9,11 unless P1 first claims a bottom of that wing on8 or10. P1 move6 already occupies initial wing. P1 has no possible firstwin before12.",
+    "ifP1move6Center": "P1 takes center column4 top row6. P0 move7 c5 bottom. On P1 ply8 the source P4 second-cofactor requires c3 orc6 as timely pivot blocker, otherwise P0 picks third source bottom pivot c3 orc6 on9, giving two independent P0 winning final cells on11. If P1 chose c3 on8, P0 c6 on9 forces P1 c7 on10; if P1 chose c6 on8, P0 c3 on9 forces P1 c2 on10. Thus both sides' P1 bottom blockers acquired by10 or P0 wins by11."
+  },
+  "sourceOwnerGradeAfter44444": {
+    "P0SourceViableK4ByMissingOriginalSites": {
+      "3": 24,
+      "4": 24
+    },
+    "P1SourceViableK4ByMissingOriginalSites": {
+      "3": 18,
+      "4": 24
+    },
+    "noSourceViableK4WithMissing0To2": true,
+    "P0Grade3MinimumSupportDebt": 0,
+    "P1Grade3MinimumSupportDebt": 3,
+    "P1CannotFirstwinBeforePly12": "No P1 owner source residual has k<3, P1 has only plies6,8,10 before11, and all its grade3 K4 sources need >=3 distinct still-empty physical gravity supports as well. By ply10 only5 physical new cells have been filled since q5, while k+d>=6 for every grade3 P1 source; grade4 needs four P1 turns, next at12.",
+    "possibleEarliestSourceFirstwinnerPlies": {
+      "P0": 11,
+      "P1": 12
+    },
+    "sourceCompleteLegalFirstwinnerWitnesses": {
+      "P0": "44444151617",
+      "P1": "444441213263"
+    },
+    "note": "The same earliest win timing can be witnessed on6x6 after 44444, despite opposite known perfect root winner; this conditional source tempo asymmetry alone is NOT a signed root WDL proof."
+  },
+  "independentPhysicalControl": {
+    "W7ActualOriginalK4Lines": 69,
+    "testedP1Move6Columns": 7,
+    "P1move6OuterBranchesExaminedOnMove8": 42,
+    "P1move6OuterAlreadyRepairedByMove8": 12,
+    "allP1Move10FullBranchesChecked": 240,
+    "remainingP1NoOppositeWingRepairP0WinsMove11": 202,
+    "remainingP1BothWingRepairedByMove10": 38,
+    "P1BothWingRepairedByMove8": 12,
+    "totalP1ShortResponseCases": 252,
+    "numberCounterexamplesToDisjunction": 0,
+    "P1OriginalK4FirstwinnerByMove10": 0,
+    "sampleP0WinsPly11": "44444151617",
+    "sampleBothWingSuccessfulRepairPrefix": "4444415167",
+    "note": "Bounded source P0 forcing policy checked with independent real original-window and true-directional ray FIRSTWIN verifiers. This is NOT a full root game solver."
+  },
+  "gravitySupportTransfer": {
+    "ownerP0OriginalCurrentState": "center physical P0 stones in rows1,3,5, P1 center in2,4",
+    "wingBottomP1MoveC": "For c!=4 on original bottom row, source count a_c is number of original 4-column horizontal windows containing both c and center c4.",
+    "columnWeightC": {
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "5": 3,
+      "6": 2,
+      "7": 1
+    },
+    "sourceExactPerP1BottomMove": {
+      "row1": "P1 bottom site is a REQUIRED owner-P0 cell in exactly a_c original row1 H K4s through P0-owned center; blocks these K4s permanently.",
+      "row3": "P1 bottom is one GRAVITY SUPPORT below required row3 sites in exactly a_c still-live original H K4s through P0 center (c4,r3); their support debt decreases1 per line without P1 blocking the K4 itself.",
+      "row5": "Likewise exactly a_c still-live original H K4s through P0 center (c4,r5) each lose one gravity support prerequisite.",
+      "guard": "No P1 row3/row5 stones have blocked those higher row K4 windows; applies to all P1 forced bottom-repair episodes tested through ply10."
+    },
+    "crossWingConsequence": "At least one P1 bottom repair in each of left and right wing advances gravity support of the two distinct EXTREME source K4 windows columns1..4 and4..7 in EACH upper P0-owned center row3 and row5, while they stay live. Four distinct P0 original K4 sources acquire additional gravity support.",
+    "w6Contrast": "Original6x6 has only two right-wing columns5,6 after center4; the untouched 3-cell right-wing source policy used above is not available. No W6 two-wing forced result claimed."
+  },
+  "limits": [
+    "All claims conditioned on physical prefix44444, itself not independently derived as forced perfect play from empty.",
+    "Advancing a source K4 gravity prerequisite does NOT mean that its owner can force the remaining stones, and does not entail game WIN.",
+    "Historical strong28, firstwinner ply41 and solved-root game value are strictly held-out context and not used in derivation.",
+    "Maintained Node26 CI and external formal proof assistant NOT RUN; no production solver or qualified IsoGraph logic change."
+  ]
+}
