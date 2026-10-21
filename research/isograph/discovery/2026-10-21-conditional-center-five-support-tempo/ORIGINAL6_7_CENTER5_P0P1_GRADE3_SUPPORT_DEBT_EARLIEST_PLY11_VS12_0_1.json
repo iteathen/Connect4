@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "CONDITIONAL_ORIGINAL6_7_CENTERFIVE_OWNER_K4_GRADE_SUPPORT_TEMPORAL_LOWER_BOUND_EXACT",
+  "frozen": "docs/research/2026-10-21-frozen-conditional-five-center-source-graded-P0P1-gravity-support-tempo-asymmetry.md",
+  "reproducer": "research/isograph/discovery/2026-10-21-conditional-center-five-support-tempo/verify-original6-7-five-center-owner-grades-support-earliest-wins.py",
+  "scope": "Original H=6, K=4, W6 andW7 all source physical unwrapped H/V/R/F K4 windows, conditional actual physical firstwinfree onebased word 44444 only; not source-derived optimal opening.",
+  "boards": {
+    "6x6": {
+      "lines": 54,
+      "P0": {
+        "liveByRequiredNewStones": {
+          "3": 18,
+          "4": 19
+        },
+        "grade3DebtHistogram": {
+          "0": 3,
+          "4": 2,
+          "6": 5,
+          "8": 2,
+          "10": 2,
+          "12": 4
+        },
+        "minimumDebt": 0
+      },
+      "P1": {
+        "liveByRequiredNewStones": {
+          "3": 14,
+          "4": 19
+        },
+        "grade3DebtHistogram": {
+          "3": 4,
+          "5": 2,
+          "7": 2,
+          "9": 4,
+          "11": 2
+        },
+        "minimumDebt": 3
+      },
+      "earliestOriginalFirstwinnerPossible": {
+        "P0": 11,
+        "P1": 12
+      },
+      "trueLiteralFirstwinFreeUntilFinalExamples": {
+        "P0": "44444131516",
+        "P1": "444441213263"
+      }
+    },
+    "7x6": {
+      "lines": 69,
+      "P0": {
+        "liveByRequiredNewStones": {
+          "3": 24,
+          "4": 24
+        },
+        "grade3DebtHistogram": {
+          "0": 4,
+          "4": 2,
+          "6": 8,
+          "8": 2,
+          "10": 2,
+          "12": 6
+        },
+        "minimumDebt": 0
+      },
+      "P1": {
+        "liveByRequiredNewStones": {
+          "3": 18,
+          "4": 24
+        },
+        "grade3DebtHistogram": {
+          "3": 6,
+          "5": 2,
+          "7": 2,
+          "9": 6,
+          "11": 2
+        },
+        "minimumDebt": 3
+      },
+      "earliestOriginalFirstwinnerPossible": {
+        "P0": 11,
+        "P1": 12
+      },
+      "trueLiteralFirstwinFreeUntilFinalExamples": {
+        "P0": "44444151617",
+        "P1": "444441213263"
+      }
+    }
+  },
+  "proof": "After original center-five, every original P0/P1 K4 with >=2 same-owner center stones is VERTICAL and intersects opponent center stone, so all source live lines need at least3 new owner stones. A P0 zero-support-debt grade3 H row1 source may firstwin on its third future turn at11; no sooner. Every P1 grade3 source needs >=3 other distinct physical support cells, so at least6 new placements since rank5 are required, earliest11 by total capacity but P1 only moves even (6,8,10,12), first eligible12; P1 grade4 needs4 P1 future turns also12. Concrete firstwin-stopped 11/12 words attain these bounds.",
+  "meaning": "The identical 11/12 POSSIBLE earliest win plies on W6 and W7 show simple support timing or presence of low-debt P0 H K4 windows is NOT independently a signed WDL classifier. P0/P1 ability to enforce time deadlines is distinct from existence of a legal cooperative win witness.",
+  "verification": {
+    "independentOriginalAllWindowOwnerDebt": "RUN locally via pure Python",
+    "physicallyActualFirstwinnerWitnesses": "RUN local K4 and true ray checks",
+    "sourceScriptCommitted": true,
+    "exactCheckedInBytesUnderCI": "NOT_RUN",
+    "formalProofAssistant": "NOT_RUN",
+    "qualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false
+  },
+  "rootNonsearchWinnerProved": false
+}
