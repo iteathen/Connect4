@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "branch": "research/semantic-quotient",
+  "status": "EXACT_ORIGINAL7X6_ONE_ROUND_RANK38_P0_WIN_BY41_MOVE_SET_ON_HISTORICALLY_STRONG_ROOT_PARENTS__NO_EMPTY_ROOT_WDL",
+  "prereg": "docs/research/2026-10-20-frozen-perfect-play-rank38-P0-source-WIN-by41-all-equivalent-moves.md",
+  "sourceTheorem": {
+    "scope": "Genuine original 7x6 K4 nonterminal rank38 q, P0 to play with 4 physical cells empty; firstwinner stops play.",
+    "P0winningMoveSet": "Every legal P0 landing x that immediately firstwins on ply39 OR leaves rank39 q+x with P1 no immediate win on40 and every physically legal P1 reply has at least one immediately playable P0 K4 target on move41.",
+    "rank39OneMoveSourceIdentity": "P0 legal one-missing targets after P1 reply y = (P0 current playable targets minus {y}) union (immediately released above(y) if P0 one-missing K4 target was latent at that physical cell).",
+    "guarantee": "Every returned x forces real P0 FIRSTWIN at ply39 or41 against all legal P1 play; every omitted x fails to force P0 WIN by ply41, although remaining P1 WIN versus DRAW is separate.",
+    "notRecursiveWDL": "This uses true original K4 residuals and local gravity cofactor only, without consulting Oracle values or recursively valuing inequivalent game successor states."
+  },
+  "heldBackHistoricSourceControls": {
+    "archivedRootStrongFullP0FirstwinningWords": 27,
+    "uniqueRank38P0ToMoveParents": 27,
+    "allActualLegalP0ActionsFromThem": 57,
+    "immediateP0WinPly39Moves": 0,
+    "sourceCertifiedForcedP0WinBy41Actions": 39,
+    "nonCertifiedP0Actions": 18,
+    "historicallyChosenP0Move39IncludedInCertifiedSet": 27,
+    "additionalPerfectEquivalentForcedWinBy41P0Actions": 12,
+    "distinctRank39P1ToMovePositionsAfterCertifiedP0Actions": 39,
+    "totalActualP1DefenderMove40AlternativesFromThese": 61,
+    "P1ImmediateFirstwinnerResponses": 0,
+    "P1ResponsesEscapingImmediateP0FirstwinnerMove41": 0,
+    "distinctP0ImmediateWinOriginalK4LineIdentities": 28,
+    "all28MatchingHistoricalStrongLineSet": true,
+    "rank38RemainingCapacityPatterns": {
+      "3+1": 21,
+      "2+2": 3,
+      "2+1+1": 3
+    },
+    "rank39AfterSourceExpansionRemainingCapacityPatterns": {
+      "3": 20,
+      "2+1": 16,
+      "1+1+1": 3
+    },
+    "P1DefensiveFailureMechanisms": {
+      "twoOrMoreDistinctPlayableP0Targets": 10,
+      "onePlayableTargetAndBlockingReleasesAnother": 13,
+      "noPlayableTargetAndAllP1ActionsReleaseWinningCell": 16
+    },
+    "all12AdditionalRank39SourcesHaveThreeLastCellsInOneColumn": true,
+    "P1MustPlayLastOpenColumnAndReleaseP0WinningSite": true
+  },
+  "incidenceAndGraph": {
+    "archived27Rank39ParentBy28PossibleWinningLineIndicatorRank": 27,
+    "expanded39Rank39ParentBy28PossibleWinningLineIndicatorRank": 28,
+    "expanded61P1ResponseBy28PotentialP0WinningLineUnionRank": 28,
+    "expanded61ResponseBy13PhysicalWinningLandingSitesRank": 13,
+    "fieldsTested": [
+      "GF1013",
+      "GF1009",
+      "GF2"
+    ],
+    "defensiveAlternativeLineGraphExpanded39": {
+      "vertices": 28,
+      "edges": 42,
+      "components": 1,
+      "cycleRank": 15,
+      "relativeRank": 27
+    },
+    "historical27GraphBeforeExpansion": {
+      "vertices": 28,
+      "edges": 42,
+      "components": 1,
+      "cycleRank": 15,
+      "relativeRank": 27
+    },
+    "sourceDifference": "The 27 representative-rank39 parents give apparent row rank27 but additional12 equally winning q39 make it28; the graph 28-line relative rank27 remains connected and stable under this expansion.",
+    "note": "Each P1-response event row marks all possible P0 immediate FIRSTWIN line identities across any next P0 winning landing; this is not necessarily one simultaneous line completion at one landing."
+  },
+  "conditionalOptimality": "Root-perfect-play status of rank38 sources is imported from historical qualified 41-ply strong-optimal witness corpus. Source 39-action certification proves equal forced 41-ply P0 win timing at those q38 states, not P0 empty-root forced selection without earlier history.",
+  "synthesis": "Conditional center firstfive/ply41 geometry gives 28=18 original four-step syzygy cycle projected modes+13 original final landing-site physical incidence stars-3 overlap, relative27; 31 full source syzygies=18 cycles+13 DIFFERENT base-gluing quotient. Combined with exact rank39 P1 response failure, this is a more concrete but still conditional structural account of the perfect P0 WIN.",
+  "qualification": {
+    "independentConnectorJSOriginalPhysicalOnePly": "RUN",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalProofAssistant": "NOT_RUN",
+    "qualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false,
+    "universalNonbranchingEmptyRootWDL": "OPEN"
+  }
+}
