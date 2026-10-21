@@ -1,0 +1,12 @@
+# FROZEN original7x6 early exact double-ended horizontal K4 fork after source prefix 445 (P0 center, P1 center, P0 right)
+
+2026-10-21 PDT, canonical research/semantic-quotient, research direction Josh Oshiro. Source original W7 H6 K4, true gravity, alternating turn, firstwinner, all69 true H/V/R/F physical windows; no history Oracle, no root-WDL data. Study one specified legal source prefix P0 col4, P1 col4, P0 col5 (one-based word445), rank3 P1 to move, as an exact early *necessary defensive compatibility* case, not a claim P0 c5 is root-optimal.
+
+If P1 ply4 does NOT claim bottom c3,c6,c7, then current c3,c6,c7 all remain physically empty. P0 can claim c6 bottom on ply5. This gives P0 three CONSECUTIVE physical bottom stones c4,c5,c6 and both original K4 final winning sites c3 bottom (c3..c6) and c7 bottom (c4..c7) simultaneously playable. P1 on ply6 has only one stone, cannot occupy BOTH independent physical landing cells, and cannot firstwin on ply6 (would have just three P1 stones). P0 firstwins on ply7 regardless P1 ply6 choice. This gives an exact source fourth-move DEFENSIVE COMPATIBILITY clause:
+  P1 c4th move must lie in {c3,c6,c7} to have any chance of preventing a P0 win by7 against this P0 strategy.
+
+If P1 c3 on ply4, P0 c6 on5 makes sole immediate target c7; P1 must reply c7 on ply6 or P0 wins on7. Symmetrically P1 c7 on ply4 gives sole c3 on ply6. If P1 c6 on4, that cell is blocked and P0 cannot carry out this particular run extension. These are necessary local defensive moves, not a global nonlosing policy. All original H/V/R/F line claims are tested with true original gravity and independent directional ray to exclude hidden earlier firstwinners.
+
+Falsify source by checking all seven original P1 ply4 columns, P0 ply5 c6 if still physically available, all P1 reply columns on ply6. For the four excluded P1 ply4 choices c1,c2,c4,c5, there should always be TWO distinct next P0 source K4 landing sites c3,c7 and no possible P1 reply killing both; for P1 c3/c7 the other edge site becomes a compulsory opponent response, and P1 c6 stops this specific fork. No Connect4 game solver or solved-historical28 data in source producer.
+
+Root 7x6 independent forced-WIN remains OPEN. This is a new local two-sided *capacity TWO vs ONE defensive response* real early original geometry certificate, and should be carried into an invariant without enumerating all inferior moves.
