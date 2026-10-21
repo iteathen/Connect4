@@ -1,0 +1,144 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "branch": "research/semantic-quotient",
+  "status": "RESEARCH_VERIFIED_CONDITIONAL_TERMINAL_GEOMETRY__NOT_EMPTY_ROOT_WDL",
+  "preregistered": "docs/research/2026-10-20-frozen-perfect-play-conditional-T28-equals-cycle18-plus-landing13-minus-overlap3.md",
+  "reproducer": "research/isograph/discovery/2026-10-20-interference-number-atlas/verify-perfectplay-source18-plus-landing13-minus3-and-P1-rank39-obligations.mjs",
+  "source": {
+    "originalK4LineCount": 69,
+    "originalRationalIncidenceRank": 38,
+    "fullOriginalSyzygyDim": 31,
+    "originalSourceFourStepDipoleCycleDim": 18,
+    "originalStrandBaseGluingQuotientDim": 13
+  },
+  "conditionalSourceTerminal": {
+    "historicalConditions": "7x6 first five center-column drops, P0 firstwins on move41; NOT derived from empty",
+    "eligibleLandingSites": 13,
+    "sourceGeneratedP0WinningLineIDs": 28,
+    "sourceCycle18ProjectionRank": 18,
+    "physicalLandingStarRank": 13,
+    "combinedRank": 28,
+    "intersection": 3,
+    "terminalConnectedLineRelativeRank": 27,
+    "terminalLineSiteBipartite": {
+      "nodes": 41,
+      "edges": 58,
+      "components": 1,
+      "cycles": 18
+    },
+    "exactIdentities": [
+      "28=18 source-cycle modes+13 physical-landing modes-3 actual subspace overlap",
+      "27=18+13-3-1, subtract global constant line potential"
+    ],
+    "symmetry": {
+      "sourceCycle18": {
+        "even": 8,
+        "odd": 10
+      },
+      "landingStar13": {
+        "even": 7,
+        "odd": 6
+      },
+      "intersection3": {
+        "even": 1,
+        "odd": 2
+      },
+      "selectedLine28": {
+        "even": 14,
+        "odd": 14
+      },
+      "relativeLine27": {
+        "even": 13,
+        "odd": 14
+      },
+      "bipartiteTerminalCycle18": {
+        "even": 9,
+        "odd": 9
+      },
+      "distinct18SpacesNotReflectionEquivariantlyIsomorphic": true
+    },
+    "sourceKernelProjection": {
+      "sourceKerDim": 31,
+      "omittedOnlyKerDim": 9,
+      "projectedOntoHistoricTerminal28Dim": 22,
+      "sourceCyclePart": 18,
+      "additionalBaseGluingDirections": 4,
+      "sourceProjected22AndLanding13IntersectionDim": 7,
+      "projected22PlusLanding13Rank": 28,
+      "sourceProjected22EvenOdd": [
+        11,
+        11
+      ],
+      "uniformLinePotentialInsideSourceProjection": false,
+      "uniformLinePotentialInsideLandingSpan": false,
+      "uniformLinePotentialInsideCombined28": true,
+      "related": [
+        "31=9+22",
+        "22=18+4",
+        "28=22+13-7",
+        "28=18+13-3",
+        "27=22+5"
+      ]
+    },
+    "controls": [
+      "exact SymPy rational 28x31 rank18,13,28 and nullity3",
+      "independent modular ranks 2,1009,1013",
+      "independent physical four-step cycle18 generation",
+      "real horizontal reflection symmetry comparison"
+    ]
+  },
+  "historicalDefenderValidation": {
+    "actualPerfect41WitnessWords": 27,
+    "rank39P1MoverSources": 27,
+    "P1Move40LegalAlternatives": 49,
+    "P1FirstwinsOnMove40": 0,
+    "P1SafeResponses": 0,
+    "P0PossibleFirstwinLineLabelsAfterP1Replies": 28,
+    "rankOf49ResponseLineUnionRows": 28,
+    "rankOf49ResponseLandingRows": 13,
+    "rankOf27ParentLineUnionRows": 27,
+    "defenderFailureKinds": {
+      "forkTwoDistinctTargets": 10,
+      "uniqueTargetUpperRelease": 9,
+      "noCurrentTargetCompulsoryRelease": 8
+    },
+    "remainingCapacityPatterns": {
+      "3": 8,
+      "2+1": 16,
+      "1+1+1": 3
+    },
+    "defenderAlternativeLineGraph": {
+      "vertices": 28,
+      "edges": 42,
+      "components": 1,
+      "relativeRank": 27,
+      "cycleRank": 15
+    },
+    "sameResponseCoCompletionGraph": {
+      "vertices": 28,
+      "edges": 21,
+      "components": 13,
+      "cycleRank": 6
+    },
+    "scope": "27 historical representative words are a biased selected witness cohort, not exhaustive all-perfect root play",
+    "rowDefinition": "A P1 response row contains UNION of winning line labels over all alternative P0 next-move FIRSTWIN choices; not necessarily simultaneous line completions."
+  },
+  "separations": [
+    "13 source base-gluing quotient and 13 physical terminal landing signals are not proven the same space",
+    "18 four-step source dipole cycles and 18 terminal bipartite first-homology have different reflection characters; not canonically same",
+    "historically selected28/41 firstwinner conditions remain unproved from the original EMPTY root",
+    "31 dependencies encode original winning-line relations, NOT 31 simultaneous defensive obligations"
+  ],
+  "next": "Find source-only empty-root invariant forcing perfect P1 to exhaust/lose response capacity by deriving online coupling of 31 owner residual cofactor modes and physical gravity-released landing-site obligations.",
+  "qualification": {
+    "independentExactSympy": "RUN",
+    "independentSourceJS": "RUN",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalProofAssistant": "NOT_RUN",
+    "committedNodeReproducerExactBytes": "NOT_RUN",
+    "productionSolverChanged": false,
+    "qualifiedIsoGraph1p2Changed": false,
+    "universalNonsearchWDL": "OPEN"
+  }
+}
