@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "COMPLETE_ANY_RANK_ORIGINAL7X6_P1_MOVER_P0_FORCE_FIRSTWIN_NEXT4_K4_GRADE1_2_BOOLEAN",
+  "frozenBeforeTests": "docs/research/2026-10-21-frozen-complete-any-P1-turn-P0-mate4-original-grade12-cofactor-logic.md",
+  "proof": "docs/research/2026-10-21-complete-original7x6-P1-turn-four-ply-P0-force-win-grade12-cofactor-Boolean.md",
+  "reproducer": "research/isograph/discovery/2026-10-21-q18-highrow-P4-crossing/verify-original7x6-P1-current-mate4-full-grade12-cofactor-and-physical-rays.py",
+  "original": {
+    "width": 7,
+    "height": 6,
+    "lengthToWin": 4,
+    "physicalSites": 42,
+    "originalK4Windows": 69,
+    "directions": [
+      "H",
+      "V",
+      "R",
+      "F"
+    ],
+    "oneOwnerPerPhysicalSite": true,
+    "gravity": true,
+    "alternating": true,
+    "firstWinnerStops": true,
+    "previousSolvedGameValuesUsedInProducer": false,
+    "historicalStrong28UsedInProducer": false
+  },
+  "exactSourceMath": {
+    "U_p": "OR original K4 L with only physical site e empty and all other3 owner-p",
+    "V_p": "OR original K4 L with precisely distinct physical e,f empty and other2 owner-p",
+    "onInitialP1_x": {
+      "P1WinsImmediatelyIf": "U1(x)",
+      "P0SingletonOnOtherRemainingCells": "U0_after_x(e)=U0(e)",
+      "P0TwoMissingOnOtherRemainingCells": "V0_after_x(e,f)=V0(e,f)",
+      "P1SingletonOnOtherRemainingCells": "U1_after_x(e)=U1(e) OR V1(x,e)",
+      "gravity": "h_after_x increments column of x"
+    },
+    "onFollowingP0_z": {
+      "P0WinsImmediatelyIf": "U0_after_x(z)",
+      "P0SingletonOnOtherRemainingCells": "U0_after_xz(e)=U0_after_x(e) OR V0_after_x(z,e)",
+      "P1SingletonOnOtherRemainingCells": "U1_after_xz(e)=U1_after_x(e)",
+      "gravity": "h_after_xz increments column of z"
+    },
+    "I_P0": "At P1 to move and real h: no P1 directly firstwinning landing AND (>=2 DISTINCT playable P0 singletons OR exactly one P0 playable singleton in c plus latent original P0 singleton directly above it OR zero P0 playable singletons and EVERY legal P1 column c has P0 latent singleton directly above current landing).",
+    "completeBoolean": "P0WINwithinNEXT4(q)=AND_current_legal_P1_x[ NOT U1(x) AND OR_current_legal_P0_z_after_x ( U0_after_x(z) OR I_P0(h_after_xz,U0_after_xz,U1_after_xz)) ]",
+    "logicType": "Necessary and sufficient for P0 FIRSTWIN in at most four consecutive legal plies, beginning at a genuine firstwinfree P1-to-move original board; bounded owner-cofactor algebra and current one-hot column heights; NOT full game-tree solve and NOT empty-root theorem."
+  },
+  "independentChecks": {
+    "saturatedQ18Face": {
+      "trueFirstwinfreeDistinctQ18PhysicalBoards": 161,
+      "q19AfterP0CurrentC3OrC5": 322,
+      "sourceForcedP0FirstwinBy23": 98,
+      "sourceNotGuaranteedP0FirstwinBy23": 224,
+      "independentlyPhysicalRayForcedP0FirstwinBy23": 98,
+      "sourceVsIndependentPhysicalMismatches": 0,
+      "previousSimplerTwoStageCertificateDetected": 84,
+      "newRecoveredAdditionalSourceWinnerCases": 14,
+      "all14OldCurrentImmediateP0AndP1SitesEmpty": true
+    },
+    "prior14MissSourceWitnessDistribution": {
+      "P1ActualFirstRepliesTotal": 84,
+      "P1SupportDonationExposesPriorLatentP0SingletonAndP0Wins21": 9,
+      "P0Ply21PromotesOriginalGrade2ToAtLeast2DistinctPlayableSingletonsAndWins23": 56,
+      "P0Ply21CreatesPlayableSingletonPlusUpperLatentReleaseAndWins23": 19,
+      "sumMatches84": true,
+      "oneChosenSourceAnswerPerP1Reply": "First certified Player0 answer in ascending current legal column order; categories not unique decomposition over all equivalent P0 winning responses.",
+      "examplePreviouslyMissingQ18Word": "444443251621356477",
+      "exampleP0Move19Column": 3
+    },
+    "unrestrictedOriginalRandom": {
+      "seed": "0x16210",
+      "trueFirstwinnerStoppedGames": 2000,
+      "P1ToMoveActualFirstwinfreeStateVisits": 20871,
+      "sourcePositiveP0ForceFirstwinWithinFourPly": 1275,
+      "independentPhysicalP0FirstwinnerRacePositive": 1275,
+      "sourceVsLiteralRayMismatches": 0,
+      "visitsNotGuaranteedUnique": true
+    },
+    "combined": {
+      "testedTrueOriginalP1ToMoveStateVisits": 21193,
+      "totalP0ForceWinWithinFourSourcePositive": 1373,
+      "sourceVsPhysicalMismatches": 0
+    },
+    "nearFullTerminalControl": {
+      "literalFullOriginalLegalDRAWWord": "444443333337777774111111222222555555666666",
+      "firstwinnerFreeUntilPly42": true,
+      "P1MoveRanksChecked": [
+        39,
+        41
+      ],
+      "bothReturnSourceNoP0ForcedWin": true,
+      "independentTruePhysicalRayAgrees": true
+    },
+    "localVerifierPath": "/mnt/data/connect4_freeproof/verify_mate4.py",
+    "qualification": "Equivalent independent local Python math source and literal physical ray WERE run; new checked-in Github file not executed as exact bytes under maintained CI; not externally formally verified."
+  },
+  "limits": {
+    "independentEMPTY7x6P0WINfromFourWayGeometry": "OPEN",
+    "historical28RootOptimalLabelsOnlyHeldBack": true,
+    "fullArbitraryQSignedWDL": "NOT_PROVEN",
+    "proofType": "Exact bounded four-ply winner certificate; reapplying it recursively without new invariant would reintroduce minimax.",
+    "productionSolverChanged": false,
+    "qualifiedIsoGraph1p2Changed": false,
+    "maintainedNode26CI": "NOT_RUN",
+    "thirdPartyFormalAssistant": "NOT_RUN"
+  }
+}
