@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "EARLIEST_C8_P1_OWNER_ACQUISITION_PLY38_TRUE_GRAVITY_AND_FIRSTWINFREE",
+  "frozen": "docs/research/2026-10-21-frozen-C8-firstwinfree-minimum-acquisition-rank38-vs40.md",
+  "scope": "Only original W7H6 K4, historical five center opening and T28-derived C8 as conditional targets, NOT independent optimal strategy premises.",
+  "mandatory8": [
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      5,
+      5
+    ],
+    [
+      6,
+      5
+    ],
+    [
+      7,
+      5
+    ],
+    [
+      3,
+      6
+    ],
+    [
+      5,
+      6
+    ]
+  ],
+  "lowerBound": {
+    "minOccupiedPhysicalSitesToClaimC8": 37,
+    "minimumRequiredOriginalColumnHeights": [
+      5,
+      5,
+      6,
+      5,
+      6,
+      5,
+      5
+    ],
+    "lastRequiredP1ClaimMustBeOnEvenAbsolutePly": true,
+    "rank37Impossible": "If C8 all claimed at rank37, each required 37 sites must be occupied and the final new site must be a P1 C8 site, contradicting P0 mover at absolute odd ply37.",
+    "firstPossibleRank": 38
+  },
+  "witness": {
+    "oneBasedOriginalLegalPrefix38": "44444316171121213232325353556575766677",
+    "historicFiveCenterPrefix": "44444",
+    "actualRank": 38,
+    "columnHeights": [
+      6,
+      5,
+      6,
+      5,
+      6,
+      5,
+      5
+    ],
+    "P0Stones": 19,
+    "P1Stones": 19,
+    "allC8OwnedByP1": true,
+    "claimPlies": [
+      [
+        [
+          1,
+          5
+        ],
+        14
+      ],
+      [
+        [
+          2,
+          5
+        ],
+        22
+      ],
+      [
+        [
+          3,
+          5
+        ],
+        24
+      ],
+      [
+        [
+          3,
+          6
+        ],
+        26
+      ],
+      [
+        [
+          5,
+          5
+        ],
+        30
+      ],
+      [
+        [
+          5,
+          6
+        ],
+        32
+      ],
+      [
+        [
+          6,
+          5
+        ],
+        36
+      ],
+      [
+        [
+          7,
+          5
+        ],
+        38
+      ]
+    ],
+    "firstWinnerAbsentAtAll38Moves": true,
+    "independentTrueDirectionalRayAndAll69OriginalK4WindowAgreement": true,
+    "perfectContinuationWDLFromThisQ38": "DRAW",
+    "independentOriginalAtMostFourPlyCheck": "PASS",
+    "remaining4Sites": "upper cells of columns2,4,6,7"
+  },
+  "controls": {
+    "allFivePossibleRank38PhysicalHeightPatternsStaticBalancedK4FreeFeasible": "PASS via independent SciPy HiGHS MILP",
+    "trueAlternatingTurnInterleavingOfOneSourceColoring": "PASS via source causal height DP after firstfive center",
+    "strongerThanEarlierPly40ConstructedFullDraw": true
+  },
+  "interpretation": "Actual chronological acquisition of all conditional last-site blockers by P1 can occur at the physically earliest possible move38 while firstwin-free. Source static C8 unsatisfiability and gravity deadline alone cannot prove P0 winning from EMPTY. Perfect play must force competing time obligations instead.",
+  "limits": [
+    "Cooperative q38 reachability is not an adaptive guarantee for P1 versus optimal P0.",
+    "Historical 28 and C8 remain conditional validation objects.",
+    "The q38 DRAW is a perfect continuation VALUE from that particular q38; this does not prove root DRAw.",
+    "No independent root P0-winning theorem."
+  ],
+  "qualification": {
+    "independentOriginalPhysicalValidation": "RUN",
+    "sourceMILPAndChronology": "RUN",
+    "committedCI": "NOT_RUN",
+    "externalProofAssistant": "NOT_RUN",
+    "qualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false
+  }
+}
