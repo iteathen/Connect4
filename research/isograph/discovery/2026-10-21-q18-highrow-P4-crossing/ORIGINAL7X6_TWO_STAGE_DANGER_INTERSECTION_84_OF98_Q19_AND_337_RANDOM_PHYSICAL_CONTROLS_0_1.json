@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "canonicalBranch": "research/semantic-quotient",
+  "status": "PROVED_SOUND_ANY_RANK_ORIGINAL7X6_P1_TO_MOVE_TWO_STAGE_SOURCE_DANGER_INTERSECTION__NOT_ROOT_WDL",
+  "preregistration": "docs/research/2026-10-21-frozen-original-q19-rise-singleton-vs-P4-higher-H-disjoint-defender-danger-intersection.md",
+  "theorem": "docs/research/2026-10-21-original7x6-universal-P1-singleton-vs-P0-fork-two-stage-danger-intersection-proved.md",
+  "sourceProducer": "research/isograph/discovery/2026-10-21-q18-highrow-P4-crossing/verify-any-P1-turn-two-stage-singleton-fork-danger-certificate.py",
+  "localBoundedFaceControl": "research/isograph/discovery/2026-10-21-q18-highrow-P4-crossing/verify-q18-face-P4-and-P1-vertical-countertempo.py",
+  "independentAllRankPhysicalCheck": "research/isograph/discovery/2026-10-21-q18-highrow-P4-crossing/verify-two-stage-danger-certificate-on-independent-random-physical-games.py",
+  "originalGameDefinition": "Original 7x6 K4, all69 original unwrapped H,V,R,F windows, one actual owner per physical site, gravity, alternating turn, stop at firstwinner.",
+  "soundSufficientTheorem": {
+    "q": "Any genuine original firstwinfree q with P1 to move.",
+    "notation": "S_p(q)={legal gravity landing cells e where original Pp K4 already has exactly 3 Pp stones and missing just e}.",
+    "preconditions": [
+      "S_1(q) is empty: P1 cannot FIRSTWIN immediately.",
+      "S_0(q) has exactly one true physical landing y."
+    ],
+    "forcedFirstP1Reply": "P1 must occupy y. Any other P1 move leaves y playable and P0 FIRSTWINS immediately on its next turn.",
+    "afterCompulsoryBlock": "If S_0(q+P1(y)) nonempty then P0 FIRSTWINS on next turn.",
+    "secondStage": "Otherwise if there is an actual legal P0 move z from q+P1(y) that firstwins immediately, or creates >=2 distinct currently playable P0 K4 singleton targets with S_1 empty at the resulting P1-to-move state, then P0 wins in at most its next two turns. P1 can't block two different playable sites with one stone and cannot firstwin on its intervening turn.",
+    "output": "Sound forced original Player0 FIRSTWIN within next four plies from q, including any earlier P0 firstwin.",
+    "type": "Sufficient not necessary; local two-tier source Boolean danger-intersection; original owner one-/two-missing K4 projectors and gravity only; no future game values, no historic28 or root solver labels."
+  },
+  "concreteDisjointResponseSets": {
+    "originalFirstwinfreeWordBeforeP0Move19": "444443152537166724",
+    "P0Move19Column5Row3": true,
+    "P1ToMove20P0DirectWinTarget": [
+      "c5r4"
+    ],
+    "trueOriginalRisingK4": [
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        4
+      ]
+    ],
+    "P1OnlyImmediateDefenderReply20": "c5r4",
+    "P0PivotMove21": "c3r3",
+    "trueOriginalHorizontalWinningTargetsAtP1Move22": [
+      "c2r3",
+      "c6r3"
+    ],
+    "P1ImmediateWinningMoves22": [],
+    "disjointInterference": "P1 diagonal-response set {c5r4} and preemptive third-row P4 fork pivot response set {c3r3,c6r3} have empty intersection. Thus if P1 blocks R, P0 creates H fork; otherwise P0 wins R on21.",
+    "sourceWINBy23": true
+  },
+  "genuineQ18SaturatedFaceControls": {
+    "physicalDistinctFirstwinnerfreeQ18States": 161,
+    "q19AfterP0OuterRow3Crossings": 322,
+    "physicalP0FORCESFirstwinBy23": 98,
+    "sourceTwoStageDangerCertifications": 84,
+    "physicalWinningCasesMissedByThisSufficientTemplate": 14,
+    "sourceFalsePositives": 0,
+    "computedCurrentOriginalLineGeometryFromAll69": true,
+    "noPerfectRootStrategyLabels": true
+  },
+  "independentAllRankCrossChecks": {
+    "randomSeed": 20261021,
+    "generatedActualFirstwinnerStoppedFullOrPartialGames": 2000,
+    "originalP1ToMoveFirstwinfreeSourceVisits": 20556,
+    "sourceCertifiedForcedP0WinsWithinFourPlies": 337,
+    "subtypeBlockImmediatelyReleasesNewP0Target": 105,
+    "subtypeCompulsorySingletonBlockThenP0TwoSiteFork": 232,
+    "independentlyExecutedFourPlyTrueDirectionalRayWinningRaceChecksOnAllSourcePositives": 337,
+    "falsePositiveResults": 0,
+    "samplingNotRootPerfectPlay": true,
+    "sampleVisitsMayRepeatPositions": true,
+    "proofNotInferredFromSampleFrequency": true
+  },
+  "relatedNonimportableMath": {
+    "citation": "Florian Galliot, Sylvain Gravier, Isabelle Sivignon, Maker-Breaker is solved in polynomial time on hypergraphs of rank 3, arXiv:2209.12819v4, https://arxiv.org/html/2209.12819v4",
+    "legitimateParallel": "Source danger collections and their physical mandatory reply-set intersection; algebraic proof rather than tabulating bad play.",
+    "strictNontransfer": "That paper's polynomial structural winner theorem is for unrestricted rank3 Maker-Breaker hypergraphs. Original Connect4 is rank4 K4, gravity-restricted, Maker-Maker both firstwinner possibilities and DRAW; cannot claim its characterization proves Connect4 root WIN."
+  },
+  "qualifications": {
+    "originalHistoricStrong28NotUsedInProducer": true,
+    "solvedGameRootWDLNotUsedInProducer": true,
+    "sourceProofFirstOrderAndOriginalK4OwnerGravity": "PROVED",
+    "independentOriginalPhysicalTests": "RUN locally",
+    "checkedInExactPythonBytesExecutedUnderMaintainedCI": "NOT_RUN",
+    "externalFormalProofAssistant": "NOT_RUN",
+    "independentlyProvedEmpty7x6P0WIN": false,
+    "originalQualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false
+  },
+  "nextResearch": "Explain the 14 residual source tactical WIN cases via a broader structurally justified danger family. Then seek a genuine inductive EMPTY-root online strategy-control invariant forcing a nonempty family of irreparable danger intersections despite all adaptive P1 defenses."
+}
