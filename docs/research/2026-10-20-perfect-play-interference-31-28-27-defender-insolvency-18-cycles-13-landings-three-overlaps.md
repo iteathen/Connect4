@@ -45,6 +45,16 @@ After removing the even uniform constant the terminal relative27 has even13, odd
 
 Another unrelated 18 occurs as the physical terminal bipartite line-site incidence graph cycle space:28 line nodes+13 cell nodes=41,58 genuine incidence edges, one component, cycle rank18. Its reflection splits even9,odd9, DIFFERENT from the source four-step C18 even8,odd10. Thus they are not reflection-equivariantly identical despite dimension18. Likewise the prior per-junction Fourier Z3 27 allowed charge tuples is NOT the 27 relative terminal modes.
 
+### The relative-mode overlap is FOUR, not three
+
+After applying the exact physically defined 102-edge terminal winning-line difference operator d to the two line-coordinate subspaces, the ranks remain18 for the source-cycle projection and13 for the landing-site-star projection, but their sum has rank27 rather than28. The line-uniform vector is in their JOIN but in neither subspace separately. Thus its elimination adds ONE new mixed overlap relation:
+  **absolute line28 =18+13−3**;
+  **relative line27 =18+13−4**.
+
+An independent exact SymPy 102-by-28 graph coboundary checker verified rank(d)=27, rank(d C_T)=18, rank(d J_F)=13 and rank([d C_T,d J_F])=27; hence relative intersection dimension4. The additional overlap is the global uniform line potential (a mixed gauge). It is NOT the previously known 4-dimensional physical K4 spatial Fourier nullspace: the latter has horizontal reflection even3/odd1, whereas this relative overlap4 has even2/odd2. The absolute overlap3 has even1/odd2. Preserving these typed representation characters prevents another false equivalence by scalar counts.
+
+The actual terminal bipartite graph's 18D cycle-space reflection character is even9/odd9, while the full original four-step source18 is even8/odd10; they cannot be identified as identical reflection-preserving cycle spaces. Both results are compatible with a natural shared incidence projection being useful for defender obligation algebra.
+
 ### Exact restriction of original31
 
 For historical T28 and its complement O41, rank(B_T)=26, rank(B_O)=32, rank(B_all)=38 over rational Q. Thus:
