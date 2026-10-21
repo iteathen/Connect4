@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "SOURCE_PROVED_ONLINE_ROOT_CENTER_WING_REPAIR_OR_ORIGINAL_WIN7",
+  "frozen": "docs/research/2026-10-21-frozen-empty7x6-unconditional-online-wing-repair-by-ply6-or-P0-firstwin7.md",
+  "theorem": "docs/research/2026-10-21-original7x6-root-center-forces-online-opposite-wing-bottom-repair-by6-or-win7.md",
+  "runner": "research/isograph/discovery/2026-10-21-online-wing-repair/verify-empty-root-center-forces-online-wing-bottom-repair-or-win7.mjs",
+  "claim": "P0 first c4 bottom. After any P1 ply2 choose an untouched wing {c1,c2,c3} or {c5,c6,c7}; P0 plays its bottom cells in fixed order on plies3,5,7. Every legal P1 must put a bottom P1 stone in that wing by ply6, otherwise P0 FIRSTWINS genuine horizontal K4 on ply7. P1 has at most3 stones at ply6 and cannot firstwin before P0 ply7.",
+  "allOriginalPhysicalK4": 69,
+  "trueP1Controls": {
+    "firstReplies": 7,
+    "firstReplyPlusPly4Pairs": 49,
+    "repairPly4": 14,
+    "repairPly6AfterNonePly4": 35,
+    "noRepairAllP0Win7": 210,
+    "noRepairExceptions": 0,
+    "P1FirstwinsBefore7": 0
+  },
+  "originalRowHorizontalHitting": {
+    "P0OwnCenterBottom": true,
+    "W6": {
+      "K4Spans": 3,
+      "minP1BottomBlockers": 1
+    },
+    "W7": {
+      "K4Spans": 4,
+      "minP1BottomBlockers": 2,
+      "minimalSixPairs": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          7
+        ]
+      ]
+    },
+    "historicallyConditionedCenterP0Rows135MinNoncenterP1Blockers": 6,
+    "guard": "Static necessary completed non-P0win row condition; not universally impossible."
+  },
+  "legalP0Ply7WinControls": [
+    "4355667",
+    "4511223"
+  ],
+  "legitComplete42DrawWithSixP1RowBlockers": "444443333337777774111111222222555555666666",
+  "opposingImmediateThreatsRank8": {
+    "word": "44546714",
+    "P0WinNextSite": [
+      3,
+      1
+    ],
+    "P1WinNextSite": [
+      4,
+      5
+    ],
+    "turn": "P0",
+    "P0WinsOn9ByColumn3": true,
+    "wrongP0Column2On9AllowP1VerticalOn10": true,
+    "notCounterexampleToOptimalP0": true
+  },
+  "logicalStatus": "Exact source necessary early P1 defensive repair under a P0 forcing attempt; does NOT prove these repairs later become impossible or independent P0 root WIN.",
+  "qualification": {
+    "originalGameSolverUsed": false,
+    "historical28Used": false,
+    "localIndependentControls": "PASS",
+    "checkedInExactNodeCI": "NOT_RUN",
+    "qualifiedLogic1p2Changed": false,
+    "productionSolverChanged": false
+  }
+}
