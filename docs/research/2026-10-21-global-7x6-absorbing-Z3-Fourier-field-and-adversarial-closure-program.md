@@ -85,6 +85,14 @@ Yet next-move source P0 firstwinner flux at rank9 is 0 from the even parity fiel
 
 This is an operator-level NONCLOSURE theorem, not a selected move-sequence argument. It precludes interpreting scalar or pairwise interference patterns as a complete exact root-game evaluator without additional structural information.
 
+## Addendum: third-order owner Fourier hierarchy also fails under K4 overlap
+
+An independent frozen WHOLE-STATE field test gives a strictly stronger exact Fourier nonclosure result than the rank8 two-field degree2 counterexample. At rank10, EVEN and ODD parity ensembles each contain eight genuine original firstwin-free7x6 boards, with independent bottom/top owner switch bits in columns1,2,3,5 plus fixed c7 [P0,P1]. Every source board has heights [2,2,2,0,2,0,2] and a legal ten-ply history. ALL true physical joint owner distributions for every subset of at most THREE cells agree between the ensembles (1 empty subset +42 singles +861 pairs +11480 triples =12384 exact subset tests), hence so do all original site Z3 Fourier characters of support<=3.
+
+P0 move11 in physical column4 can complete two original horizontal K4s, A=b1*b2*b3 and B=b2*b3*b5. The TRUE absorbing event is A OR B=A+B-b1*b2*b3*b5, so a FOUR-site overlap owner correlation is required. EVEN parity has ONE original P0 physical winning move (b1111, completing both K4 lines); ODD parity has TWO winning moves on separate boards (b0111 and b1110, each completing one line). Both ensembles have the same RAW line incidence count2, but the physical original firstwinner transition flux is1 versus2. No other P0 legal move in these boards firstwins. Thus **the complete Fourier hierarchy of OWNER degree<=3 is NOT closed for exact source winning transfer**; degree4 correlators distinguish this example but are not proved sufficient in general.
+
+Verified mathematical report: docs/research/2026-10-21-global-Z3-physical-owner-degree3-Fourier-nonclosure-from-overlapping-K4-firstwins.md. True original K4 checker and JSON evidence under research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/. Local independent 16-history/12384-marginal/true-win-flux checks PASS; checked-in exact runner/maintained CI and third-party formal verification remain outstanding. No historical strong28/root solver premise.
+
 ## 6. Required adversarial source-invariant theorem
 
 A rigorous independent P0 winning proof may take the form of a compact, original-geometry-specified controlled-invariant region or symbolic cone C over ACTUAL game-state fields, with all four-direction original K4 owner correlations and gravity support. Required sound conditions:
