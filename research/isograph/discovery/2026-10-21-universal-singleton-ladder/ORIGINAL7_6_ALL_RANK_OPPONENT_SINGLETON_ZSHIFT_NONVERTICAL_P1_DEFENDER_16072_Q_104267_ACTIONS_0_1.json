@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "canonicalBranch": "research/semantic-quotient",
+  "status": "ALL_RANK_EXACT_ORIGINAL_FOURWAY_OWNER_SINGLETON_SUPPORT_LADDER_AND_P1_IMMEDIATE_DEFENSE_COMPATIBILITY",
+  "frozen": "docs/research/2026-10-21-frozen-all-rank-original-seven-fourway-singleton-ladder-shift-nonvertical-latency-universal-defender-incompatibility.md",
+  "theorem": "docs/research/2026-10-21-original7x6-all-rank-fourway-singleton-ladder-nilpotent-shift-and-P1-exact-defensive-incompatibility.md",
+  "reproducer": "research/isograph/discovery/2026-10-21-universal-singleton-ladder/verify-all-ranks-opponent-singleton-ladder-and-P1-defender-compatibility.mjs",
+  "source": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "windowsOriginalPhysical": 69,
+    "ownerSpecificSingleton": "For each EMPTY physical (c,r), a_p(c,r)=# original K4 windows with three other physical sites Pp owned; retain one original line identity and its true H/V/R/F direction.",
+    "polynomial": "G_p,c(q,z)=SUM_{r=h_c..5} a_p(c,r) z^(r-h_c)",
+    "opponentActionExact": "On P1 drop c that does not already FIRSTWIN, G_P0,c'=(G_P0,c-g0_P0,c)/z and G_P0,d'=G_P0,d for all d!=c.",
+    "verticalExclusion": "Any genuine live original vertical K4 with p owned at least once has remaining empty top suffix, grade support-debt0; in particular a vertical P0 or P1 one-missing K4 is always currently gravity-playable, never latent at any rank.",
+    "P1ImmediateOpponentWinSet": "E={legal c | coeff0 G_P1,c > 0}",
+    "P0CurrentPlayableTargetSet": "S={legal c | coeff0 G_P0,c >0}; one site per column regardless original line multiplicity",
+    "P0NextSupportSet": "L={legal c | coeff1 G_P0,c >0}",
+    "P1CurrentMoveSafeAgainstP0Next": "Safe(c)=(1-l_c)*PRODUCT_{legal d!=c}(1-s_d)",
+    "P0ForcedImmediateNextPly": "E empty AND PRODUCT_{legal c}(1-Safe(c))=1",
+    "sourceTrichotomy": [
+      "|S|>=2 distinct physical targets",
+      "|S|=1 and the sole c has l_c=1 (block releases nonvertical target)",
+      "|S|=0 and every legal c has l_c=1 (compulsory release)"
+    ],
+    "limits": "This is a forced immediate P0 firstwinner-after-P1 reply condition, NOT complete arbitrary-q signed WDL or independent root P0 perfect WIN."
+  },
+  "independentVerification": {
+    "method": "Pure Python separately generated original unwrapped physical K4 set; independently recomputed per-line singleton polynomials across every genuine P1 move and original directional-ray P0 immediate winning alternatives. Actual play gravity, alternating turns and firstwinning stop. Random seed20261021.",
+    "originalW7H6": {
+      "generatedGames": 1200,
+      "firstwinfreeP1States": 10021,
+      "legalP1Moves": 68710,
+      "exactColumnShiftEqualities": 467278,
+      "nextP0FirstwinnerRayChecks": 66754,
+      "liveVerticalSingletonK4Seen": 2238,
+      "livePartialVerticalK4Seen": 51741,
+      "forcedP0ImmediateWin": 376,
+      "caseCounts": {
+        "fork": 308,
+        "blockRelease": 68,
+        "forcedRelease": 0,
+        "ownP1ImmediateFirstwinAvailable": 1633,
+        "safeP1DefenseExists": 8012
+      }
+    },
+    "originalW6H6": {
+      "generatedGames": 800,
+      "firstwinfreeP1States": 6051,
+      "legalP1Moves": 35557,
+      "exactColumnShiftEqualities": 207522,
+      "nextP0FirstwinnerRayChecks": 34587,
+      "liveVerticalSingletonK4Seen": 1144,
+      "livePartialVerticalK4Seen": 27345,
+      "forcedP0ImmediateWin": 164,
+      "caseCounts": {
+        "fork": 146,
+        "blockRelease": 18,
+        "forcedRelease": 0,
+        "ownP1ImmediateFirstwinAvailable": 839,
+        "safeP1DefenseExists": 5048
+      }
+    },
+    "combined": {
+      "sourceP1Positions": 16072,
+      "legalP1Actions": 104267,
+      "columnPolynomialShiftEqualities": 674800,
+      "independentNextP0PhysicalRayChecks": 101341,
+      "liveVerticalSingletons": 3382,
+      "livePartiallyOccupiedVerticalWindows": 79086,
+      "P0ImmediateForcedWinPositions": 540,
+      "mismatches": 0
+    },
+    "forcedReleaseCaseIndependentPreviousStrongSourceValidation": "Prior original39 q39 source-qualified endgame family includes16 all-columns release cases, not present among unconstrained seeded random games; this is a valid sampling limitation.",
+    "earlyActual7x6Fixture": {
+      "word": "44516",
+      "P0PlayableTargetsOneBased": [
+        3,
+        7
+      ],
+      "P1ImmediateWinTargets": [],
+      "P1SafeDefenses": [],
+      "directCategory": "FORK"
+    },
+    "earlyActual6x6Fixture": {
+      "word": "44516",
+      "P0PlayableTargetsOneBased": [
+        3
+      ],
+      "P1ImmediateWinTargets": [],
+      "P1SafeDefensesOneBased": [
+        3
+      ]
+    },
+    "lateRootStrongFixture": {
+      "word": "444443333636613412225777255525666717751",
+      "P0PlayableTargetsOneBased": [
+        1
+      ],
+      "P0DirectlyAboveReleaseOneBased": [
+        1
+      ],
+      "P1SafeDefenses": [],
+      "directCategory": "BLOCK_RELEASE"
+    },
+    "lateNonoptimalDefenseFixture": {
+      "word": "4444431617112121323232535355657576667",
+      "P0PlayableTargetsOneBased": [
+        7
+      ],
+      "P1OwnImmediateWinningAlternativeOneBased": [
+        2
+      ],
+      "P1PhysicallySafeBlockColumnOneBased": [
+        7
+      ]
+    }
+  },
+  "qualification": {
+    "sourceSymbolicProof": "COMPLETE",
+    "independentPhysicalSourceChecks": "RUN",
+    "historic28UsedInProducer": false,
+    "connect4SolverAccessed": false,
+    "maintainedNode26CI": "NOT_RUN",
+    "exactGithubNodeExecuted": "NOT_RUN",
+    "thirdPartyFormalChecker": "NOT_RUN",
+    "productionSolverChanged": false,
+    "qualifiedIsoGraph1p2Changed": false
+  },
+  "next": "New strategy invariant must show P0 can force from EMPTY a Player1-to-move state satisfying all-rank instantaneous incompatible s/l operator (or P0 earlier FIRSTWIN), respecting P1 own firstwin; do NOT infer root forced WIN just from local guaranteed win expression."
+}
