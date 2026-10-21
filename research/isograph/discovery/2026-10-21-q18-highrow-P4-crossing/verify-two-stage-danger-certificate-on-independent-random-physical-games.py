@@ -90,7 +90,7 @@ for g in range(2000):
     stats['randomTrueFirstwinnerStoppedGames']+=1
 assert stats['actualFirstwinfreeP1ToMoveVisits']==20556
 assert stats['sourceCertificates']==337
-assert stats['category_block-releases-early-S']==105
+assert stats['category_compulsory-block-releases-current-win']==105
 assert stats['category_compulsory-singleton-plus-two-site-fork']==232
 assert stats['independentFourPlyRayValidations']==337
 print(json.dumps({'schema':1,'date':'2026-10-21','randomSeed':seed,
