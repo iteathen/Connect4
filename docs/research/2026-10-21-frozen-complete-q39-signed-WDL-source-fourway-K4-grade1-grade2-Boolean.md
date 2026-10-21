@@ -1,0 +1,16 @@
+# FROZEN exact source-only FULL signed WDL normal forms on original 7x6 rank39 three-empty cells
+
+2026-10-21 Pacific; canonical research/semantic-quotient, owner research direction Josh Oshiro. This attempts a COMPLETE signed P0WIN/DRAW/P1WIN algebraic formula at any genuine ORIGINAL W7H6 firstwin-free q at absolute rank39, P1 to move, without traversing or valuing future game successors. Derive from ALL 69 true unwrapped H/V/R/F K4 four-way owner hyperedges and gravity. No source winning line T28 or solver/oracle info is allowed in the algebra.
+
+Define U_p(e)=1 iff e is EMPTY and there exists an original p-owned K4 with exactly e missing; owner p=0(P0),1(P1). Define V_1(e,f)=1 iff two distinct EMPTY physical cells e,f are precisely the missing pair of a surviving original P1 K4, with other two sites P1-owned. They are exact owner indicator degree3 and degree2 polynomial cofactors of the true four-way K4 line projectors, evaluated ONLY at q (before any future move).
+
+The remaining three empty physical sites must partition by gravity into exactly one of:
+A [3]: one column with playable x, second y directly above x, top z. Forced sequence P1(x),P0(y),P1(z). Define P0win=!U1(x) AND U0(y). Define P1win=U1(x) OR ((!U0(y)) AND (U1(z) OR V1(x,z))). Otherwise DRAW.
+B [2,1]: one column with playable x and upper y, plus another column with playable sole top z. Define B_xz=U1(z) OR V1(x,z); B_xy=U1(y) OR V1(x,y); B_zy=U1(y) OR V1(z,y). P0win=!U1(x) AND !U1(z) AND U0(x) AND (U0(y) OR U0(z)). P1win=U1(x) OR U1(z) OR [!U0(y) AND B_xz AND !U0(z) AND B_xy] OR [!U0(x) AND B_zy]. Otherwise DRAW.
+C [1,1,1]: three separate playable sites a,b,c. P0win=!U1(a),!U1(b),!U1(c) AND at least two of U0(a),U0(b),U0(c). P1win=OR_i U1(i) OR EXISTS first P1 site x among a,b,c such that for BOTH alternative P0 next sites y (with z the remaining third site): !U0(y) AND (U1(z) OR V1(x,z)). Evaluate as a fixed three-term Boolean polynomial, NOT by future successor reconstruction. Otherwise DRAW.
+
+Firstwin precedence is explicit: at ply40 P1's immediate U1(x) trumps all P0 future threats; otherwise P0's U0(y) trumps P1's ply42 completion; otherwise P1 final K4 exists iff original U1(z) or V1(x,z). This is because future P1 owns ONLY x,z, while P0 owns y, and every K4 at the last move must have originally exactly one or two P1-missing cells. Any original P1 K4 missing all three empties cannot complete since P0 necessarily owns y.
+
+This is an exact boundary algebra of source grade1/grade2 K4 owner projectors, gravity and turns, not the full 7x6 root WIN proof. The formulas assign full signed WDL on q39, not merely P0 win in one response. Falsify against independently written actual 69-window and four-direction-ray tiny game evaluator on ALL 27 archived root-strong q39 positions and 285 same-height physically legal modified q39 states, but these historical samples are validation-only. Include a specific diagnostic for P1 firstwin only on last ply42 (not immediately40), to show grade2 is essential. Optionally independently generate additional q39 firstwinfree states without solved data.
+
+Qualify no oracle or strong28 source input; no maintained CI/qualified IsoGraph promotion. Save counterexamples if found.
