@@ -1,0 +1,160 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "repo": "iteathen/Connect4",
+  "branch": "research/semantic-quotient",
+  "status": "PROVED_EXACT_OWNER_Z3_FOURIER_CORRELATION_DEGREE3_NONCLOSURE_UNDER_ORIGINAL_K4_FIRSTWIN_ABSORBER",
+  "frozenBeforeControls": "docs/research/2026-10-21-frozen-global-Z3-degree3-moment-nonclosure-overlapping-K4-absorber-four-switch-parity.md",
+  "reproducer": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-four-switch-parity-owner-Z3-degree3-nonclosure-firstwinner-doubleK4.py",
+  "originalGame": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "physicalSites": 42,
+    "unwrappedHVRFOriginalK4": 69,
+    "turn": "P0 after rank10",
+    "gravity": true,
+    "stopAtFirstwinner": true,
+    "solvedRootWDLUsedAsPremise": false,
+    "historicWinning28UsedAsPremise": false
+  },
+  "ensembles": {
+    "ranks": 10,
+    "weights": "one per actual board",
+    "eachFieldSupportSize": 8,
+    "sharedActualColumnHeights": [
+      2,
+      2,
+      2,
+      0,
+      2,
+      0,
+      2
+    ],
+    "switchColumns": [
+      1,
+      2,
+      3,
+      5
+    ],
+    "fixedCol7BottomTop": [
+      "P0",
+      "P1"
+    ],
+    "bit0BottomTop": [
+      "P1",
+      "P0"
+    ],
+    "bit1BottomTop": [
+      "P0",
+      "P1"
+    ],
+    "evenBitVectors": [
+      "0000",
+      "0011",
+      "0101",
+      "0110",
+      "1001",
+      "1010",
+      "1100",
+      "1111"
+    ],
+    "oddBitVectors": [
+      "0001",
+      "0010",
+      "0100",
+      "0111",
+      "1000",
+      "1011",
+      "1101",
+      "1110"
+    ],
+    "trueOriginal8HistoriesEven": [
+      "7112233557",
+      "7112273355",
+      "7113372255",
+      "7115572233",
+      "7223371155",
+      "7225571133",
+      "7335571122",
+      "7711223355"
+    ],
+    "trueOriginal8HistoriesOdd": [
+      "7112233755",
+      "7112255733",
+      "7113355722",
+      "7117223355",
+      "7223355711",
+      "7227113355",
+      "7337112255",
+      "7557112233"
+    ],
+    "note": "Named lists of histories contain TEN plies each; key trueOriginal8HistoriesEven/Odd describes field support size8, NOT 8-move histories.",
+    "eachBoardAlternatingGravityReachableFromEmpty": true,
+    "everyPrefixFirstwinfree": true,
+    "eachBoardFiveP0AndFiveP1PhysicalStones": true
+  },
+  "exactOriginalOwnerMarginalControl": {
+    "degree0SubsetHistogramsMatched": 1,
+    "degree1SubsetHistogramsMatched": 42,
+    "degree2SubsetHistogramsMatched": 861,
+    "degree3SubsetHistogramsMatched": 11480,
+    "totalSubsetHistogramsMatched": 12384,
+    "completeTernaryOwnerJointHistogramForEverySubsetMatched": true,
+    "equivalentlyAllZ3OwnerCharactersOnAtMost3PhysicalSitesMatched": true,
+    "everyColumnHeightDistributionMatched": true
+  },
+  "firstwinnerPhysics": {
+    "ownerMove": "P0 legal physical ply11",
+    "uniqueWinningLandingColumn": 4,
+    "uniqueWinningLandingRow": 1,
+    "originalHLineA": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "originalHLineB": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "A": "P0 owns c1,c2,c3 bottom before claim c4",
+    "B": "P0 owns c2,c3,c5 bottom before claim c4",
+    "truePhysicalWinBoolean": "A OR B = A + B - A*B = b1*b2*b3 + b2*b3*b5 - b1*b2*b3*b5",
+    "evenField": {
+      "distinctPhysicalP0FirstwinningTransitions": 1,
+      "originalWinningK4LineIncidences": 2,
+      "winningBitVector": "1111",
+      "P0ClaimsColumn": 4,
+      "simultaneousDifferentH_K4Wins": 2
+    },
+    "oddField": {
+      "distinctPhysicalP0FirstwinningTransitions": 2,
+      "originalWinningK4LineIncidences": 2,
+      "winningBitVectors": [
+        "0111",
+        "1110"
+      ],
+      "P0ClaimsColumn": 4,
+      "singleH_K4PerWinningTransition": true
+    },
+    "allOtherP0CurrentColumnChoicesNonwinning": true
+  },
+  "proofType": "Exact counterexample to any deterministic linear/affine closed projected STATE-FIELD firstwinner evolution depending only on all owner Z3 Fourier modes of degree<=3. The different four-way owner correlation b1b2b3b5 survives in physical K4 intersection A*B and controls deduplication of overlapping true winner windows, even though every degree<=3 owner expectation and raw K4 line intensity is identical.",
+  "scopeLimits": [
+    "Not a proof that all 4-site owner Fourier characters alone close the entire game dynamics.",
+    "Not a proof of original empty7x6 winner; ensembles are source legal but not claimed optimal P0/P1 policy distributions.",
+    "Prohibits exact closure of original absorbing channel under owner moments degree0..3 across all legal supported measures; one may still find a different nongeneric source-specific proof certificate."
+  ],
+  "qualification": {
+    "independentPhysicalReimplementation": "RUN, every actual move sequence and all69 windows",
+    "all12384ActualSubsetHistograms": "PASS",
+    "winningWindowFluxDistinctness": "PASS",
+    "exactGithubPythonRunnerUnderMaintainedCI": "NOT_RUN",
+    "thirdPartyFormalProofAssistant": "NOT_RUN",
+    "qualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false
+  }
+}
