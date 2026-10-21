@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "EXACT_GLOBAL_ACTIONWISE_KOOPMAN_NONCLOSURE_OF_438_K4_EULER_WIN_EMITTER",
+  "frozenBefore": "docs/research/2026-10-21-frozen-global-438-hazard-emission-not-actionwise-closed-sixstate-grade2-cofactor-face.md",
+  "theorem": "docs/research/2026-10-21-global-438-hazard-emission-not-Koopman-closed-P4-grade2-owner-face.md",
+  "reproducer": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-action-indexed-438-hazard-Koopman-sixstate-P4-cofactor-nonclosure.py",
+  "originalBoard": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "physicalCells": 42,
+    "actualOriginalHVRFK4Windows": 69
+  },
+  "wholeStateFace": {
+    "ply": 4,
+    "nextMover": "P0",
+    "heights": [
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+    ],
+    "fixedOccupiedPhysicalBottomColumns": [
+      1,
+      2,
+      5,
+      6
+    ],
+    "exactP0Stones": 2,
+    "exactP1Stones": 2,
+    "allSixP0OwnershipSubsets": [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        5
+      ],
+      [
+        1,
+        6
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "allSixLiteralAlternatingFirstwinfreeWords": [
+      "1526",
+      "1256",
+      "1265",
+      "2156",
+      "2165",
+      "5162"
+    ],
+    "all438OriginalP0EulerOrientationSubsetHazardsAtGravityFrontierZero": true,
+    "all438OriginalP1EulerOrientationSubsetHazardsAtGravityFrontierZero": true,
+    "allCurrentOriginalOwnerGrade1SingleMissingK4FactorsEverySiteZero": true,
+    "allStatesSameHeightsAndTotalFieldMass": true
+  },
+  "actualActionIndexedKoopman": {
+    "owner": "P0",
+    "currentMove": "place physical (3,1) on ply5; legal and no immediate K4 in every face state",
+    "futureObservable": "Original P0 H directional one-missing K4 physical target at current frontier (4,1)",
+    "exactPullbackOnRank4Face": "x1*x2 OR x2*x5 OR x5*x6 (owner P0 bottom site variables x1,x2,x5,x6)",
+    "originalK4Grade2SupportGraph": {
+      "vertices": [
+        1,
+        2,
+        5,
+        6
+      ],
+      "edges": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "shape": "P4"
+    },
+    "sourceHazardPositiveP0BeforeOwnerPairs": [
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "sourceHazardNegativeP0BeforeOwnerPairs": [
+      [
+        1,
+        5
+      ],
+      [
+        1,
+        6
+      ],
+      [
+        2,
+        6
+      ]
+    ],
+    "positiveStates": 3,
+    "negativeStates": 3,
+    "trueOwnerAndGravityChecks": "Original H/V/R/F K4 rebuilt and all actual q4/q5 physical firstwinfree histories independently verified",
+    "falsifiedPreregDetail": "Prediction only x1*x2 is FALSE; all original K4 windows through c4 were included on recomputation, adding middle edges x2*x5 and x5*x6."
+  },
+  "proofMeaning": "The full 438 source per-owner current winner-emission hazard observables (even with entire current height distribution) cannot form a Koopman/action-indexed transfer-closed moment system: all six true legal states have identical zero hazard vector yet the same physical legal P0 action gives different hazard expectations. At least source K4 two-missing owner line/owner pair correlations must be added.",
+  "notProved": [
+    "That simply adding all separate grade2 owner moments gives a closed global field under repeated future turns.",
+    "That any such small tensor field proves empty-root7x6 P0 forced win.",
+    "That uniform or Bayesian forward measures determine adversarial perfect-play value."
+  ],
+  "qualification": {
+    "historicalStrong28Used": false,
+    "solvedRootWDLUsed": false,
+    "independentOriginalPhysicalPythonRun": "PASS all six positions and all original source 69 windows",
+    "checkedInExactGithubSourceMaintainedCI": "NOT_RUN",
+    "externalFormalAssistant": "NOT_RUN",
+    "productionSolverChanged": false,
+    "qualifiedIsoGraph1p2Changed": false
+  }
+}
