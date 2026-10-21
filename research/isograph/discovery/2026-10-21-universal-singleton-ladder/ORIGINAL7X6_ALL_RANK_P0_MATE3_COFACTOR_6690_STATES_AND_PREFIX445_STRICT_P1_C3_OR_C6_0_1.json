@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "EXACT_LOCAL_ORIGINAL_P0_MATE3_SOURCE_COFACTOR_POLYNOMIAL_INDEPENDENT_PHYSICAL_CONTROL",
+  "preRegistered": "docs/research/2026-10-21-frozen-all-rank-original7x6-P0-mate3-Fourway-grade2-promotion-and-P1-shift-polynomial.md",
+  "sourceInputs": "Current true original H/V/rising/falling 69/54 physical K4, real owner ternary bits, actual gravity columns, current mover P0, grade1 U0,U1 and grade2 V0 K4 cofactors. NO historical28 or solved-game outcome in producer.",
+  "polynomial": {
+    "qToMove": "P0",
+    "originalU0": "Boolean one-missing winning line at EMPTY site e with three other P0 stones",
+    "originalU1": "Boolean one-missing winning line at EMPTY site e with three other P1 stones",
+    "originalV0": "Boolean two-missing line at EMPTY sites x,e with two other P0 stones",
+    "afterP0CurrentMoveX": "If U0(x) true P0 immediately wins. Otherwise U0'(e)=U0(e) OR V0(x,e), U1'(e)=U1(e) for every REMAINING physical EMPTY site. Update height only at column x.",
+    "afterP1ResponseC": "s_d=U0'(d,currentheightd), l_d=U0'(d,currentheightd+1), e_d=U1'(d,currentheightd), all for currently legal columns. If any e_d, P1 can firstwin immediately. Else P0 wins directly on her NEXT move regardless P1 choice iff every legal c either some d!=c has s_d=1, or l_c=1.",
+    "closedSourceMate3": "OR over CURRENT P0 playable x: U0(x) OR [all current P1 immediate-cofactor e_c false after algebraic update AND all possible P1 replies c leave some original P0 immediate site, evaluated by one-column P1 shift].",
+    "noFutureValueDependency": true,
+    "semanticLimit": "Guaranteed P0 firstwins within at most two own turns at this actual q; it is a guarded tactical result, not an empty-root full WDL or nonbranching global strategy."
+  },
+  "independentControls": {
+    "method": "Separate original Python source K4 grade1/2 precomputation and independent original physical ray <=3-ply P0/P1/P0 FIRSTWIN verifier; deterministic seed26021021; firstwinning-free random legal histories from EMPTY. No oracle.",
+    "original7x6": {
+      "sourceWindows": 69,
+      "seededGames": 540,
+      "realP0ToMovePositions": 4365,
+      "currentlyLegalP0Actions": 29846,
+      "positionsP0CanForceWinInThree": 1191,
+      "individualP0WinningActionCertificates": 2511,
+      "immediateP0FirstwinActions": 1240,
+      "actualPhysicalSourcePromotionChecks": 28606,
+      "initialEmptyRootP0Mate3": false,
+      "q4Prefix4451P0Mate3ActionColumns": [
+        3,
+        6
+      ]
+    },
+    "original6x6": {
+      "sourceWindows": 54,
+      "seededGames": 310,
+      "realP0ToMovePositions": 2325,
+      "currentlyLegalP0Actions": 13605,
+      "positionsP0CanForceWinInThree": 575,
+      "individualP0WinningActionCertificates": 1130,
+      "immediateP0FirstwinActions": 601,
+      "actualPhysicalSourcePromotionChecks": 13004,
+      "initialEmptyRootP0Mate3": false,
+      "q4Prefix4451P0Mate3ActionColumns": [
+        3
+      ]
+    },
+    "aggregate": {
+      "realP0ToMovePositions": 6690,
+      "currentlyLegalP0Actions": 43451,
+      "independentPhysicalSourceGrade1PromotionTests": 41610,
+      "independentMax3PlyMateDisagreements": 0,
+      "cofactorTransportDisagreements": 0
+    }
+  },
+  "independentPrefix445P1Move4ResponseCut": {
+    "sourcePrefix": "445",
+    "actualP1MoverOnPly4": true,
+    "original6x6": {
+      "safeP1RepliesToAvoidP0ForcedWin7": [
+        2,
+        3,
+        6
+      ],
+      "P1ReplyToP0FifthMate3Actions": {
+        "1": [
+          3
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          3
+        ],
+        "5": [
+          3
+        ],
+        "6": []
+      }
+    },
+    "original7x6": {
+      "safeP1RepliesToAvoidP0ForcedWin7": [
+        3,
+        6
+      ],
+      "P1ReplyToP0FifthMate3Actions": {
+        "1": [
+          3,
+          6
+        ],
+        "2": [
+          6
+        ],
+        "3": [],
+        "4": [
+          3,
+          6
+        ],
+        "5": [
+          3,
+          6
+        ],
+        "6": [],
+        "7": [
+          3
+        ]
+      }
+    },
+    "physicalMechanism": "Player0 already bottom c4,c5. If P0 next c3, original K4 winning endpoints c2/c6; if P0 next c6, original K4 endpoints c3/c7. P1 must preempt either connector c3 orc6 on move4. P1 c7 prevents the latter fork but not c3 fork and hence loses by7.",
+    "meaning": "New WIDTH7 extra window c4..7 eliminates one safe defensive reply (c2) compared with W6; safe for only avoiding an IMMEDIATE win by ply7, not a general P1 no-loss strategy."
+  },
+  "qualifiedLogic1p2Changed": false,
+  "productionSolverChanged": false,
+  "maintainedNode26CI": "NOT_RUN",
+  "externalFormalAssistant": "NOT_RUN",
+  "next": "Find source invariant from EMPTY that forces iterative grade2→grade1 double-fork or nonvertical support-release before P1 finds a viable adaptive repair. The fixed one-round three-ply polynomial cannot be naively recursed without reintroducing minimax quantifiers."
+}
