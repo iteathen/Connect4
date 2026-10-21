@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "EXACT_SOURCE_ALGEBRA_FULL_SIGNED_WDL_FOR_ANY_ORIGINAL7X6_FIRSTWINFREE_RANK39__NOT_ROOT_WDL",
+  "frozen": "docs/research/2026-10-21-frozen-complete-q39-signed-WDL-source-fourway-K4-grade1-grade2-Boolean.md",
+  "theorem": "docs/research/2026-10-21-exact-full-original7x6-q39-three-empty-source-K4-cofactor-Boolean-WDL.md",
+  "reproducer": "research/isograph/discovery/2026-10-21-q39-exact-boolean/verify-complete-q39-WDL-from-original-owner1-owner2-K4-cofactors.mjs",
+  "sourceGeometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalUnwrappedK4Windows": 69,
+    "physicalFourWayJunctionCells": 42,
+    "rank": 39,
+    "remainingSites": 3,
+    "toMove": "P1",
+    "winStop": "immediate first K4, alternating owner turns and column gravity"
+  },
+  "cofactors": {
+    "U0": "Boolean OR over original69 K4 containing a currently empty site e with every other site P0-owned",
+    "U1": "Boolean OR over original69 K4 containing a currently empty site e with every other site P1-owned",
+    "V1": "Boolean OR over original69 K4 containing both currently empty e,f with remaining two sites P1-owned",
+    "FourierRealization": "n_p(s)=(1+omega^(s-(p+1))+omega^(2(s-(p+1))))/3 for actual physical ternary owner label s and p in{0,1}"
+  },
+  "closedForms": {
+    "shape3": {
+      "labels": "one actual column has ordered empty x below y below z; forced P1(x),P0(y),P1(z)",
+      "P0WIN": "!U1(x) && U0(y)",
+      "P1WIN": "U1(x) || (!U0(y) && (U1(z)||V1(x,z)))"
+    },
+    "shape21": {
+      "labels": "two-high column lower x upper y; second single-empty column at z",
+      "B_xz": "U1(z)||V1(x,z)",
+      "B_xy": "U1(y)||V1(x,y)",
+      "B_zy": "U1(y)||V1(z,y)",
+      "P0WIN": "!U1(x)&&!U1(z)&&U0(x)&&(U0(y)||U0(z))",
+      "P1WIN": "U1(x)||U1(z)||(!U0(y)&&B_xz&&!U0(z)&&B_xy)||(!U0(x)&&B_zy)"
+    },
+    "shape111": {
+      "labels": "three separate single-empty columns x,y,z all playable",
+      "P0WIN": "!U1(x)&&!U1(y)&&!U1(z) && at_least_two(U0(x),U0(y),U0(z))",
+      "P1WIN": "OR_x U1(x) OR OR_first_x [AND_each_other_y (!U0(y) && (U1(last_z)||V1(first_x,last_z)))]"
+    },
+    "DRAW": "!P0WIN && !P1WIN",
+    "proof": "The rank39 ORIGINAL remaining physical column shape exhausts cases. P1 may claim exactly sites on40 and42, P0 only site on41. A P0 K4 win41 requires original one-missing U0 at its new site; a P1 K4 win40 requires U1 at its first site; a P1 K4 win42 requires original U1(last) or V1(first,last). Stop if earlier win. The finitely many legal shape-dependent placements eliminate all future move variables to fixed Boolean expressions evaluated at current board q. No future board value recursion or historical winning-line labels in formula."
+  },
+  "controls": {
+    "historicRootStrongRepresentativeQ39": 27,
+    "independentPhysicallyLegalModifiedSameHeightQ39": 285,
+    "independentOriginalCenterFiveLegalDrawQ39": 26,
+    "totalOriginalRealFirstwinFreeQ39Tests": 338,
+    "allOriginal69K4PhysicalChecks": "PASS",
+    "independentDirectionalRayEndgameWDL": "PASS",
+    "formulaWDLmismatches": 0,
+    "outcomes": {
+      "P0WIN": 202,
+      "DRAW": 89,
+      "P1WIN": 47
+    },
+    "byCapacity": [
+      {
+        "shape": "3",
+        "n": 122,
+        "P0WIN": 72,
+        "DRAW": 31,
+        "P1WIN": 19
+      },
+      {
+        "shape": "2,1",
+        "n": 183,
+        "P0WIN": 111,
+        "DRAW": 48,
+        "P1WIN": 24
+      },
+      {
+        "shape": "1,1,1",
+        "n": 33,
+        "P0WIN": 19,
+        "DRAW": 10,
+        "P1WIN": 4
+      }
+    ],
+    "P1WinsAmong285ModifiedWithImmediate40": 45,
+    "P1WinsAmong285ModifiedOnlyAt42": 2,
+    "delayedP1Examples": {
+      "grade2OriginalSource": "333332562565535041111151606624440446020",
+      "grade1LatentOriginalSource": "333333451222221405444551524506000066666"
+    },
+    "interpretation": "One delayed P1win requires V1 second-order original K4 owner cofactor; the other relies on latent U1 and actual gravity release, so immediate-playable one-missing alone fails complete WDL.",
+    "smallSolvedCheckOnly": "Independent at most three physical future moves for TEST outputs; this is not an oracle or root game solution and no future values enter the algebra producer."
+  },
+  "limits": [
+    "This is a complete signed WDL theorem ONLY for genuine q39 (three empty cells) on original 7x6, not the EMPTY root.",
+    "The proof is a fixed capacity-shape Boolean case analysis; controls are empirical checks independent of the proof.",
+    "No strong-optimal T28 root premise or historically solved outcome is used inside U0/U1/V1 evaluation.",
+    "Using the q39 formula recursively to solve earlier boards would reintroduce strategic branching unless a genuine algebraic invariant eliminates the quantifier growth."
+  ],
+  "qualification": {
+    "independentMathDerivation": "COMPLETE_AND_SOURCE_ONLY",
+    "currentQOriginalPhysicalCheck": "RUN",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalAssistant": "NOT_RUN",
+    "githubReproducerRunAsExactCommittedBytes": "NOT_RUN",
+    "qualifiedIsoGraph1p2Changed": false,
+    "productionSolverChanged": false
+  }
+}
