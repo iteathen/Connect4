@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "EXACT_GF2_SOURCE_PHYSICAL_INTERSECTION_LATTICE_WITH_HISTORICAL_T28_DIAGNOSTIC",
+  "branch": "research/semantic-quotient",
+  "prereg": "docs/research/2026-10-20-frozen-gf2-28-middle-core-intersection-with-four-step-dipole-cycles.md",
+  "synthesis": "docs/research/2026-10-20-interference-pattern-gf2-28-cores-three-space-intersection-lattice.md",
+  "domain": "Original standard 7x6 K4 physical true window geometry; historical T28 is selected via strong-optimal center and last landing premises held out from source",
+  "matrices": {
+    "B": "42x69 true site-by-original-K4-window incidence",
+    "BT": "42x28 selected strong-terminal original-window incidence",
+    "D": "42x44 physical four-step endpoint-dipole incidence",
+    "DL": "69x44 consecutive-original-four-window line-coordinate differences",
+    "Axis": "13x42 genuine row6 plus column7 parity",
+    "Vphase": "7x69 vertical original line-coefficient parity by column"
+  },
+  "ranks_GF2": {
+    "B": 35,
+    "BT": 26,
+    "D": 26,
+    "DL": 44,
+    "Axis_B": 7,
+    "Axis_D": 5,
+    "Axis_BT": 6,
+    "B_vertically_augmented_phase": 41,
+    "Vphase_DL": 0,
+    "combined_BT_D": 34,
+    "combined_BT_Ycell": 34,
+    "combined_D_Ycell": 33,
+    "combined_BT_D_Ycell": 35,
+    "combined_axis_restriction_on_BT_intersection_D": 4,
+    "stacked_equalities_BT_D": 34,
+    "stacked_equalities_plus_axis_BT": 38
+  },
+  "spaces": {
+    "U_image_B": 35,
+    "D_image_four_step_dipole": 26,
+    "T_image_BT": 26,
+    "Ycell_image_B_intersect_kernel_axis": 28,
+    "Yline_kernel_B_intersect_kernel_vertical_phase": 28,
+    "ker_B": 34,
+    "ker_D_input": 18,
+    "pairwise": {
+      "D_intersect_T": 18,
+      "D_intersect_Ycell": 21,
+      "T_intersect_Ycell": 20
+    },
+    "triple": {
+      "D_intersect_T_intersect_Ycell": 14
+    },
+    "sums": {
+      "D_plus_T": 34,
+      "D_plus_Ycell": 33,
+      "T_plus_Ycell": 34,
+      "D_plus_T_plus_Ycell": 35
+    },
+    "two_different_missing_one_modes": {
+      "T_plus_Ycell": "misses one axis-boundary coordinate; Axis rank6 out of7",
+      "D_plus_T": "misses one Ycell core coordinate; Axis rank7 out of7, core-intersection27 out of28"
+    }
+  },
+  "line_side_core": {
+    "Yline28": "18 complete source four-step cycle syzygies +10 phase-neutral base-gluing syzygies",
+    "fullGF2lineKernel34": "18 cycle syzygies +16 base gluing syzygies",
+    "vertical_phase_rank6": "kills none of source dipole differences; removes six base-gluing dimensions",
+    "historicalTlineKernel2": "two six-window signed closed triangles, both lie in the 18 source cycles and Yline28"
+  },
+  "cell_side_core": {
+    "Ycell28": "21 core sites visible in dipole-image +7 other Ycell core dimensions",
+    "dipole26": "21 axis-neutral +5 axis-visible",
+    "historicalTsite26": "20 axis-neutral +6 axis-visible",
+    "DcapT18": "14 axis-neutral +4 axis-visible"
+  },
+  "field_separation": {
+    "rational_source_line_kernel": "31=18 cycles+13 base gluing",
+    "binary_source_line_kernel": "34=18 cycles+16 base gluing",
+    "warning": "Do not mix characteristic2 Y_28 spaces with rational 31 syzygy or assume equal dimensions establish preferred same-typed isomorphism."
+  },
+  "provenance": {
+    "independent_GF2bitset_matrix_checker": "local direct 69/42 original physical generator, 69 line terminal source labels verified, GF2 pivot elimination",
+    "independent_three_way_intersection_methods": [
+      "explicit GF2 equal-images nullspace then axis rank4",
+      "GF2 stacked-map rank increment38−34=4"
+    ],
+    "maintained_Node26_CI": "NOT_RUN",
+    "formal_proof_assistant": "NOT_RUN",
+    "qualified_IsoGraph_1p2_changed": false,
+    "production_solver_changed": false,
+    "root_perfect_WDL_without_search": "OPEN"
+  }
+}
