@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "SOURCE_FIRST_EXACT_PREFIX445_K4_FORK_CLAUSE_AND_ROOT_FIRST_WING_REPAIR_DEBT",
+  "frozenBefore": "docs/research/2026-10-21-frozen-early-445-two-ended-source-horizontal-fork-defender-fourth-move-three-options.md",
+  "theorem": "docs/research/2026-10-21-source-original-prefix445-forced-three-reply-choice-double-ended-fork-and-wing-debt-progress.md",
+  "sourceOriginalW7H6K4Windows": 69,
+  "scope": "Real original legal firstwin chronology, physical shared fourway owner junctions, first P0 moves 4 then5 after P1 first center4; no claim those are root-optimal, no game solver.",
+  "conditionalSourcePrefixFirstThreeOneBased": "445",
+  "P1Ply4InitialSevenColumns": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "necessaryP1Move4ColumnsToAvoidSourceP0WinBy7": [
+    3,
+    6,
+    7
+  ],
+  "P1Move4NonrepairSourceGuaranteedP0WinBy7": [
+    1,
+    2,
+    4,
+    5
+  ],
+  "why": "If P1 move4 is not3,6,7 bottom, P0 move5 column6 produces original row1 contiguous P0 columns4,5,6 and distinct immediately playable winning targets at columns3 and7. P1 can occupy at most one in move6 and cannot firstwin K4 with only three P1 stones, so P0 firstwins original move7.",
+  "p1Ply4Cases": {
+    "1": {
+      "P0afterMove5Column6WinningLandings": [
+        3,
+        7
+      ],
+      "allSevenP1RepliesMove6Fail": true
+    },
+    "2": {
+      "P0afterMove5Column6WinningLandings": [
+        3,
+        7
+      ],
+      "allSevenP1RepliesMove6Fail": true
+    },
+    "3": {
+      "P0afterMove5Column6WinningLandings": [
+        7
+      ],
+      "onlyDefensiveP1Column6": 7
+    },
+    "4": {
+      "P0afterMove5Column6WinningLandings": [
+        3,
+        7
+      ],
+      "allSevenP1RepliesMove6Fail": true
+    },
+    "5": {
+      "P0afterMove5Column6WinningLandings": [
+        3,
+        7
+      ],
+      "allSevenP1RepliesMove6Fail": true
+    },
+    "6": {
+      "P1ClaimsConnectorColumn6Bottom": true,
+      "P0CannotFormThatThreeStoneRunByTakingColumn6Bottom": true
+    },
+    "7": {
+      "P0afterMove5Column6WinningLandings": [
+        3
+      ],
+      "onlyDefensiveP1Column6": 3
+    }
+  },
+  "sourceWingDebt": {
+    "definition": "d(q)=2-1[P1 owns some physical bottom in left wing1..3]-1[P1 owns some physical bottom in right wing5..7]",
+    "initialAfterP0CenterAndP1FirstReply": "d(q2) = 1 if P1 initial physical bottom wing; d(q2)=2 if P1 initial reply center row2",
+    "P0SourceWingPolicy": "P0 first center4, choose currently empty wing opposite P1 initial bottom move. P0 claims 3 still empty first-row wing sites plies3,5,7 unless P1 claims a wing bottom site on ply4 or6.",
+    "sourceProgressTheorem": "For every legal P1 response from this root P0 policy, either P1 must first-entry occupy a bottom site in the selected wing by ply6 (reducing d by at least one), or P0 FIRSTWINS real K4 on ply7.",
+    "proofNoRootValueNeeded": true,
+    "checks": {
+      "p1FirstChoices": 7,
+      "p1Ply2AndPly4Pairs": 49,
+      "earlyWingRepairsAtPly4": 14,
+      "lateWingRepairsAtPly6": 35,
+      "noRepairP1Ply6CasesAllP0Win7": 210,
+      "noRepairExceptions": 0,
+      "p1K4FirstwinnerByPly6": 0
+    }
+  },
+  "widthSixControl": {
+    "W6BottomRowMinimumP1BlockersAfterP0c4": 1,
+    "uniqueOneStoneBlockColumn": 3,
+    "W7BottomRowMinimumP1BlockersAfterP0c4": 2,
+    "sixTwoStoneBlockSets": [
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        3,
+        7
+      ]
+    ]
+  },
+  "realOriginalP0FirstwinningByPly7AgainstTransplantedSixWidePolicy": [
+    "4355667",
+    "4511223"
+  ],
+  "chronologicalTwoSideCounterthreat": {
+    "prefixOneBasedAtRank8": "44546714",
+    "P0CurrentlyPlayableWin": [
+      3,
+      1
+    ],
+    "P1CurrentlyPlayableWin": [
+      4,
+      5
+    ],
+    "currentMover": "P0",
+    "correctFirstWinnerP0Move9": 3,
+    "misleadingCounterexampleToStrongP0": "If P0 instead takes column2 on9, P1 can win vertically on10; this is an avoidable P0 mistake and must NOT enter a perfect-P0 defeat argument."
+  },
+  "statusRootEmptyIndependentP0WIN": "OPEN",
+  "qualification": {
+    "sourceDeductiveEarlyObligation": "PROVED",
+    "separateIndependentPythonOriginal69PhysicalValidation": "PASS",
+    "checkedInNodeSourceRunUnderMaintainedNode26CI": "NOT_RUN",
+    "historicalStrong28InProducer": false,
+    "qualifiedLogic1p2Changed": false,
+    "productionSolverChanged": false
+  }
+}
