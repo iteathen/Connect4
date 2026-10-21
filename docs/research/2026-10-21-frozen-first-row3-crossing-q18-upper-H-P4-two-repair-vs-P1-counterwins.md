@@ -1,0 +1,15 @@
+# FROZEN: high-row P4 K4 path and adaptive P1 counterwinner guard at first outer row3 crossing
+
+Date 2026-10-21 PDT. Canonical research/semantic-quotient, research direction Josh Oshiro. Scope ONLY original7x6 K4 from genuine gravity, alternating turns, physical true H/V/R/F, firstwinner stopping. Current independently source-verified conditional center-five state q18 word `444446526337114725`: original column heights [2,2,2,6,2,2,2], P0 next ply19, and EVERY outer row3 currently empty/playable. Known historic 28/strong solved results are HELD BACK and NEVER premises.
+
+Hypothesis: If P0 on19 takes c3 orc5 row3, center c4 row3 already P0; the current owner's original viable H row3 K4 grade2 residual graph is a physical path P4 (for c3: 1--2--5--6, for c5: 2--3--6--7), with three actual two-empty winning requirements. It is an exact source isomorphic recurrence to earlier bottom-row q3=`445` Fibonacci P4 graph, with 3 minimum two-site vertex covers. All actual row3 sites in outer columns are initially playable, and P1 must respond by a pivot blocker to avoid allowing P0 to create a two-ended fork. But P1 may ALREADY FIRSTWIN on ply20 or ply22 through unrelated original H/V/R/F requirements; this must be checked BEFORE any P0 win-by23 inference.
+
+Test 1: Independently reconstruct original69 true K4 and physically replay this q18 word, check no firstwinner. For all six P0 legal first outer row3 moves19 compute original owner-specific U0,U1,V0 K4 cofactors with gravity support, detect P1 direct firstwinner on20. Compute source P0 row3 degree2 graph and verify c3/c5 gives P4. If P1 can win on20 for any such P0 choice, preserve exact original K4 line and state, do NOT claim forced P0 wing repair.
+
+Test 2: For c3/c5 first P0 row3 moves, independently bounded physical ray checker through possible P1 replies20, P0 pivots21, P1 replies22, P0 terminal23, reporting all P1 counterwins at20/22 and potential P0 mate5. A test that enumerates only this 5-ply *local falsification* does NOT prove root WDL. Preserve immediate threat precedence.
+
+Test 3: If c3/c5 current P0 mate5 fails, seek an exact modified statement: P1 must either FIRSTWIN on20/22 or expend 2 third-row blockers by22 to avoid P0 firstwin23, under P0 source pivot policy. Cross-check original P1 row1/row2 ownership might create diagonal/vertical counterwinners that prevent P0 forcing. Record necessary/sufficient safeguards.
+
+Test 4: Geometry-only general source claim under guard: first P0 outer row3 with adjacent center and all other row3 empty yields P4 path, static min cover2,8 covers Fibonacci F6; q19 P1 one move can preempt pivot. Test whether actual P1 fourth wing defense is attainable with firstwinning constraints of both owners. Compare P1 P3/P4 winning-line structure, not merely scalar Fourier grade3 cancellation.
+
+No root strategy or WDL claim from conditional q18; not known optimal from EMPTY. Do not modify qualified IsoGraph1.2/production. Commit exact evidence and negative results promptly; maintainer CI/formal assistant not claimed unless run.
