@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "EXACT_DIMENSION_UNIVERSAL_SYMBOLIC_K4_FOUR_SPATIAL_NULLWAVE_PROOF_AND_64_BOARD_PHYSICAL_FALSIFICATION_PASS",
+  "branch": "research/semantic-quotient",
+  "governingPrior": "docs/research/2026-10-20-frozen-universal-spatial-k4-fourier-nullspace-four-modes-and-full-line-syzygy-formula.md",
+  "reproNode": "research/isograph/discovery/2026-10-20-interference-cubic-bridge/verify-universal-original-k4-period4-four-spatial-nullwaves.mjs",
+  "independentPythonMath": "Independently authored numpy vectorized GF1009 geometry incidence rank checks on 38 boards W*H<=72 and all four integer Fourier null-wave patterns across 64 W,H dimensions 5..12; independently authored SymPy rational exact original incidence rank on W5H6,W6H6,W7H5,W7H6,W8H6,W10H6; initial attempt to rational-eliminate large 821-row graph overlap matrix timed out and was replaced by proved connected-graph rank identity.",
+  "newProof": {
+    "domain": "Original unwrapped Connect4 K=4, W>=5,H>=5, all 4 physical window directions",
+    "spatialNullity": 4,
+    "fourWaveBasis": [
+      "f1(c,r)=(-1)^r cos(pi*c/2)",
+      "f2(c,r)=(-1)^r sin(pi*c/2)",
+      "f3(c,r)=(-1)^c cos(pi*r/2)",
+      "f4(c,r)=(-1)^c sin(pi*r/2)"
+    ],
+    "spatialWaveNumbersZ4X4": [
+      [
+        1,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "horizontalVertical": "adjacent four-window differences imply 4-periodicity in both axes; row/column zero sums kill Fourier frequencies with either coordinate0",
+    "diagonal": "four 4-step diagonal sums are independent of start along diagonal and depend on start-offset mod4; real original W,H>=5 checks force all four diagonal start classes, killing k_c+k_r=0 and k_c-k_r=0",
+    "output": "rank_Q(site_to_original_K4_winline_sum)=W*H-4",
+    "winningLineCount": "N=4*W*H-9*(W+H)+18",
+    "lineIncidenceSyzygyDim": "N-W*H+4 = 3*W*H-9*(W+H)+22",
+    "overlapGraph": "ALL original K4 line vertices with edge for any physical shared site are connected for W,H>=5 (horizontal rows linked by vertical line chains, diagonals attach)",
+    "relativeGraphRank": "N-1",
+    "additivePhysicalRelativeRank": "W*H-5",
+    "beyondAdditiveAndCubicOwnerSyzygyDim": "3*W*H-9*(W+H)+22",
+    "precisePeriod4MatchingRelation": "Four spatial additive standing waves show vertical sign alternation and anti-phase across nonzero columns at horizontal separation2. This is a common period4 motif with restricted stationary owner column Fibonacci/pairing, NOT equivalence or WDL."
+  },
+  "independentControls": {
+    "widths": "5..12",
+    "heights": "5..12",
+    "parameterBoards": 64,
+    "originalFullGeometricK4Windows": 9856,
+    "fourWaveDirectionalWindowSumChecks": 39424,
+    "fourIndependentWaveBasisChecks": 64,
+    "mod1009FullIncidenceRankChecks": 38,
+    "mod1009RankMismatches": 0,
+    "windowsWithNonzeroWaveSum": 0,
+    "formalMathematicalArgument": "Deductive all-dim proof is independent of finite controls",
+    "referenceBoardSourceRows": [
+      {
+        "W": 5,
+        "H": 5,
+        "winlines": 28,
+        "sites": 25,
+        "rank": 21,
+        "fullRelative": 27,
+        "additiveRelative": 20,
+        "cubicSyzygies": 7
+      },
+      {
+        "W": 5,
+        "H": 6,
+        "winlines": 39,
+        "sites": 30,
+        "rank": 26,
+        "fullRelative": 38,
+        "additiveRelative": 25,
+        "cubicSyzygies": 13
+      },
+      {
+        "W": 6,
+        "H": 6,
+        "winlines": 54,
+        "sites": 36,
+        "rank": 32,
+        "fullRelative": 53,
+        "additiveRelative": 31,
+        "cubicSyzygies": 22
+      },
+      {
+        "W": 7,
+        "H": 5,
+        "winlines": 50,
+        "sites": 35,
+        "rank": 31,
+        "fullRelative": 49,
+        "additiveRelative": 30,
+        "cubicSyzygies": 19
+      },
+      {
+        "W": 7,
+        "H": 6,
+        "winlines": 69,
+        "sites": 42,
+        "rank": 38,
+        "fullRelative": 68,
+        "additiveRelative": 37,
+        "cubicSyzygies": 31
+      },
+      {
+        "W": 8,
+        "H": 6,
+        "winlines": 84,
+        "sites": 48,
+        "rank": 44,
+        "fullRelative": 83,
+        "additiveRelative": 43,
+        "cubicSyzygies": 40
+      },
+      {
+        "W": 10,
+        "H": 6,
+        "winlines": 114,
+        "sites": 60,
+        "rank": 56,
+        "fullRelative": 113,
+        "additiveRelative": 55,
+        "cubicSyzygies": 58
+      }
+    ],
+    "boundaryNegativeControls": [
+      {
+        "W": 4,
+        "H": 4,
+        "originalLines": 10,
+        "rankMod1009": 9,
+        "siteNullity": 7
+      },
+      {
+        "W": 4,
+        "H": 5,
+        "originalLines": 17,
+        "rankMod1009": 15,
+        "siteNullity": 5
+      },
+      {
+        "W": 5,
+        "H": 4,
+        "originalLines": 17,
+        "rankMod1009": 15,
+        "siteNullity": 5
+      },
+      {
+        "W": 4,
+        "H": 6,
+        "originalLines": 24,
+        "rankMod1009": 20,
+        "siteNullity": 4
+      },
+      {
+        "W": 6,
+        "H": 4,
+        "originalLines": 24,
+        "rankMod1009": 20,
+        "siteNullity": 4
+      }
+    ],
+    "initialLargeMatrixDirectElimination": "TIMEOUT_NOT_AUTHORITY; repaired by exact graph connectivity+constant image proof; no claim of direct sparse 821x42 rational rank timing."
+  },
+  "frozenWDLTargetsHeldBack": {
+    "5x6": "DRAW",
+    "6x6": "P1 WIN",
+    "7x5": "DRAW",
+    "7x6": "P0 WIN",
+    "8x6": "P1 WIN",
+    "10x6": "P0 WIN",
+    "interpretation": "Site nullity four is universal across both WIN and DRAW dimension outcomes; syzygy counts vary and do NOT alone establish signed game value. Optimally enforceable historical 28 line support remains output diagnostic only."
+  },
+  "qualifications": {
+    "formalProofAssistant": false,
+    "maintainedNode26": false,
+    "newNodeScriptInMaintainedCI": false,
+    "productionSolverChanged": false,
+    "qualifiedIsoGraph1p2Changed": false,
+    "rootNonrecursiveWDL": "OPEN"
+  }
+}
