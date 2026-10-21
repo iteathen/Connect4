@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "branch": "research/semantic-quotient",
+  "status": "INDEPENDENT_EXACT_ORIGINAL_K4_TWO_OVERLAPPING_6x6_SOURCE_SYZYGY_AND_DEFENSIVE_GLUING_GEOMETRY",
+  "scope": "Actual original open W5H6,W6H6,W7H6 K4 physical sites and four-way ownership alias; all strong play results held back.",
+  "synthesis": "docs/research/2026-10-20-empty-seven-by-six-two-six-wide-overlap-syzygy31-cycle18-defender-gluing-failure.md",
+  "priorSource": "docs/research/2026-10-20-empty-six-versus-seven-fourway-junction-minimal-defensive-unsat-width-boundary.md",
+  "sourceDimensions": [
+    {
+      "W": 5,
+      "H": 6,
+      "originalWindows": 39,
+      "siteIncidenceRankRational": 26,
+      "sourceKernel": 13,
+      "fourStepCycleSpace": 6,
+      "strandBaseGluingQuotient": 7,
+      "horizontalReflectionKernel": {
+        "even": 6,
+        "odd": 7
+      }
+    },
+    {
+      "W": 6,
+      "H": 6,
+      "originalWindows": 54,
+      "siteIncidenceRankRational": 32,
+      "sourceKernel": 22,
+      "fourStepCycleSpace": 12,
+      "strandBaseGluingQuotient": 10,
+      "horizontalReflectionKernel": {
+        "even": 13,
+        "odd": 9
+      }
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "originalWindows": 69,
+      "siteIncidenceRankRational": 38,
+      "sourceKernel": 31,
+      "fourStepCycleSpace": 18,
+      "strandBaseGluingQuotient": 13,
+      "horizontalReflectionKernel": {
+        "even": 15,
+        "odd": 16
+      }
+    }
+  ],
+  "geometryCover": {
+    "leftSixColsOneBased": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "rightSixColsOneBased": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "middleOverlapFiveColsOneBased": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "originalK4WindowInclusionExclusion": "69=54+54-39",
+    "physicalIncidenceImageSubspaces": {
+      "leftRank": 32,
+      "rightRank": 32,
+      "intersectionRank": 26,
+      "joinedRank": 38,
+      "intersectionExactlyEqualsMiddleFiveImage": true,
+      "identity": "38=32+32-26"
+    },
+    "lineCoordinateSyzygySubspaces": {
+      "leftRank": 22,
+      "rightRank": 22,
+      "intersectionRank": 13,
+      "joinedRank": 31,
+      "intersectionExactlyEqualsMiddleFiveSyzygySpace": true,
+      "entireOriginalSevenLineKernelIsSumOfTwoEmbeddedSixKernels": true,
+      "identity": "31=22+22-13"
+    },
+    "fourStepDipoleCycleSubspaces": {
+      "leftRank": 12,
+      "rightRank": 12,
+      "middleRank": 6,
+      "intersectionRank": 6,
+      "joinedRank": 18,
+      "joinedEqualsFullSevenCycleSpace": true,
+      "identity": "18=12+12-6"
+    },
+    "sourceBaseGluingDimensions": {
+      "left": 10,
+      "right": 10,
+      "middle": 7,
+      "whole": 13,
+      "numericRelationship": "13=10+10-7; quotient-map gluing requires explicit typed operator",
+      "remark": "Middle five-column overlap K13 reflection even6/odd7 differs from full seven source base-gluing K13 reflection even7/odd6; equal cardinality does not identify their representations."
+    }
+  },
+  "defenseCompatibility": {
+    "sourceProjection": "Full hypothetical vertically alternating owner column phases, same actual cell owner copies glued across original H/V/R/F junctions.",
+    "leftSixUniqueFullProtectiveMatching": [
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        5
+      ]
+    ],
+    "rightSixUniqueFullProtectiveMatching": [
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        6
+      ]
+    ],
+    "jointConflict": "left matched physical column4 to2; right matched SAME physical column4 to6; cannot simultaneously be disjoint stationary column phase pairings.",
+    "leftAndRightIndividuallySatisfiable": true,
+    "combinedFullSevenProtectiveMatchingExists": false,
+    "minimalUNSATCore": "Four overlapping width4 winning-span cover constraints and three no-reuse disjoint-column constraints; unsat by m2 case split, removing any one yields satisfiable.",
+    "interpretation": "Original W7 static defensive matching GLOBAL SECTION fails to glue from two solvable W6 local defensive sections on their shared physical columns. This is not universal failure of all online/adaptive P1 strategies."
+  },
+  "conditionalHistoricalT28Diagnostic": {
+    "historicalInputs": "Original W7 root-strong first-five center moves and P0 firstwins ply41, for deriving T28 line labels and F13 last possible original P0 landing sites; these are NOT derived from EMPTY.",
+    "sourceCycleProjection": {
+      "left6cycleRank12": 12,
+      "right6cycleRank12": 12,
+      "middle5cycleRank6": 6,
+      "combinedTwo6cycleRank": 18
+    },
+    "physicalLandingStarRank": 13,
+    "leftSixCyclesPlusHistoricLandingStarsRank": 25,
+    "rightSixCyclesPlusHistoricLandingStarsRank": 25,
+    "bothSixCyclesPlusHistoricLandingStarsRank": 28,
+    "absoluteNewIndependentSelectedLineDirectionsContributedBySecondSixCycleModule": 3,
+    "selectedLineUniformPotentialInEitherHalfPlusStars": false,
+    "selectedLineUniformPotentialInBothHalfPlusStars": true,
+    "historicRelativeCoboundaryRank": 27,
+    "historicRelativeNewDirectionsFromSecondSixCycles": 2,
+    "equations": [
+      "28=25+3 conditional absolute source-cycle-plus-landing overlay",
+      "27=25+2 conditional relative after uniform line gauge",
+      "28=18 projected full-seven dipole cycles+13 final-landing-stars-3 common rank"
+    ],
+    "optionalAlternativeRepresentationAndFalsifier": {
+      "projectedEntireLeftSixRationalKernel22Rank": 17,
+      "projectedEntireRightSixRationalKernel22Rank": 17,
+      "projectedWholeSevenRationalKernel31Rank": 22,
+      "entireOneSixKernelPlusHistoricLandingStarRank": 28,
+      "interpretation": "The 25+3 terminal augmentation specifically concerns CYCLE-ONLY source subspaces, NOT all22 left-six line syzygies; full one-half source syzygies plus historic landing stars already span T28. Thus do not claim the seventh column creates a unique terminal28 algebraic basis."
+    }
+  },
+  "rootWDLBoundary": {
+    "sourceSixBySixP1NonlossByAllis1988": "TRUE, proven adaptive legal reply preserving exclusion of P0 firstwinning on even6-row W<=6 original K4",
+    "widthSevenGuard": "All K4 four-column spans have only one common center column, so this particular two-central source response policy no longer has its proof premise.",
+    "heldBackPublishedOutcomes": {
+      "6x6": "P1 WIN on ply36",
+      "7x6": "P0 WIN on ply41",
+      "7x5": "DRAW",
+      "8x6": "P1 WIN"
+    },
+    "publishedSource": "ChristopheSteininger/c4 GitHub solved sizes; Tromp earlier work",
+    "noNewAllAdaptiveDefenderProof": true
+  },
+  "qualification": {
+    "symbolicFullOriginalLineSyzygyInclusionAndExactSympy": "RUN independently on local5/6/7",
+    "sourceOriginalDipoleGraphCycleFundamentalBasesAndSympy": "RUN independently on local5/6/7",
+    "conditionalTerminalSubspaceRanks": "RUN independent SymPy, historical condition explicitly recorded",
+    "minimalUnsatTruthTable": "RUN exhaustive all 32 potential pair status configurations, independent 7 clause ablations",
+    "localCommittedNodeSourceFile": "research/isograph/discovery/2026-10-20-empty-six-seven-fourway/verify-empty-six-seven-fourway-phase.mjs",
+    "committedNodeProgramRunAsExactBytes": "NOT_RUN",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalProofAssistant": "NOT_RUN",
+    "productionSolverChanged": false,
+    "qualifiedIsoGraph1p2Changed": false,
+    "newEmptyRootWDLFromFourier": "OPEN"
+  }
+}
