@@ -117,6 +117,23 @@ Its seventh possible axis boundary coordinate is absent due to the historical to
 
 A further useful negative: the affine GF2 source set of complete 7x6 binary colorings whose EVERY original K4 window has ODD XOR has128 members. None has balanced 21/21 ownership, hence none is an alternating 42-ply legal full owner schedule. This is an exact warning that strong algebraic parity symmetry need not produce perfect-play DRAW or WDL.
 
+### New exact direct intersections with both 28-dimensional GF2 cores
+
+A second independently executed GF2 experiment refined the two prior Y cores with the four-step source geometry; see the dedicated 2026-10-20-interference-pattern-gf2-28-cores-three-space-intersection-lattice.md and its machine packet. Let D be the physical four-step dipole IMAGE in the original 42-site space (dim26); let T be the physical image of the historical selected28 original terminal lines (dim26); let Y=Y_cell be the native row+column-parity-zero source cell core (dim28), all inside im(B) of dimension35 over GF2.
+
+Their *exact* intersection table is:
+- D intersect T = **18**;
+- D intersect Y = **21**;
+- T intersect Y = **20**;
+- D intersect T intersect Y = **14**.
+The span dimensions are D+T=34, D+Y=33, T+Y=34 and D+T+Y=35 (the FULL source physical image).
+
+Two superficially identical missing-one directions are in fact DISTINCT. T+Y spans a 34D hyperplane missing one AXIS-BORDER coordinate, whereas T+D spans another 34D hyperplane whose axis image already has the full rank7 and which misses one Y-CORE coordinate. They are not the same subspace; their sum is the whole35D source incidence image.
+
+The OTHER GF2 Y_line28 (original signed line-coordinate syzygies with zero vertical-column coefficient parity) contains ALL 18 exact four-step dipole-cycle relations because consecutive ORIGINAL vertical windows always enter their line-coordinate difference in pairs in the same column. Since the vertical-phase map on full GF2 kerB34 has rank6, and those18 cycles have phase zero, the exact line-core filtration is **28=18 dipole cycles+10 additional phase-neutral base-gluing relations**, while GF2 total34=18+16. On the physical CELL side, row+column parity has rank5 on D26, yielding the different exact core filtration **28=21 dipole-visible Y_cell directions+7 other cell-core directions**. The existing natural gravity/CPC Y_line→Y_cell isomorphism is NOT asserted to preserve these particular subspaces (18 is not21).
+
+These actual intersection dimensions sharpen the historical relation 28=2+20+6 without assuming that equal 28 labels are identical. The historic two signed terminal syzygies lie inside Y_line's 18 dipole-cycle part.
+
 ## 6. The THREE different 27s, plus the related 28s
 
 1. Local ternary Fourier **27 configurations per physical junction**: four orientation copies of ONE true ternary EMPTY/P0/P1 label yield 81 local possible frequency tuples, only27 nonzero under kH+kV+kR+kF=0 mod3,54 canceled. The underlying group Z3^3 has group dimension3, not27. Its 27-dimensional complex function representation at a fixed center junction splits reflection 18-even/9-odd.
