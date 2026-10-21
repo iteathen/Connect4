@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "branch": "research/semantic-quotient",
+  "status": "TRUE_ORIGINAL7X6_TWO_SUCCESSFUL_P1_REPAIRS_EXACT_OWNER_K4_DEGREE2_RESET_AND_NO_FORCED_WIN_BY11",
+  "frozenBefore": "docs/research/2026-10-21-frozen-after445-two-q6-crossdirection-next-repair-source-mate5.md",
+  "testedOriginalK4Windows": 69,
+  "player0StartFromEmpty": "445",
+  "historicalStrong28Used": false,
+  "gameSolverUsed": false,
+  "sourceDefinitions": {
+    "partialWinPolynomial": "W_p(q;X)=sum_{L original K4 with no opponent stone} PRODUCT_{e in L still EMPTY} X_e, one TRUE physical owner variable per cell shared across H/V/R/F.",
+    "gradedSourceCounts": "degree k counts how many current empty physical cells player p must still own on a source live K4. A P0 completion requires consuming k future P0 turns; lower gravity supports cannot shorten that absolute bound.",
+    "mate5": "The bounded source P0 mate-in-5 guard requires some current P0 move7 x such that for every P1 reply8 y without an immediate P1 win, P0 wins within next three plies9,10,11. Tested by independent literal original K4 ray on at most5 plies from fixed q6; this bounded validation is not a full game solver or perfect-root proof."
+  },
+  "positions": [
+    {
+      "wordOneBased": "445367",
+      "currentP0StonesOneBased": [
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ]
+      ],
+      "currentP1StonesOneBased": [
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "columnHeights": [
+        0,
+        0,
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      "P0LiveOriginalK4ByRequiredAdditionalP0Cells": {
+        "3": 5,
+        "4": 47
+      },
+      "P0LiveOriginalK4Total": 52,
+      "P0LiveOriginalK4RequiringAtMost2P0Stones": 0,
+      "P1LiveOriginalK4ByRequiredAdditionalP1Cells": {
+        "2": 1,
+        "3": 10,
+        "4": 47
+      },
+      "P1LiveOriginalK4Total": 58,
+      "uniqueP1TwoMissingOriginalLine": {
+        "orientation": "R",
+        "cells": [
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            6,
+            4
+          ]
+        ],
+        "remainingSites": [
+          [
+            5,
+            3
+          ],
+          [
+            6,
+            4
+          ]
+        ],
+        "gravitySupportSites": [
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            3
+          ]
+        ]
+      },
+      "P0CurrentMate3Possible": false,
+      "P0CanForceWinByPly11": false,
+      "P0LegalPly7ColumnsTested": 7,
+      "eachP0Ply7ChoiceForcesWinBy11": false,
+      "P1LegalPly8RepliesPerP0Move": 7,
+      "P0Mate3SourceCertificatesAcross49PossibleQ8": 0,
+      "firstwinfreeActualPhysicalFivePlyStateCountForSourceControl": 1415
+    },
+    {
+      "wordOneBased": "445632",
+      "currentP0StonesOneBased": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      "currentP1StonesOneBased": [
+        [
+          4,
+          2
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "columnHeights": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      "P0LiveOriginalK4ByRequiredAdditionalP0Cells": {
+        "3": 4,
+        "4": 47
+      },
+      "P0LiveOriginalK4Total": 51,
+      "P0LiveOriginalK4RequiringAtMost2P0Stones": 0,
+      "P1LiveOriginalK4ByRequiredAdditionalP1Cells": {
+        "3": 11,
+        "4": 47
+      },
+      "P1LiveOriginalK4Total": 58,
+      "P1TwoMissingOriginalLineCount": 0,
+      "P0CurrentMate3Possible": false,
+      "P0CanForceWinByPly11": false,
+      "P0LegalPly7ColumnsTested": 7,
+      "eachP0Ply7ChoiceForcesWinBy11": false,
+      "P1LegalPly8RepliesPerP0Move": 7,
+      "P0Mate3SourceCertificatesAcross49PossibleQ8": 0,
+      "firstwinfreeActualPhysicalFivePlyStateCountForSourceControl": 1415
+    }
+  ],
+  "exactSourceProof": "P0 occupies exactly three consecutive physical bottom cells. Every original K4 containing two or more of these P0 sites is necessarily HORIZONTAL row1 (distinct columns same row rule excludes vertical/diagonal). In state445367 all original horizontal four-column intervals containing two of {4,5,6} hit P1 bottom c3 or c7. In state445632 all containing two of {3,4,5} hit P1 bottom c2 or c6. Thus no P0 live original K4 contains >=2 P0 stones; the residual source polynomial has NO degree0/1/2 monomials. With three P0 moves still needed on EVERY viable K4 and P0 next moves7,9,11, P0 earliest possible firstwin is move11, irrespective P1 behavior.",
+  "independentValidation": {
+    "localNodeCurrentQK4SourceGradeAndP0Mate3At98Ply8States": "PASS, source all69 checks, zero P0 mate3 from every post q6 P0 move7 and P1 move8",
+    "independentPythonTrueOriginalK4RayStrictFirstwinner5Ply": "PASS, 2 q6,7 P0 choices each, no P0 guaranteed WIN by11, 2830 independently examined bounded physical positions total",
+    "staticPairedP1ResponderGuardOnEachQ6": "FAILED: each of the 3 possible matched odd-column base pairings plus fixed vertical co-release pairs blocks only17 P0 viable original K4 lines, leaves35 or34 uncovered. Does NOT certify P1 DRAW; this was a narrowed defensive policy, not universal P1 response.",
+    "CI": "NOT_RUN",
+    "externalFormalAssistant": "NOT_RUN"
+  },
+  "negativeMeaning": "Successful early adaptive P1 bottom-repair can ERASE all P0 low-degree partial original winning-line cofactor threats. An early forced P1 repair count therefore cannot simply be added monotonically to conclude eventual P1 defensive insolvency.",
+  "importantScope": "Neither position is known to be an optimal-from-EMPTY continuation. Prefix445 is voluntarily selected as a tactical source test, not inferred as perfect P0 opening; no signed root result follows. Further source forcing must address the genuine optimal P0 opening and adaptive P1 replies.",
+  "next": "Look for strategy-realizable invariant that measures paired defensive repairs jointly with owner-specific low-degree source W_p(q) and gravity-support debt; any monotone scalar repair count is falsified by source annihilation at q6."
+}
