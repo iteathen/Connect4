@@ -1,0 +1,160 @@
+{
+  "schema": 1,
+  "date": "2026-10-22",
+  "status": "DEDUCTIVE_EXACT_SCOPED_C6_BIPARTITE_POTENTIAL_AND_FIRSTWIN_CIRCULATION",
+  "branch": "research/semantic-quotient",
+  "prereg": "docs/research/2026-10-22-frozen-three-pair-matching-hexagon-potential-obstruction.md",
+  "theorem": "docs/research/2026-10-22-original7x6-two-matching-hexagon-cohomology-firstwin-circulation.md",
+  "physicalGuard": "genuinely legal alternating firstwinfree rank12 original7x6 source; fixed P0-bottom edge anchor 1 or7; center empty, each peripheral column two opposite stones, five variable bit pair owners",
+  "anchors": [
+    {
+      "anchor": 1,
+      "leftPhysicalColumns": [
+        2,
+        3
+      ],
+      "rightPhysicalColumns": [
+        6,
+        7
+      ],
+      "fixedMiddlePhysicalColumn": 5
+    },
+    {
+      "anchor": 7,
+      "leftPhysicalColumns": [
+        1,
+        2
+      ],
+      "rightPhysicalColumns": [
+        5,
+        6
+      ],
+      "fixedMiddlePhysicalColumn": 3
+    }
+  ],
+  "edges": [
+    {
+      "sourceIndex": 1,
+      "bits": "00001",
+      "left": "00",
+      "right": "01",
+      "middleBit": 0,
+      "cycleSign": 1,
+      "survivesSecondP0CenterOffcenterP1": false
+    },
+    {
+      "sourceIndex": 2,
+      "bits": "00010",
+      "left": "00",
+      "right": "10",
+      "middleBit": 0,
+      "cycleSign": -1,
+      "survivesSecondP0CenterOffcenterP1": false
+    },
+    {
+      "sourceIndex": 8,
+      "bits": "01000",
+      "left": "01",
+      "right": "00",
+      "middleBit": 0,
+      "cycleSign": 1,
+      "survivesSecondP0CenterOffcenterP1": false
+    },
+    {
+      "sourceIndex": 9,
+      "bits": "01001",
+      "left": "01",
+      "right": "01",
+      "middleBit": 0,
+      "cycleSign": -1,
+      "survivesSecondP0CenterOffcenterP1": true
+    },
+    {
+      "sourceIndex": 16,
+      "bits": "10000",
+      "left": "10",
+      "right": "00",
+      "middleBit": 0,
+      "cycleSign": -1,
+      "survivesSecondP0CenterOffcenterP1": false
+    },
+    {
+      "sourceIndex": 18,
+      "bits": "10010",
+      "left": "10",
+      "right": "10",
+      "middleBit": 0,
+      "cycleSign": 1,
+      "survivesSecondP0CenterOffcenterP1": true
+    }
+  ],
+  "positivePerfectMatching": [
+    1,
+    8,
+    18
+  ],
+  "negativePerfectMatching": [
+    2,
+    9,
+    16
+  ],
+  "graph": {
+    "vertexCount": 6,
+    "edgeCount": 6,
+    "connected": true,
+    "everyVertexDegree": 2,
+    "graphType": "induced six-edge bipartite C6",
+    "QvertexPotentialRank": 5,
+    "QcycleDimension": 1,
+    "eachFiveEdgeSubsetIndependent": true,
+    "oneCycleGenerator": "(+1,-1,+1,-1,-1,+1) on source edges [1,2,8,9,16,18]",
+    "positiveNegativeMatchingLeftAndRightMarginalsIdentical": true
+  },
+  "nativeField": {
+    "all69OriginalK4FullTernaryPatternObservables": true,
+    "perOwnerOriginalEulerEmissionSlots": 438,
+    "owners": 2,
+    "restrictedInitialAndAfterFirstCenterSpanRank": 5,
+    "equalsVertexPotentialSpace": true,
+    "proof": "each native feature has zero cycle circulation (independent all69K4/876 Euler integer test), while constant+four actual L/R owner bits are native K4 pattern sums and have exact rank5"
+  },
+  "absorption": {
+    "firstP0CenterAllSixSurvive": true,
+    "P1AllSevenRepliesNonwinning": true,
+    "offcenterP1ThenP0CenterSurvivalVector": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      1
+    ],
+    "offcenterP1ThenP0CenterPlusMinusP0FirstWinning": [
+      2,
+      2
+    ],
+    "offcenterP1ThenP0CenterPlusMinusSurvivors": [
+      1,
+      1
+    ],
+    "S_CycleCirculation": 0,
+    "S_OwnerFirstLeftBitCycleCirculation": 1,
+    "secondCenterAfterP1CenterGoesToRow3NoNewCycle": true,
+    "compactMultiplicativeClosure": "S in P and XL in P but (S*XL) not in P. Since dim P=5 and edge function ambient=6, span(P,S*XL)=Q^6; exactly one extra cycle class closes this particular single absorber."
+  },
+  "relationshipToSeptemberOOO": "Both involve signed exchange/relative-gauge information; Sep descriptor vector three pair-deltas have zero additive cycle, Oct C6 signed measures are a nontrivial cycle in a different graph; no typed map or value theorem",
+  "references": [
+    "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-edge-hexagon-bipartite-potential-and-circulation.mjs",
+    "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-edge-anchor-six-state-circuit-independent-native-euler.mjs",
+    "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-edge-anchor-native-six-state-circuit-and-small-support.py"
+  ],
+  "verification": {
+    "exactBipartiteGraphFunction": "RUN_IN_INDEPENDENT_V8; source function body saved exact",
+    "literalSourcePhysicsNativeK4EulerFunction": "RUN_IN_INDEPENDENT_V8; source function body saved exact",
+    "SympySixFacesAndEdgeSmallSupport": "LOCALLY_EXECUTED_EQUIVALENT_INDEPENDENT_PYTHON_SOURCE",
+    "maintainedCI": "NOT_RUN",
+    "externalFormal": "NOT_RUN",
+    "previouslySolvedGameKnowledge": false,
+    "rootP0WinProved": false
+  }
+}
