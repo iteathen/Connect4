@@ -1,0 +1,183 @@
+{
+  "schema": "c4.original7x6_WSL_matroid_minor_causal_tropical.v1",
+  "status": "EXACT_TROPICAL_CAUSAL_RESPONSE_MATROID_IDEAL_ANNIHILATION_AND_MINOR_INVARIANCE",
+  "abstract": {
+    "fourAbstractSites": true,
+    "allAntichains": 168,
+    "labelledRank1PartitionMatroids": 625,
+    "annihilationIffPositiveGammaChecks": 105000,
+    "minorTropicalChecks": 1008000,
+    "independentMinorNullControls": 387552
+  },
+  "physical": {
+    "board": "genuine original7x6 K4",
+    "sourceWord": "2121136126673113635772",
+    "sourcePly": 22,
+    "sourceLive": true,
+    "D": "P0",
+    "A": "P1",
+    "heights": [
+      6,
+      4,
+      4,
+      0,
+      1,
+      4,
+      3
+    ],
+    "windows": {
+      "H": 24,
+      "V": 21,
+      "R": 12,
+      "F": 12
+    },
+    "unblockedDSourceWindows": 26,
+    "normalizedDRequirements": 22,
+    "oddQPairs": [
+      [
+        5,
+        7
+      ]
+    ],
+    "trapC": [
+      4
+    ],
+    "freeLowerFutureE": [
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        5
+      ]
+    ],
+    "sourceGamma": 1,
+    "sourceTropicalDeficits": {
+      "1": 11,
+      "2": 4,
+      "3": 3,
+      "4": 4
+    },
+    "localLabelledNontrapResponseControls": [
+      {
+        "Dcolumn": 2,
+        "Drow": 5,
+        "Acolumn": 2,
+        "Arow": 6,
+        "Afirstwin": false,
+        "childResidualMasks": 19,
+        "childGamma": 1,
+        "childGapHistogram": {
+          "1": 10,
+          "2": 3,
+          "3": 2,
+          "4": 4
+        }
+      },
+      {
+        "Dcolumn": 3,
+        "Drow": 5,
+        "Acolumn": 3,
+        "Arow": 6,
+        "Afirstwin": false,
+        "childResidualMasks": 18,
+        "childGamma": 1,
+        "childGapHistogram": {
+          "1": 10,
+          "2": 4,
+          "3": 1,
+          "4": 3
+        }
+      },
+      {
+        "Dcolumn": 5,
+        "Drow": 2,
+        "Acolumn": 7,
+        "Arow": 4,
+        "Afirstwin": false,
+        "childResidualMasks": 15,
+        "childGamma": 1,
+        "childGapHistogram": {
+          "1": 8,
+          "2": 2,
+          "3": 2,
+          "4": 3
+        }
+      },
+      {
+        "Dcolumn": 6,
+        "Drow": 5,
+        "Acolumn": 6,
+        "Arow": 6,
+        "Afirstwin": false,
+        "childResidualMasks": 18,
+        "childGamma": 1,
+        "childGapHistogram": {
+          "1": 9,
+          "2": 4,
+          "3": 3,
+          "4": 2
+        }
+      },
+      {
+        "Dcolumn": 7,
+        "Drow": 4,
+        "Acolumn": 5,
+        "Arow": 2,
+        "Afirstwin": false,
+        "childResidualMasks": 19,
+        "childGamma": 1,
+        "childGapHistogram": {
+          "1": 8,
+          "2": 4,
+          "3": 3,
+          "4": 4
+        }
+      }
+    ],
+    "actualFirstEntryTrapP1Firstwin": true,
+    "matroidOwnerPolicyFullBound": 16
+  },
+  "theorem": "Every D residual monomial in the WSL antichain is killed by a CAUSALLY realizable matroid monomial ideal. After every prescribed legal D/A nontrap response pair, the exact Shannon cofactor and matroid contraction/delete commute, with tropical nullity gamma nondecreasing; existing online trap theorem then forces A FIRSTWIN.",
+  "strategicValueAtGuardedSource": "P1_WIN by source-only exact certificate",
+  "rootEmptyWin": "NOT_PROVED",
+  "actualWholeGameStatesEnumerated": 0,
+  "childStrategicFutureValuesComputed": 0,
+  "solvedOutcomeInputs": false,
+  "CI": "NOT_RUN",
+  "externalFormal": "NOT_RUN",
+  "checkedInSourcePath": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-causal-WSL-matroid-minor-tropical-nullity.js",
+  "checkedInSourceBlob": "d45a1307d18beee7f70c5845da8af9adbb5ea710",
+  "frozenResearchProtocols": [
+    "docs/research/2026-10-22-frozen-causal-Shannon-matroid-minor-WSL-zero-field-protocol.md",
+    "docs/research/2026-10-22-frozen-matroid-nullity-tropical-causal-monotonicity.md"
+  ],
+  "existingRealizableResponderTheorem": "docs/research/2026-10-20-frozen-interference-odd-base-pair-matroid-response-theorem.md",
+  "qualification": {
+    "isographAuthorityRevision": "NONE",
+    "oldResponderStrategyNewlyInvented": false,
+    "uniformAbstractMatroidProofByDefinition": true,
+    "sourceWDLRecursion": false,
+    "checkedInJavascriptReadBackV8Executed": true,
+    "maintainedCI": "NOT_RUN",
+    "externalProofAssistant": "NOT_RUN",
+    "rootWinnerTheorem": "OPEN"
+  }
+}
