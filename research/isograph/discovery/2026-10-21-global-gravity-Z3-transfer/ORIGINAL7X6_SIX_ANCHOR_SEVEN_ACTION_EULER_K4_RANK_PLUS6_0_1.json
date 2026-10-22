@@ -1,0 +1,218 @@
+{
+  "schema": "connect4.original7x6.six_anchor.action_indexed_absorbing_rank.v1",
+  "date_local": "2026-10-22",
+  "branch": "research/semantic-quotient",
+  "preregistration": "docs/research/2026-10-21-frozen-six-anchor-original7x6-multi-ensemble-action-kernel-survey.md",
+  "source": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-six-anchor-original7x6-K4-Euler-action-kernel-independent.py",
+  "status": "EXACT_GUARDED_ON_6_AUTHENTIC_RANK12_FACES",
+  "original_board": {
+    "width": 7,
+    "height": 6,
+    "K4": 69,
+    "orientations": {
+      "H": 24,
+      "V": 21,
+      "R": 12,
+      "F": 12
+    }
+  },
+  "source_domain": {
+    "fixed_heights": [
+      2,
+      2,
+      2,
+      0,
+      2,
+      2,
+      2
+    ],
+    "anchor_choices": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7
+    ],
+    "five_variable_owner_switches_per_anchor": 5,
+    "source_states_per_anchor": 32,
+    "alternating_firstwinfree_source_constructions_tested": 192,
+    "each_parity_field_mass": 16
+  },
+  "per_anchor": [
+    {
+      "anchor": 1,
+      "initial_K4_pattern_rank": 16,
+      "initial_Euler_rank": 2,
+      "initial_joint_native_rank": 18,
+      "rank_P0_center4": 24,
+      "new_directions": 6,
+      "center_winning_sink_even_odd": [
+        6,
+        6
+      ],
+      "center_K4_window_incidences_even_odd": [
+        10,
+        10
+      ],
+      "center_survivors_even_odd": [
+        10,
+        10
+      ],
+      "postaction_fifth_order_present": true
+    },
+    {
+      "anchor": 2,
+      "initial_K4_pattern_rank": 14,
+      "initial_Euler_rank": 2,
+      "initial_joint_native_rank": 16,
+      "rank_P0_center4": 22,
+      "new_directions": 6,
+      "center_winning_sink_even_odd": [
+        7,
+        7
+      ],
+      "center_K4_window_incidences_even_odd": [
+        12,
+        12
+      ],
+      "center_survivors_even_odd": [
+        9,
+        9
+      ],
+      "postaction_fifth_order_present": true
+    },
+    {
+      "anchor": 3,
+      "initial_K4_pattern_rank": 12,
+      "initial_Euler_rank": 2,
+      "initial_joint_native_rank": 13,
+      "rank_P0_center4": 19,
+      "new_directions": 6,
+      "center_winning_sink_even_odd": [
+        8,
+        8
+      ],
+      "center_K4_window_incidences_even_odd": [
+        14,
+        14
+      ],
+      "center_survivors_even_odd": [
+        8,
+        8
+      ],
+      "postaction_fifth_order_present": true
+    },
+    {
+      "anchor": 5,
+      "initial_K4_pattern_rank": 12,
+      "initial_Euler_rank": 2,
+      "initial_joint_native_rank": 13,
+      "rank_P0_center4": 19,
+      "new_directions": 6,
+      "center_winning_sink_even_odd": [
+        8,
+        8
+      ],
+      "center_K4_window_incidences_even_odd": [
+        14,
+        14
+      ],
+      "center_survivors_even_odd": [
+        8,
+        8
+      ],
+      "postaction_fifth_order_present": true
+    },
+    {
+      "anchor": 6,
+      "initial_K4_pattern_rank": 14,
+      "initial_Euler_rank": 2,
+      "initial_joint_native_rank": 16,
+      "rank_P0_center4": 22,
+      "new_directions": 6,
+      "center_winning_sink_even_odd": [
+        7,
+        7
+      ],
+      "center_K4_window_incidences_even_odd": [
+        12,
+        12
+      ],
+      "center_survivors_even_odd": [
+        9,
+        9
+      ],
+      "postaction_fifth_order_present": true
+    },
+    {
+      "anchor": 7,
+      "initial_K4_pattern_rank": 16,
+      "initial_Euler_rank": 2,
+      "initial_joint_native_rank": 18,
+      "rank_P0_center4": 24,
+      "new_directions": 6,
+      "center_winning_sink_even_odd": [
+        6,
+        6
+      ],
+      "center_K4_window_incidences_even_odd": [
+        10,
+        10
+      ],
+      "center_survivors_even_odd": [
+        10,
+        10
+      ],
+      "postaction_fifth_order_present": true
+    }
+  ],
+  "all_actions_scope": {
+    "P0_legal_current_columns": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "offcenter_actions": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7
+    ],
+    "all_offcenter_sink_masses_zero": true,
+    "all_offcenter_native_rank_changes_zero": true,
+    "exact_per_anchor_action_tests": 42,
+    "source_action_board_pairs": 1344
+  },
+  "exact_linear_algebra": {
+    "field_dimension_per_face": 32,
+    "degree_le4_monomial_rank": 31,
+    "degree_le4_plus_center_post_native_rank": 32,
+    "all_anchor_native_center_rank_gain": 6,
+    "rational_rank_and_mod_1009_and_10007_controls_match": true,
+    "reflection_pair_actions_match": true
+  },
+  "verification": {
+    "independent_tool_1": "V8 JavaScript exact normalized BigInt rational rank + mod 1009/10007 rank; source-only all 69-window and physical ray checks; all 6x7 actions tested, reflection PASS",
+    "independent_tool_2": "CPython independently coded K4/physical-ray and 876 Euler observables on all 6 anchors; fraction-free Q rank and independent GF1009 rank verified all42 action cases (CPython optional GF10007 in committed program)",
+    "committed_source_exact_bytes_separately_executed": "NOT_RUN; equivalent local Python algorithm executed before GitHub source publication",
+    "node26_ci": "NOT_RUN",
+    "external_formal_checker": "NOT_RUN",
+    "historical_terminal28_or_known_root_value_as_premise": false
+  },
+  "conclusions": {
+    "verified": "Each of the six anchored original legal five-switch faces has an exactly six-dimensional native feature-rank increase ONLY after the P0 center-four absorbing action; every center action admits some fifth physical owner-order feature, with equal EVEN/ODD terminal firstwin flux.",
+    "not_established": [
+      "universal +6 rank increment across all legal original 7x6 states",
+      "old OOO descriptor triangle isomorphic to current physical signed gates",
+      "nonlinear or adversarial sound minimal game-field dimension",
+      "source-derived empty-root P0 winning invariant"
+    ]
+  }
+}
