@@ -56,6 +56,10 @@
 
 Full proofs/guards at `docs/research/2026-10-22-original7x6-WSL-antichain-firstwin-fifth-order-cross-era-theorem.md`. A graph-relation/isograph-game-authority promotion requires separate qualification and is NOT performed.
 
+## 3A. Supplemental 2026-10-22 independent two-obstruction theorem
+
+**FULL new primary sources:** `docs/research/2026-10-22-frozen-original7x6-P1-rising-grade2-plus-WSL-dominance-five-mode-cancellation.md`, `research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-P1-grade2-WSL-dominance-fifth-order-cancellation.js`, `.../ORIGINAL7X6_P1_RISING_WSL_FIFTH_ORDER_TWO_DUAL_MATRIX_0_1.json`. The checked-in source was independently read back and executed with real original69 windows, direct ray firstwin, all32 legal c7-anchored original states, true postaction P1 rising grade2, source WSL strict dominance, Boolean quotient Möbius and opposite signed fifth-degree coefficients. `gS` EVEN/ODD3/2, WSL `DS` 0/1; union 3/3 and degree4, but original C6 signed-measure contrast -1. The two-dual signed moment matrix on (gS,DS) is `[[1,-1],[0,-1]]`, determinant -1. This is a new exact guarded correspondence/negative control, NOT a qualified original-root winner invariant, historical OOO scalar law or external formal check.
+
 ## 4. Reproduction / continuity seam
 
 Run checked-in JS source via maintained Node22+ individually. In this session each exact committed JS body was read back and executed in isolated JavaScript V8, and two separately implemented local Python integer/rational variants independently checked source RFG and complete 7! old component identity. Node26 maintained CI and external formal checker were NOT run. C4-R0076 is OPEN.
