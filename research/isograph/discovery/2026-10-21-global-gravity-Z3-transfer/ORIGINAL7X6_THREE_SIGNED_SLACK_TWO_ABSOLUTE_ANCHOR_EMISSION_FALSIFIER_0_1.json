@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-22",
+  "scope": "Exactly 32 strictly alternating rank12 firstwinfree 7x6 five-switch boards with column7 bottom P0 fixed; all 69 real K4 windows; original center c4r1 actual P0 firstwin and complementary upper center c4r2 conditional firstwin",
+  "hypothesis": "The existing three signed source slacks du=x2-x1, db=x3+x5-1, dd=x5+x6-1, known to determine the selected P1 rising grade2 survivor, do not determine either the full lower P0 firstwin or the later complementary upper P0 firstwin.",
+  "preregistration": "docs/research/2026-10-22-frozen-three-signed-slack-center-WIN-quotient-and-absolute-anchor.md",
+  "source": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-three-signed-slack-gauge-anchor-falsifier.mjs",
+  "sourceFiveOwnerBits": [
+    "x1",
+    "x2",
+    "x3",
+    "x5",
+    "x6"
+  ],
+  "signedSlackLinearRankOverQ": 3,
+  "signedSlackIntegerKernelDimension": 2,
+  "exactOwnerReconstructionFromDeltasAndTwoAnchors": [
+    "x2=x1+du",
+    "x3=1+db-x5",
+    "x6=1+dd-x5"
+  ],
+  "structurallyDistinctSignedTripleCount": 21,
+  "maxDeltaFiberSize": 4,
+  "ambiguousSignedSlackKeysForLowerWIN": [
+    "0,0,-1",
+    "0,0,0",
+    "0,1,0"
+  ],
+  "ambiguousSignedSlackKeysForUpperWIN": [
+    "0,0,0",
+    "0,-1,0",
+    "0,0,1"
+  ],
+  "narrowP1RisingGrade2SurvivorSlacksAmbiguities": 0,
+  "zeroSignedSlackFiber": [
+    {
+      "x": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "P0c4row1_WIN": 0,
+      "P0c4row2_later_WIN_if_prior_survivor": 1,
+      "selectedRisingSurvivor": 0,
+      "source_12move": "711223366755"
+    },
+    {
+      "x": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "P0c4row1_WIN": 0,
+      "P0c4row2_later_WIN_if_prior_survivor": 0,
+      "selectedRisingSurvivor": 0,
+      "source_12move": "711225573366"
+    },
+    {
+      "x": [
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "P0c4row1_WIN": 0,
+      "P0c4row2_later_WIN_if_prior_survivor": 0,
+      "selectedRisingSurvivor": 0,
+      "source_12move": "733667112255"
+    },
+    {
+      "x": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "P0c4row1_WIN": 1,
+      "P0c4row2_later_WIN_if_prior_survivor": "NOT_APPLICABLE_POST_FIRSTWIN",
+      "selectedRisingSurvivor": 0,
+      "source_12move": "755711223366"
+    }
+  ],
+  "singleAdditionalOriginalOwnerBitSufficientForLowerAndUpper": false,
+  "anyTwoBitsSufficientForBoth": [
+    [
+      "x1",
+      "x3"
+    ],
+    [
+      "x1",
+      "x5"
+    ],
+    [
+      "x1",
+      "x6"
+    ],
+    [
+      "x2",
+      "x3"
+    ],
+    [
+      "x2",
+      "x5"
+    ],
+    [
+      "x2",
+      "x6"
+    ]
+  ],
+  "noSingleSourceOriginalOwnerBitAnchorSuffices": true,
+  "oldSeptemberTriangle": "Three exact pair deltas among three descriptor vertices have telescoping cycle identity; the absolute source vertex baseline/gauge is lost under all pair differences. This is a mathematically analogous anchoring deficit, not identical source variables.",
+  "implication": "Selected nonlinear three-slack cofactor f well-defined; complete original firstwin event W not. A scalar-output quotient can be sufficient for one cofactor and insufficient for another observable or dynamical action.",
+  "verification": {
+    "originalSourceHistoryAndIndependentTrueDirectionalRay": "PASS 32/32",
+    "exact_original_K4_vs_ray": "PASS",
+    "distinct_three_slack_groups_checked": 21,
+    "entire_true_WIN_slack_key_partition_checked": true,
+    "all_five_single_bit_and_ten_double_bit_anchor_variants_checked": true,
+    "localNodeCI": "NOT_RUN",
+    "V8_selfcontained_source_executed": true,
+    "solvedGameOracleUsed": false,
+    "externalFormalProof": "NOT_RUN",
+    "fullGameP0WIN": false
+  }
+}
