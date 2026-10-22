@@ -198,6 +198,10 @@ This standard induction does NOT construct C; defining C by already solved WDL v
 
 **H-Q (static quiver coupling):** A4 sectors and phase duality might constrain allowed live cofactor action maps, but any proposed effect on WDL needs explicit dynamically preserved morphisms. The exact \(27+1\) static split cannot be substituted for terminal 27/28.
 
+### Geometry threshold correction for H-E
+
+**CRITICAL SCOPE GUARD (2026-10-22):** EW-RS-070's 4x5-k4 scalar evidence cannot be used alone to falsify a 7x6-specific mechanism. Width4 has exactly one H K4 window per row and zero overlapping H pairs, versus 24 windows/36 overlapping H pairs on 7x6. Every original EW-RS-069/070 discovery carrier has at least one dimension below five. The subsequently reconstructed two 4x5 tetrahedral matched dependencies do defeat the *coordinatewise cyclic-sign-only* abstraction **on that carrier**, but no 7x6-suitable full descriptor inverse/scalar Q-V comparison has been run. Maintain this as bounded historical evidence. Detailed original-geometry enumeration, descriptor-source matching and read-back-executed code: `docs/research/2026-10-22-subfive-geometry-guard-and-OOO-kappa-scope-correction.md`, `research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-subfive-k4-and-old-ooo-circulation-scope.mjs`. A W,H>=5 test is a necessary screen for overlap-dependent claims; an original7x6 action-preserving bridge is still outstanding.
+
 ## 7. Immediate repeatable experiment and proof gap
 
 Frozen protocol: 2026-10-22-frozen-cross-era-sign-order-circulation-and-native-survivor-projection.md. Exact executable:
