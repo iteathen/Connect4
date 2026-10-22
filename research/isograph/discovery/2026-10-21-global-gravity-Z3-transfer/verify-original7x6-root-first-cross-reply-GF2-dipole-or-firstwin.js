@@ -79,6 +79,6 @@ theorem:"For any firstwinner-free P1 replies to P0 c4,c3,c5,c2, either P1 differ
 matchedPolicyOriginalPhysicalPath:matchedTrace,
 earliestDeviationLocalControls:controls,
 proofLevel:"uniform short-prefix Boolean/height parity identity, not a perfect-play winning continuation",
-fullOpponentThreeReplyCombinationsEnumerated:0,wholeGamePositionsEnumerated:0,solvedGameDataUsed:false,
+fullOpponentThreeReplyCombinationsEnumerated:0,localFirstDeviationPhysicalPrefixControls:18,oneMatchedSevenPlyControl:true,completeGameStateSpaceEnumeration:false,solvedGameDataUsed:false,
 rootP0WDL:"NOT_PROVED",maintainedCI:"NOT_RUN"};
 console.log(JSON.stringify(report,null,2));
