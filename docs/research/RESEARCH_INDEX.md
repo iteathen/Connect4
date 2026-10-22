@@ -1,6 +1,6 @@
 # Connect4 research index
 
-**Updated:** 2026-10-16  
+**Updated:** 2026-10-21  
 **Purpose:** route durable research without turning chronology, handoffs, or historical experiments into current authority.
 
 Research direction / structural architecture / invariant-first program: **Josh Oshiro**.  
@@ -19,6 +19,13 @@ Status classes:
 Unlisted dated notes remain repository evidence. Being unlisted means “not primary routing,” not “invalid.” Git history is the archive for superseded handoffs, chat summaries, temporary publication checkpoints, and obsolete scaffolding, except where an untouched current authority file still routes one explicitly.
 
 ---
+
+## Global original7x6 action-indexed absorbing K4 field nonclosure — 2026-10-21
+
+- [`2026-10-21-five-switch-full-K4-residual-plus-438-Euler-field-actionwise-absorption-nonclosure.md`](2026-10-21-five-switch-full-K4-residual-plus-438-Euler-field-actionwise-absorption-nonclosure.md) — **ACTIVE EXACT NEGATIVE DYNAMIC CLOSURE CONTROL**. Two legal firstwinnerfree rank12 EVEN/ODD 16-board fields match every original 69-K4 full ternary pattern, all 876 both-owner 438 Euler hazard features and heights, as well as all 124,314 four-or-fewer-site ternary marginals. Same P0 column4 move yields identical firstwins 6/6 and live mass 10/10, but different surviving **P1 rising grade2 K4 cofactor 3/2** and bottom-c1 P0 feature4/5. Exact fifth-order *residual times absorption mask* correlation is missing from a single-K4/438 moment basis. Preserve prior five-switch terminal-flux negative prediction (6/6) as separately correct. No perfect-play root WIN proof.
+- [`2026-10-21-frozen-five-switch-K4-grade4-actionwise-absorption-coupling.md`](2026-10-21-frozen-five-switch-K4-grade4-actionwise-absorption-coupling.md) — **FROZEN HYPOTHESIS + PRE-EXPERIMENT BIT CONVENTION CORRECTION**; original frozen falsifier and corrected owner-bit interpretation retained in Git history.
+- [`2026-10-21-global-field-resynchronization-coverage-dependency-ledger.md`](2026-10-21-global-field-resynchronization-coverage-dependency-ledger.md) — **ACTIVE SYNTHESIS / EXPLICIT PARTIAL-COVERAGE LEDGER**. Typed incidence31=18+13, Z3 vsZ4, gravity, firstwin Euler factors, 438 emission versus dynamical closure, graded K4 field falsifier, dependency map and precise missing P0-exists/P1-forall invariant. Initial 10,293-file tree inventoried, not all document bodies ingested; what was fully or only sectionally reviewed is recorded.
+- Canonical source/evidence: `research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-five-switch-K4-grade4-plus-438-actionwise-absorbing-correlation-nonclosure.py` and `ORIGINAL7X6_FIVE_SWITCH_GRADE4_PLUS_EULER438_ABSORPTION_FIFTH_CORRELATION_NONCLOSURE_0_1.json`. Local equivalent exact Python/physical ray checks executed; maintained CI/third-party formal checker unrun. **Research navigation map:** `research/maps/INTERFERENCE_PATTERN_TYPED_NUMBER_RELATIONSHIPS_MAP.md`.
 
 ## Gameplay strategy / implementation proposal index
 
