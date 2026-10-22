@@ -1,6 +1,6 @@
 # An irreducible three-versus-three signed circuit in the original 7x6 K4/Euler surviving-field hierarchy
 
-**2026-10-22 Pacific. Owner:** Josh Oshiro, canonical \`iteathen/Connect4@research/semantic-quotient\`. **Status:** deductive finite original-source theorem under six explicitly legal rank12 faces, independently checked exact integer/rational and GF(1009),GF(10007) action ranks; SymPy Q small-support exhaustion on both edge-anchor faces. No solved game WDL, historical terminal28 identities, optimal opening, production solver or qualified IsoGraph 1.2 modifications. NOT a general all-state closed hierarchy or root perfect-play WIN theorem.
+**2026-10-22 Pacific. Owner:** Josh Oshiro, canonical `iteathen/Connect4@research/semantic-quotient`. **Status:** deductive finite original-source theorem under six explicitly legal rank12 faces, independently checked exact integer/rational and GF(1009),GF(10007) action ranks; SymPy Q small-support exhaustion on both edge-anchor faces. No solved game WDL, historical terminal28 identities, optimal opening, production solver or qualified IsoGraph 1.2 modifications. NOT a general all-state closed hierarchy or root perfect-play WIN theorem.
 
 ## 1. Three historical delta-like objects must remain typed differently
 
@@ -84,7 +84,7 @@ An exhaustive follow-up checked EVERY source-state subset of size 1 through 5 on
 | 4 | 35,960 | **10** |
 | 5 | 201,376 | **280** |
 
-GF2 column-rank filters were used only as sound independence screens; each GF2-dependent candidate was independently Q-ranked. There were **zero** mod2 false-positives on either edge. The 280 Q-dependent 5-subsets are **EXACTLY** the 280 distinct ways of adjoining one unused sixth? *(Correction: fifth)* source state to one of the 10 original four-state dependent subsets (10×28), and the six-state support of z contains NONE of those four-state dependent subsets. Thus every proper subset of z's support is Q-independent: **z is a support-minimal six-state circuit**, not a combination of smaller native-field-null relations.
+GF2 column-rank filters were used only as sound independence screens; each GF2-dependent candidate was independently Q-ranked. There were **zero** mod2 false-positives on either edge. The 280 Q-dependent 5-subsets are **EXACTLY** the 280 distinct ways of adjoining previously unused fifth source state to one of the 10 original four-state dependent subsets (10×28), and the six-state support of z contains NONE of those four-state dependent subsets. Thus every proper subset of z's support is Q-independent: **z is a support-minimal six-state circuit**, not a combination of smaller native-field-null relations.
 
 In particular, a three-versus-three equal-unit contrast is genuinely required for this *specific extra edge circuit direction*. This does NOT imply all original7x6 game correlations have minimum order six or that ordinary Fourier degree six is intrinsically required.
 
@@ -106,7 +106,7 @@ The new contribution is the **finite six-state signed circuit and its proven min
 
 ## 6. Common research shape and limits
 
-The historical **three pair deltas** among three descriptor vertices form an exact additive zero-cycle. The new hexagon consists of **three signed board-field differences** whose SUM is a nonzero invisible measure. Their native types and their additive identities differ, so the old \`DELTA_SIGN_TRIANGLE\` and the new z are **not isomorphic by assertion**.
+The historical **three pair deltas** among three descriptor vertices form an exact additive zero-cycle. The new hexagon consists of **three signed board-field differences** whose SUM is a nonzero invisible measure. Their native types and their additive identities differ, so the old `DELTA_SIGN_TRIANGLE` and the new z are **not isomorphic by assertion**.
 
 The common *tested* principle is nevertheless concrete: when a carrier forgets absolute ownership anchors or joint causal context, small signed exchange/circuit modes can remain invisible to all local projections, while an action-indexed, support-conditioned absorption exposes them. This may explain why sign, owner-relative capacity/depth direction, and triadic compound interactions repeatedly appear in September and October. It motivates an **actionwise signed-circuit closure** in the dual of the physical owner K4 field, rather than adding every higher-degree Fourier moment or treating WIN emissions as Markov features.
 
@@ -121,12 +121,12 @@ with absorbing terminal/draw sinks handled separately. This is a finite linear-f
 ## 7. Provenance, independent controls and frozen failures
 
 Three prospectively committed source plans:
-- \`docs/research/2026-10-22-frozen-six-anchor-all-action-third-ply-boundary-rank.md\`;
-- \`docs/research/2026-10-22-frozen-source-rectangle-kernel-vs-signed-exchange-triangle.md\`;
-- \`docs/research/2026-10-22-frozen-edge-six-circuit-minimum-linear-support-control.md\`;
-plus the intervening general-four-point prereg \`docs/research/2026-10-22-frozen-edge-anchor-six-state-exchange-vs-unrestricted-four-point-relations.md\`.
+- `docs/research/2026-10-22-frozen-six-anchor-all-action-third-ply-boundary-rank.md`;
+- `docs/research/2026-10-22-frozen-source-rectangle-kernel-vs-signed-exchange-triangle.md`;
+- `docs/research/2026-10-22-frozen-edge-six-circuit-minimum-linear-support-control.md`;
+plus the intervening general-four-point prereg `docs/research/2026-10-22-frozen-edge-anchor-six-state-exchange-vs-unrestricted-four-point-relations.md`.
 
-Standalone source: \`research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-six-anchor-all-p1-all-p0-third-actions-exact.py\` and dependent exact small-support checker \`verify-edge-anchor-native-six-state-circuit-and-small-support.py\`. Machine JSON packets in same directory:
-\`ORIGINAL7X6_SIX_ANCHOR_ALL_294_THREEPLY_K4_EULER_ACTIONS_RANK_0_1.json\`, and the edge circuit minimum support packet.
+Standalone source: `research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-six-anchor-all-p1-all-p0-third-actions-exact.py` and dependent exact small-support checker `verify-edge-anchor-native-six-state-circuit-and-small-support.py`. Machine JSON packets in same directory:
+`ORIGINAL7X6_SIX_ANCHOR_ALL_294_THREEPLY_K4_EULER_ACTIONS_RANK_0_1.json`, and the edge circuit minimum support packet.
 
 **Execution truth:** a logically equivalent self-standing Python source and separate SymPy Q complete-small-support verifier DID run locally with exact integer input; every arithmetic/rank count above was observed. The exact GitHub-saved Python file bytes have **not separately run** under maintained CI or in a separately retrieved GitHub checkout; no third-party theorem prover executed. These finite certificates follow from generated original69 K4 geometry under their stated guards, with the verifier capable of reproducing them. No accepted IsoGraph game-theory authority or production solver changed.
