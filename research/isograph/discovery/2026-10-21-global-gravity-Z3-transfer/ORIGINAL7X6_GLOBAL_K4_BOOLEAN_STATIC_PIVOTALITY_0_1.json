@@ -1,0 +1,155 @@
+{
+  "schema": "c4.original7x6_global_static_pivotality_tensor.v1",
+  "status": "EXACT_7X6_K4_BOOLEAN_FIELD_WIDTH3_TRANSFER_AND_GRADIENT",
+  "geometry": {
+    "width": 7,
+    "height": 6,
+    "K": 4,
+    "originalWinningLineCounts": {
+      "H": 24,
+      "V": 21,
+      "R": 12,
+      "F": 12
+    }
+  },
+  "meaning": "hypothetical independent binary physical-site completion, not legal gravity-colored boards or perfect-play WDL",
+  "K4freeStaticSubsets": 439428365759,
+  "physicalSubsetsNotEnumerated": 4398046511104,
+  "verticalK4freeColumnMasks": 56,
+  "forwardBoundaryStatesByColumn": [
+    1,
+    56,
+    3136,
+    175616,
+    175616,
+    175616,
+    175616,
+    175616
+  ],
+  "maximumBoundaryTripleStates": 175616,
+  "acceptedTransferEdgesForward": 23976936,
+  "acceptedTransferEdgesBackward": 23976936,
+  "mostPivotalPhysicalSites": [
+    {
+      "column": 4,
+      "row": 3
+    },
+    {
+      "column": 4,
+      "row": 4
+    }
+  ],
+  "mostPivotalCount": 149598088717,
+  "mostPivotalProbability": 0.06802933454173399,
+  "staticPivotalCountByRow": [
+    [
+      36789765449,
+      47096256413,
+      58539126505,
+      111434791827,
+      58539126505,
+      47096256413,
+      36789765449
+    ],
+    [
+      47342167607,
+      63738397577,
+      87170013805,
+      126118181759,
+      87170013805,
+      63738397577,
+      47342167607
+    ],
+    [
+      78082303889,
+      103608106897,
+      127272240843,
+      149598088717,
+      127272240843,
+      103608106897,
+      78082303889
+    ],
+    [
+      78082303889,
+      103608106897,
+      127272240843,
+      149598088717,
+      127272240843,
+      103608106897,
+      78082303889
+    ],
+    [
+      47342167607,
+      63738397577,
+      87170013805,
+      126118181759,
+      87170013805,
+      63738397577,
+      47342167607
+    ],
+    [
+      36789765449,
+      47096256413,
+      58539126505,
+      111434791827,
+      58539126505,
+      47096256413,
+      36789765449
+    ]
+  ],
+  "checkedIndependentScalarValues": {
+    "centerColumn4Row3": 149598088717,
+    "centerColumn4Row1": 111434791827,
+    "cornerColumn1Row1": 36789765449,
+    "centerLeftColumn3Row3": 127272240843
+  },
+  "algebra": "I_e = #K4free(e=0) - #K4free(e=1) = Z - 2*derivative_Z_by_site_weight_e",
+  "resultScope": "STATIC FIELD INFLUENCE ONLY; does not infer first-best move or optimal root outcome",
+  "original7x6GamePositionsEnumerated": 0,
+  "firstWinGameHistoriesEnumerated": 0,
+  "solvedWDLUsed": false,
+  "rootAdversarialInvariantConstructed": false,
+  "source": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/run-original7x6-K4-Boolean-pivotality-three-column-transfer.js",
+  "verifiedGitBlob": "60e9faa4d05feca5c24f773b6424737f23c80841",
+  "readbackSourceExecuted": true,
+  "maintainedCI": "NOT_RUN",
+  "externalFormalQualification": "NOT_RUN",
+  "frozenExperiment": "docs/research/2026-10-22-frozen-global-K4-Boolean-influence-tensor-contraction.md",
+  "independentOriginal69Source": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-K4-Boolean-pivotality-explicit69.cpp",
+  "independentCheck": {
+    "implementation": "C++ explicit original69 K4 literal-window transfer, not optimized directional bit masks",
+    "status": "LOCAL_COMPILED_EXECUTION_PASS",
+    "Z": 439428365759,
+    "checks": [
+      {
+        "col": 4,
+        "row": 3,
+        "N0": 294513227238,
+        "N1": 144915138521,
+        "pivot": 149598088717
+      },
+      {
+        "col": 4,
+        "row": 1,
+        "N0": 275431578793,
+        "N1": 163996786966,
+        "pivot": 111434791827
+      },
+      {
+        "col": 1,
+        "row": 1,
+        "N0": 238109065604,
+        "N1": 201319300155,
+        "pivot": 36789765449
+      },
+      {
+        "col": 3,
+        "row": 3,
+        "N0": 283350303301,
+        "N1": 156078062458,
+        "pivot": 127272240843
+      }
+    ]
+  },
+  "statusBoundary": "static independent owner subset Boolean pivotality, not gravity, turn, QBF or perfect play"
+}
