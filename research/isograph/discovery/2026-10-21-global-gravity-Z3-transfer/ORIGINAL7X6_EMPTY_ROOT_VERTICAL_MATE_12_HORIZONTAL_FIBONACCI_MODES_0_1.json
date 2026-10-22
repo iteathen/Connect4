@@ -1,0 +1,321 @@
+{
+  "schema": "c4.original7x6_empty_root_vertical_mate_field_modes.v1",
+  "status": "EXACT_12_UNBLOCKED_HORIZONTAL_ROOT_WSL_MODES_AND_GF2_CROSS_RESPONSE_DIPOLE",
+  "geometry": "original physical 7x6-k4",
+  "original69": {
+    "H": 24,
+    "V": 21,
+    "R": 12,
+    "F": 12
+  },
+  "sourcePlies": 0,
+  "sourceNormalizedP0Requirements": 69,
+  "sourceTrapColumns": 0,
+  "exampleStaticRespondentPolicy": "P1 same-column immediate upper-mate from all-even columns, NOT an optimal/robust strategy",
+  "sourceMatroidFreeSites21": "physical rows 1,3,5; seven columns each",
+  "residualNullityHistogram": {
+    "0": 12,
+    "2": 45,
+    "4": 12
+  },
+  "rootTropicalGamma": 0,
+  "projectedUnblockedRootWSLMonomials": [
+    [
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        1
+      ]
+    ],
+    [
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        5,
+        1
+      ]
+    ],
+    [
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        6,
+        1
+      ]
+    ],
+    [
+      [
+        4,
+        1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    [
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ]
+    ],
+    [
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        3
+      ]
+    ],
+    [
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        6,
+        3
+      ]
+    ],
+    [
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        6,
+        3
+      ],
+      [
+        7,
+        3
+      ]
+    ],
+    [
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ]
+    ],
+    [
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        5
+      ]
+    ],
+    [
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        5
+      ]
+    ],
+    [
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        5
+      ]
+    ]
+  ],
+  "rowAutomaton": {
+    "alphabet": "binary hypothetical P0 owner per physical odd row",
+    "length": 7,
+    "forbiddenRunLength": 4,
+    "staticNoFourConfigurationsPerRow": 108,
+    "totalSevenBitWords": 128,
+    "wordsContainingFour": 20
+  },
+  "threeRowIndependentProjection": {
+    "staticP0FutureOwnerCells": 21,
+    "allStaticBitAssignments": 2097152,
+    "withNoFourInAnyOddRow": 1259712,
+    "withFourInAtLeastOneOddRow": 837440
+  },
+  "fixedPolicyP0WinPath": [
+    {
+      "move": 1,
+      "player": 0,
+      "column": 1,
+      "row": 1,
+      "firstwins": false
+    },
+    {
+      "move": 2,
+      "player": 1,
+      "column": 1,
+      "row": 2,
+      "firstwins": false
+    },
+    {
+      "move": 3,
+      "player": 0,
+      "column": 2,
+      "row": 1,
+      "firstwins": false
+    },
+    {
+      "move": 4,
+      "player": 1,
+      "column": 2,
+      "row": 2,
+      "firstwins": false
+    },
+    {
+      "move": 5,
+      "player": 0,
+      "column": 3,
+      "row": 1,
+      "firstwins": false
+    },
+    {
+      "move": 6,
+      "player": 1,
+      "column": 3,
+      "row": 2,
+      "firstwins": false
+    },
+    {
+      "move": 7,
+      "player": 0,
+      "column": 4,
+      "row": 1,
+      "firstwins": true
+    }
+  ],
+  "GF2TwoMoveDistinctColumnPhaseChecks": 49,
+  "sourcePolicyNoGeneralWDLInference": true,
+  "legalGamePositionsEnumerated": 0,
+  "perfectPlayRootValueDerived": false,
+  "CI": "NOT_RUN",
+  "checkedInSource": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-empty-root-vertical-matroid-12-unblocked-four-run-modes.js",
+  "sourceBlob": "e476b99c40855cecf79ed28c25d38cc26a3a2dbe",
+  "frozenProtocol": "docs/research/2026-10-22-frozen-empty-root-vertical-mate-matroid-first-unblocked-modes.md",
+  "verification": {
+    "githubSourceReadBackAndExecuted": true,
+    "wholeBoardGameEnumeration": 0,
+    "noSolvedOrOraclePremises": true,
+    "maintainedCI": "NOT_RUN",
+    "externalFormalChecker": "NOT_RUN",
+    "rootPerfectPlayWDL": "OPEN"
+  }
+}
