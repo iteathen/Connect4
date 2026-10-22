@@ -20,6 +20,20 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
+## Original7x6 Shannon-closed WSL field, Fourier pivotality and P1-ALL fork contraction (2026-10-22)
+
+**ACTIVE FOUNDATION FOR SOURCE FIELD / GUARDED FORK CERTIFICATE; EMPTY ROOT WIN OPEN.** The normalized 625-mask historical WSL antichain has an EXACT monotone 42-site Boolean function `Phi_p(q,z)=OR_{M in A_p} AND_{s in M}z_s`. A legal physical placement by p at e sends **its own** `Phi_p` to Shannon `z_e=1`, the opponent `Phi_{1-p}` to Shannon `z_e=0`; minimal antichain normal forms update by own mask deletion and opponent e-containing mask filtering alone. This is explicit proof of qualified RBA cofactor behavior, not a new game authority or a free all-state winning solution. Its De Morgan dual is the STATIC residual hitting-set field; the exact pivotality derivative `Delta_ePhi=P_e*(1-Q_e)` explains cross-window effects missed by K4 intensity sums.
+
+**NEW EXACT GLOBAL STATIC SOURCE POTENTIAL:** A width3, seven-column, six-row transfer contracts the original69 four-direction K4 OR field over independent hypothetical physical-site occupancy, counting **439,428,365,759 K4-free subsets** and every exact single-site Fourier/Banzhaf pivotal coefficient, without enumerating 2^42 complete bit assignments or a single gameplay position. Peak pivotality `149,598,088,717` occurs at c4r3/c4r4; actual empty-board gravity only permits row1, so this is NOT a verified best-move rule. Primary JS forward/backward transfer (max 175,616 triple boundary states, 23,976,936 accepted transitions) was independently corroborated by compiled C++ that checks the literal original69 K4 windows and four pinned marginals.
+
+**Actual short-horizon P1 universal binder elimination:** `ALL P1 responses preserve some P0 immediate playable threat` contracts to `OR_{c<d} t0c*t0d` (two distinct playable singleton threats), provided no current P1 immediate win. This recovers the historical sound CPC fork rule, is universally proved as one Boolean identity, and gives an entire exact winning **family** with ZERO enumerated opponent replies. Legal P1-turn witness word `2,7,3,7,4,6,2` has P0 immediate win sites c1/c5 and none for P1. It is NOT a root strategy from empty; long-range adaptive defense/firstwin chronology remains OPEN.
+
+- [Complete theorem with algebra, 42-site Fourier potential and guarded quantifier elimination](2026-10-22-original7x6-Shannon-field-Fourier-pivotality-and-robust-fork-certificate.md)
+- [Shannon, dual, pivotality and fork checker](../../research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-Shannon-antichain-dual-pivotal-and-fork.js)
+- [Independent source original69 static transfer](../../research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-K4-Boolean-pivotality-explicit69.cpp)
+- [Exact global field JS contraction](../../research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/run-original7x6-K4-Boolean-pivotality-three-column-transfer.js)
+- Frozen protocols and machine packets in `research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/`.
+
 ## Nonenumerative original7x6 WSL/Euler field and exact winning-certificate target (2026-10-22)
 
 **ACTIVE SEAM / PROVEN SOURCE-FIELD ALGEBRA, ROOT WDL OPEN.** Instead of enumerating gameplay positions, derive uniform site-owner Boolean fields on all genuine original7x6 positions: 69 original H/V/R/F K4s, 1,035 original line/subset events, **625 unique residual mask coefficients**, 2,922 strict subset links, and exact antichain minimalizer `a_{p,M}=u_{p,M}∏_{N⊂M}(1-u_{p,N})`. At most 13 original K4 windows contain any one legal landing cell. The original firstwinner projector is a single Boolean product over windows through that cell, and the causal Koopman action is its firstwinner-absorbed gravity substitution. These equations define an EXACT SOURCE FIELD without enumerating all game states; 11,178 single-K4 three-valued owner tautology cases and 14,904 single-K4 before/after move cases were verified, **zero complete board positions or histories enumerated**.
