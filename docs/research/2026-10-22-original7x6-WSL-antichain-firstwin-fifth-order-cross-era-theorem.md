@@ -144,6 +144,52 @@ This is a *within-one-connected-component* interaction. Original late-stage OOO 
 
 The RBA discovery that finite join-preserving cofactors and exact right adjoints leave a large action interface while alternating value thresholds dramatically collapse outputs remains separately relevant: an individual line-moment field can be insufficient even when a nonlinear q antichain representation is exactly action congruent; and complete q alone gives no source-derived compact controlling game region. The NDC/BSFP guard (legal response slots, races, blocker realizability and universal P1 replies) remains mandatory.
 
+## 6. New second exact bridge: distinct fifth-order P1 survivor modes can cancel without repairing the C6 exchange defect
+
+The original 7x6 c7-anchored five-switch face has TWO different legitimate original Player1 residual facts:
+
+- **genuine post-action grade2 P1 rising K4** `g=(1-x1)x2` for original line `(c1,r1),(c2,r2),(c3,r3),(c4,r4)`. On actual live P0 c4 successors this rising line still has precisely those two P1 stones and two missing cells.
+- **historical SOURCE WSL strict-domination** `D_R=x5(1-x1)(1-x2)(1-x3)` for original diagonal M by horizontal singleton N, which disappears as a poststate requirement when P0 fills center.
+
+Multiply both source facts by the SAME actual P0 c4 survival mask S:
+
+\[
+G=gS=(1-x_1)x_2(1-x_5x_6)(1-x_3x_5),\qquad
+D_S=D_RS=(1-x_6)x_5(1-x_1)(1-x_2)(1-x_3).
+\]
+
+The Boolean owner-coordinate ring is `Q[x1,x2,x3,x5,x6]/(x_i^2-x_i)`. Squarefree reduction is mandatory: ordinary unreduced products can contain `x5^2` and misleading apparent degree6. In the unique **squarefree** multilinear expansion, the five-site monomial `x1*x2*x3*x5*x6` has coefficient **-1** in G and **+1** in D_S. Since `gD_R=0` identically (opposite x2 requirements), their sum `U=G+D_S` is a disjoint Boolean union and has primitive Boolean degree **four**, with its degree-five coefficient cancelling exactly. Independent direct 69-window/direct-ray/WSL 32-position checks and five-bit Möbius inversion reproduce degrees (5,5,4), coefficients (-1,+1,0) and these exact source masses:
+
+| Selected original P1 source observable | EVEN 16-source mass | ODD 16-source mass | EVEN − ODD |
+|---|---:|---:|---:|
+| Surviving original P1 rising grade2 `G` | 3 | 2 | **+1** |
+| Surviving SOURCE WSL H-singleton/diagonal domination `D_S` | 0 | 1 | **-1** |
+| Combined disjoint observable `U=G+D_S` | 3 | 3 | **0** |
+
+**A second independently signed obstruction survives even though the fifth Fourier order cancels.** Take the same six authentic original source atom indices `[1,2,8,9,16,18]`, signs `z_C6=(+,-,+,-,-,+)`, and the full 32-board even-minus-odd parity signed field `z_parity`. Evaluate them on `G,D_S`:
+
+\[
+\boxed{
+\begin{pmatrix}
+\langle z_{\mathrm{parity}},G\rangle & \langle z_{\mathrm{parity}},D_S\rangle\\
+\langle z_{C6},G\rangle & \langle z_{C6},D_S\rangle
+\end{pmatrix}
+=
+\begin{pmatrix}
++1 & -1\\
+0 & -1
+\end{pmatrix},\quad\det=-1.
+}
+\]
+
+Thus these TWO original7x6 signed tests are **independent dual information requirements** for this selected pair of observables: the parity signed measure annihilates every primitive owner monomial of degree<=4, while z_C6 annihilates the selected per-K4/Euler native linear field. They are NOT the same functional on the state space and not identified with the historic two WDL output bits. In particular `U` has degree4 and is parity-balanced, **but** `<z_C6,U>=-1`, so it is still outside the selected native single-K4/Euler linear span on those six cells. Removing a fifth Fourier-mode defect does NOT automatically remove a geometry-dependent signed-exchange defect, or vice versa.
+
+This precisely separates two previously conflated candidate explanations: (i) owner-coordinate **order** under firstwinner multiplication, and (ii) original-window/subset **incidence coupling** under WSL normalization. A common complete game-value algebra must preserve the relevant interplay, not assume either hierarchy subsumes the other.
+
+**Negative semantic guard:** U is a deliberate combination of a genuinely post-action P1 rising residual with a survival-conditioned pre-action WSL provenance event. U's parity balance is a **finite observable identity**, not a physical mutually feasible adaptive defensive policy, a q-future congruence, an observed scalar WDL decoder or an independent root winning certificate. It is a research candidate for coarse correlated features, and must survive real action-indexed cofactor and response-feasibility tests to acquire solver correctness meaning.
+
+Frozen independent check (explicitly AFTER exploratory symbolic observation): `docs/research/2026-10-22-frozen-original7x6-P1-rising-grade2-plus-WSL-dominance-five-mode-cancellation.md`. Executable: `research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-P1-grade2-WSL-dominance-fifth-order-cancellation.js`. Machine evidence with the exact two-dual matrix `.../ORIGINAL7X6_P1_RISING_WSL_FIFTH_ORDER_TWO_DUAL_MATRIX_0_1.json`. Exact checked-in source read back and executed independently in V8; no qualified formal or maintained CI run.
+
 ## 6. Evidence, validation boundaries and current root gap
 
 Prospectively frozen initial program: `2026-10-22-frozen-original7x6-september-RFG-OOO-to-causal-C6-bridge.md`; followed by full old descriptor orbit plan `2026-10-22-frozen-full-RFG-component-identity-versus-original7x6-hexagon.md`; **after initial Python discovery but before independent JS replication**, `2026-10-22-frozen-independent-recheck-edge-WSL-dominance-five-switch-survival.md`. The discovery/recheck ordering is explicit and not disguised as prospective first finding.
