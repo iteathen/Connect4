@@ -1,0 +1,224 @@
+{
+  "schema": "c4.original7x6_two_P1_residual_survivor_modes.v1",
+  "status": "EXACT_FIRSTWIN_P1_GRADE2_AND_WSL_DOMINANCE_FIFTH_ORDER_CANCEL",
+  "geometry": "7x6-k4 real original69",
+  "sourcePositions": 32,
+  "originalRisingLine": [
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      4,
+      4
+    ]
+  ],
+  "parity": {
+    "EVEN": {
+      "gS": 3,
+      "DS": 0,
+      "U": 3,
+      "D": 1
+    },
+    "ODD": {
+      "gS": 2,
+      "DS": 1,
+      "U": 3,
+      "D": 1
+    }
+  },
+  "polynomial": {
+    "gS": {
+      "degree": 5,
+      "topFive": -1,
+      "terms": 8
+    },
+    "DS": {
+      "degree": 5,
+      "topFive": 1,
+      "terms": 16
+    },
+    "U": {
+      "degree": 4,
+      "topFive": 0,
+      "terms": 12,
+      "monomials": [
+        {
+          "mask": 2,
+          "degree": 1,
+          "coefficient": 1
+        },
+        {
+          "mask": 3,
+          "degree": 2,
+          "coefficient": -1
+        },
+        {
+          "mask": 6,
+          "degree": 2,
+          "coefficient": -1
+        },
+        {
+          "mask": 7,
+          "degree": 3,
+          "coefficient": 1
+        },
+        {
+          "mask": 8,
+          "degree": 1,
+          "coefficient": 1
+        },
+        {
+          "mask": 10,
+          "degree": 2,
+          "coefficient": -1
+        },
+        {
+          "mask": 18,
+          "degree": 2,
+          "coefficient": -1
+        },
+        {
+          "mask": 19,
+          "degree": 3,
+          "coefficient": 1
+        },
+        {
+          "mask": 22,
+          "degree": 3,
+          "coefficient": 1
+        },
+        {
+          "mask": 23,
+          "degree": 4,
+          "coefficient": -1
+        },
+        {
+          "mask": 24,
+          "degree": 2,
+          "coefficient": -1
+        },
+        {
+          "mask": 26,
+          "degree": 3,
+          "coefficient": 1
+        }
+      ]
+    }
+  },
+  "positiveStateIndices": {
+    "gS": [
+      8,
+      9,
+      10,
+      12,
+      13
+    ],
+    "DS": [
+      2
+    ],
+    "U": [
+      2,
+      8,
+      9,
+      10,
+      12,
+      13
+    ]
+  },
+  "sourceOnlyDominanceAfterMove": "BLOCKED_NOT_A_POSTSTATE_D",
+  "solvedGameKnowledge": false,
+  "rootGameValueProved": false,
+  "sourcePath": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-P1-grade2-WSL-dominance-fifth-order-cancellation.js",
+  "sourceBlob": "4469bc4d73e05b2dedb90bb6edfcbccf501a59de",
+  "frozenIndependentRecheck": "docs/research/2026-10-22-frozen-original7x6-P1-rising-grade2-plus-WSL-dominance-five-mode-cancellation.md",
+  "twoDual": {
+    "positiveEnsemblesEvenOdd16Each": true,
+    "sourceOriginalC6SignedSixCells": [
+      1,
+      2,
+      8,
+      9,
+      16,
+      18
+    ],
+    "sourceC6Signs": [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1
+    ],
+    "observations": {
+      "gS": {
+        "parityEvenMinusOdd": 1,
+        "C6SignedCirculation": 0,
+        "sourceFull32PositiveIndices": [
+          8,
+          9,
+          10,
+          12,
+          13
+        ]
+      },
+      "DS": {
+        "parityEvenMinusOdd": -1,
+        "C6SignedCirculation": -1,
+        "sourceFull32PositiveIndices": [
+          2
+        ]
+      },
+      "U": {
+        "parityEvenMinusOdd": 0,
+        "C6SignedCirculation": -1,
+        "sourceFull32PositiveIndices": [
+          2,
+          8,
+          9,
+          10,
+          12,
+          13
+        ]
+      }
+    },
+    "observationColumns": [
+      "gS",
+      "D_source*S"
+    ],
+    "defectRows": [
+      "32_state_even_minus_odd_parity",
+      "6_state_C6_signed_exchange"
+    ],
+    "defectMatrix": [
+      [
+        1,
+        -1
+      ],
+      [
+        0,
+        -1
+      ]
+    ],
+    "determinant": -1,
+    "rank": 2,
+    "disposition": "TWO_INDEPENDENT_FINITE_DUAL_OBSTRUCTIONS_NOT_COMMON_SCALAR_ANTIPODE"
+  },
+  "verification": {
+    "checkedInSourceReadBackExecutedInV8": true,
+    "independentSymbolicSquarefreeBooleanPolynomialVerification": true,
+    "independentLiteralK4RayAndGrade2Check": true,
+    "CI": "NOT_RUN",
+    "externalFormal": "NOT_RUN",
+    "rootWin": "NOT_PROVED",
+    "noSolvedGameData": true
+  }
+}
