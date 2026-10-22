@@ -93,6 +93,6 @@ const report={
  rowAutomaton:{alphabet:"binary hypothetical P0 owner per physical odd row",length:7,forbiddenRunLength:4,staticNoFourConfigurationsPerRow:transfer,totalSevenBitWords:128,wordsContainingFour:20},
  threeRowIndependentProjection:{staticP0FutureOwnerCells:21,allStaticBitAssignments:configs,withNoFourInAnyOddRow:power3,withFourInAtLeastOneOddRow:hasAnyFour},
  fixedPolicyP0WinPath:plyLog,GF2TwoMoveDistinctColumnPhaseChecks:parityControls,
- sourcePolicyNoGeneralWDLInference:true,legalGamePositionsEnumerated:0,perfectPlayRootValueDerived:false,CI:"NOT_RUN"
+ sourcePolicyNoGeneralWDLInference:true,completeGameStateSpaceEnumeration:false,oneExplicitLegalSevenPlyPath:true,perfectPlayRootValueDerived:false,CI:"NOT_RUN"
 };
 console.log(JSON.stringify(report,null,2));
