@@ -69,6 +69,14 @@ So **S itself is cohomologically trivial** on C6 and has an additive L+R vertex-
 
 If P1 takes center row2, the second P0 center action lands row3 instead; there is no corresponding U(y) absorber and no new C6 circulation through that fixed script. This is a **guarded action-indexed exposure law**, not a universal strategy-value claim.
 
+### Exact one-generator closure for this one selected absorber
+
+Let P denote the five-dimensional *additive* vertex-potential row space on the six actual source edges, and let M_S be pointwise multiplication by the TRUE fixed-script firstwin survival mask S. We proved S and the first-left-source-owner predicate X_L are both in P, but `S*X_L` has nonzero signed C6 circulation and therefore is **not** in P. As the ambient six-edge function space has dimension6, this immediately establishes the new exact equality
+
+\[\boxed{\operatorname{span}_{\mathbb Q}(\mathcal P\cup M_S\mathcal P)=\mathbb Q^{E},\qquad \dim(\mathbb Q^{E}/\mathcal P)=1.}\]
+
+Thus the **smallest linear completion of the five-dimensional local L+R potential field under THIS ONE FIRSTWIN SURVIVAL MULTIPLIER** requires exactly **one additional exchange-circuit class**. In other words, P is not an ideal under pointwise Boolean-survival multiplication, even though both multiplicands individually belong to P. The new class is the cycle circulation detected by z. This is an actual exact **one-circuit generating law**, not a claim that the full 7x6 game has a one-circuit representation: the original six-anchor 32-state actionwise field can generate 1 or 2 new directions after this script, and arbitrary other legal states/actions may require more.
+
 ## 5. What this says about September's three deltas and the missing global theorem
 
 **The precise common shape is now 'signed matching/exchange circuits plus causal survival gates'.** The old EW-RS-069/070 `DELTA_SIGN_TRIANGLE` consists of three descriptor-vector pair differences with a *flat additive zero-cycle*; it was empirically scalar-sufficient under a bounded T2-O discovery regime and rejected the naive H/V/D orientation-triad explanation. The new **C6 matching symmetric-difference** has three positive and three negative game-state edges, and its z is an actual nontrivial *field-annihilator* cycle. Both are relative/sign-sensitive comparisons, but their type, additive law, physical realization, output contract and verification domain DIFFER.
