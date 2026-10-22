@@ -20,6 +20,14 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
+## Geometry-validity guard for cross-era OOO testing (2026-10-22)
+
+**NEGATIVE CONTROL / CORRECTION — do not extrapolate below-five discovery carriers to original7x6.** The historical EW-RS-069/070 discovery geometries (6x3-k3, 4x5-k4, 6x3-k4) all have a dimension below five. On 4x5-k4, horizontal Connect-4 exists but has exactly ONE window per row and NO H-window overlap. Original7x6 has four H windows per row and 36 overlapping H-window pairs. Two original 4x5 signed-OOO dependency cases disprove a coordinatewise cyclic-sign-only factor for that **scoped** T2-O scalar corpus, not a 7x6 signed-exchange/absorber/defender mechanism.
+
+- Scoped correction: [2026-10-22 subfive geometry guard](2026-10-22-subfive-geometry-guard-and-OOO-kappa-scope-correction.md).
+- Independent enumeration + original frozen-fragment test: `research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-subfive-k4-and-old-ooo-circulation-scope.mjs`.
+- Validity gate for cross-era claims: test K4 with **W,H>=5** before carrying a geometric claim beyond the old carriers; an independent, legal **original7x6 action-indexed** test remains necessary for original-board conclusions. This does not invalidate earlier frozen bounded experiments in their stated scope.
+
 ## Original7x6 signed-exchange hexagon: irreducible three-versus-three delayed-absorber mode — 2026-10-22
 
 - [`2026-10-22-original7x6-two-matching-hexagon-cohomology-firstwin-circulation.md`](2026-10-22-original7x6-two-matching-hexagon-cohomology-firstwin-circulation.md) — **NEW DEDUCTIVE EXACT GUARDED C6 SOURCE-FIELD THEOREM.** On the two c1/c7 edge-anchored rank12 six-board signed-circuit witnesses, two perfect matchings of three left owner-role states against three right owner-role states form ONE chordless bipartite C6. All 69 full K4-pattern and 876 Euler moment features **restricted to these six boards after first-center absorption** are EXACTLY the rank5 additive vertex-potential space `u(L)+v(R)`; the one-dimensional complement is C6 cycle circulation. The real second-center survival mask `S` has cycle circulation0 while `S * X_L` (unchanged original left-bottom P0 owner) has circulation+1. Consequently `span(P,S*P)=Q^6`: exactly **one signed circuit direction** is needed to close this particular absorber, although the full 32-board face has more features and arbitrary q needs unknown additional structure. This is graph cohomology on the six STATE-PAIRING edges, NOT original 18/31 K4 syzygies, historical 27/28 terminal identities or September EW-RS descriptor triangle.
