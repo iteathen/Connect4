@@ -1,0 +1,302 @@
+{
+  "schema": 1,
+  "date": "2026-10-22",
+  "status": "SCOPED_DEDUCTIVE_EXACT_MINIMAL_SIX_ATOM_CIRCUIT",
+  "repository": "iteathen/Connect4",
+  "branch": "research/semantic-quotient",
+  "preregistrations": [
+    "docs/research/2026-10-22-frozen-six-anchor-all-action-third-ply-boundary-rank.md",
+    "docs/research/2026-10-22-frozen-source-rectangle-kernel-vs-signed-exchange-triangle.md",
+    "docs/research/2026-10-22-frozen-edge-anchor-six-state-exchange-vs-unrestricted-four-point-relations.md",
+    "docs/research/2026-10-22-frozen-edge-six-circuit-minimum-linear-support-control.md"
+  ],
+  "theorem": "docs/research/2026-10-22-original7x6-edge-hexagon-circuit-delayed-absorber-and-full-action-closure.md",
+  "sources": [
+    "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-six-anchor-all-p1-all-p0-third-actions-exact.py",
+    "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-edge-anchor-native-six-state-circuit-and-small-support.py"
+  ],
+  "originalBoard": "7x6, 69 true H/V/R/F winning lines, 42 physical cells",
+  "face": "one P0-bottom anchor in peripheral column; remaining five independent opposite owner bottom/top pairs; center empty; 32 alternating legal firstwinnerfree rank12 boards per anchor",
+  "featureFamily": "69 full ternary K4 pattern histograms + 438 gravity-gated Euler orientation subset hazards for each of two owners",
+  "exactCounts": {
+    "anchors": 6,
+    "totalFaceConstructions": 192,
+    "distinctThreePlyActionLabels": 294,
+    "allOffcenterP0ThirdZeroGain": 252,
+    "allP1CenterThenP0CenterZeroGain": 6,
+    "allP1OffcenterThenP0CenterPositiveGain": 36,
+    "axisAlignedFourPointCandidateSetsEachFace": 80,
+    "originalK4": 69,
+    "perOwnerEulerSlots": 438
+  },
+  "anchorData": [
+    {
+      "anchor": 1,
+      "sourceNativeRank": 18,
+      "postP0CenterNativeRank": 24,
+      "annihilatorDimension": 8,
+      "axisAlignedRectanglesTested": 80,
+      "axisAlignedFourPointAdmitted": 7,
+      "axisAlignedFourPointRank": 7,
+      "allArbitrary2plus2Relations": 10,
+      "all2plus2RelationSpanRank": 7,
+      "all2plus2SupportGF2AffineParallelograms": true,
+      "twoStateIndistinguishablePairs": 0,
+      "uniqueNativeBooleanFeatureMasks": 81,
+      "smallSupportCensus": {
+        "1": {
+          "subsets": 32,
+          "QDependent": 0
+        },
+        "2": {
+          "subsets": 496,
+          "QDependent": 0
+        },
+        "3": {
+          "subsets": 4960,
+          "QDependent": 0
+        },
+        "4": {
+          "subsets": 35960,
+          "QDependent": 10
+        },
+        "5": {
+          "subsets": 201376,
+          "QDependent": 280
+        }
+      },
+      "mod2FalsePositiveCandidates": 0,
+      "fiveDependentSetsAreExactlyFourCircuitPlusOneExtra": true,
+      "fourPointDirectionsRank": 7,
+      "hexAddsOneNewNullDirection": true,
+      "sixCircuit": {
+        "positiveSourceIndices": [
+          1,
+          8,
+          18
+        ],
+        "negativeSourceIndices": [
+          2,
+          9,
+          16
+        ],
+        "positiveFiveBitOwnerWords": [
+          "00001",
+          "01000",
+          "10010"
+        ],
+        "negativeFiveBitOwnerWords": [
+          "00010",
+          "01001",
+          "10000"
+        ],
+        "supportSize": 6,
+        "hasDependentProperSubset": false,
+        "eachPriorNativeMomentEven3vs3": true,
+        "eachFirstCenterNativeMomentEqual": true,
+        "anyP1ReplyNativeMomentEqual": true,
+        "initialP0FirstWinMassPlusMinus": [
+          0,
+          0
+        ],
+        "P1FirstWinMassPlusMinus": [
+          0,
+          0
+        ],
+        "offcenterP1ThenP0SecondCenterFirstWinMassPlusMinus": [
+          2,
+          2
+        ],
+        "offcenterP1ThenP0SecondCenterLiveMassPlusMinus": [
+          1,
+          1
+        ],
+        "offcenterP1ThenP0SecondCenterSurvivorPlusMinus": [
+          18,
+          9
+        ],
+        "postabsorberFirstFreePhysicalBottomP0MomentPlusMinus": [
+          1,
+          0
+        ],
+        "P1CenterThenP0CenterFirstWinMassPlusMinus": [
+          0,
+          0
+        ],
+        "P1CenterThenP0CenterLiveMassPlusMinus": [
+          3,
+          3
+        ],
+        "detectedByEachOffcenterP1ThenP0Center": true,
+        "undetectedByP1CenterThenP0Center": true,
+        "allFourPointDualImageRankAfterCenterP0AndOffcenterP1": 1,
+        "fullDualImageRankAfterCenterP0AndOffcenterP1": 2
+      }
+    },
+    {
+      "anchor": 2,
+      "sourceNativeRank": 16,
+      "postP0CenterNativeRank": 22,
+      "annihilatorDimension": 10,
+      "axisAlignedRectanglesTested": 80,
+      "axisAlignedFourPointAdmitted": 14,
+      "axisAlignedFourPointRank": 10,
+      "allArbitrary2plus2Relations": 29,
+      "all2plus2RelationSpanRank": 10,
+      "all2plus2SupportGF2AffineParallelograms": true,
+      "twoStateIndistinguishablePairs": 0
+    },
+    {
+      "anchor": 3,
+      "sourceNativeRank": 13,
+      "postP0CenterNativeRank": 19,
+      "annihilatorDimension": 13,
+      "axisAlignedRectanglesTested": 80,
+      "axisAlignedFourPointAdmitted": 18,
+      "axisAlignedFourPointRank": 13,
+      "allArbitrary2plus2Relations": 38,
+      "all2plus2RelationSpanRank": 13,
+      "all2plus2SupportGF2AffineParallelograms": true,
+      "twoStateIndistinguishablePairs": 0
+    },
+    {
+      "anchor": 5,
+      "sourceNativeRank": 13,
+      "postP0CenterNativeRank": 19,
+      "annihilatorDimension": 13,
+      "axisAlignedRectanglesTested": 80,
+      "axisAlignedFourPointAdmitted": 18,
+      "axisAlignedFourPointRank": 13,
+      "allArbitrary2plus2Relations": 38,
+      "all2plus2RelationSpanRank": 13,
+      "all2plus2SupportGF2AffineParallelograms": true,
+      "twoStateIndistinguishablePairs": 0
+    },
+    {
+      "anchor": 6,
+      "sourceNativeRank": 16,
+      "postP0CenterNativeRank": 22,
+      "annihilatorDimension": 10,
+      "axisAlignedRectanglesTested": 80,
+      "axisAlignedFourPointAdmitted": 14,
+      "axisAlignedFourPointRank": 10,
+      "allArbitrary2plus2Relations": 29,
+      "all2plus2RelationSpanRank": 10,
+      "all2plus2SupportGF2AffineParallelograms": true,
+      "twoStateIndistinguishablePairs": 0
+    },
+    {
+      "anchor": 7,
+      "sourceNativeRank": 18,
+      "postP0CenterNativeRank": 24,
+      "annihilatorDimension": 8,
+      "axisAlignedRectanglesTested": 80,
+      "axisAlignedFourPointAdmitted": 7,
+      "axisAlignedFourPointRank": 7,
+      "allArbitrary2plus2Relations": 10,
+      "all2plus2RelationSpanRank": 7,
+      "all2plus2SupportGF2AffineParallelograms": true,
+      "twoStateIndistinguishablePairs": 0,
+      "uniqueNativeBooleanFeatureMasks": 81,
+      "smallSupportCensus": {
+        "1": {
+          "subsets": 32,
+          "QDependent": 0
+        },
+        "2": {
+          "subsets": 496,
+          "QDependent": 0
+        },
+        "3": {
+          "subsets": 4960,
+          "QDependent": 0
+        },
+        "4": {
+          "subsets": 35960,
+          "QDependent": 10
+        },
+        "5": {
+          "subsets": 201376,
+          "QDependent": 280
+        }
+      },
+      "mod2FalsePositiveCandidates": 0,
+      "fiveDependentSetsAreExactlyFourCircuitPlusOneExtra": true,
+      "fourPointDirectionsRank": 7,
+      "hexAddsOneNewNullDirection": true,
+      "sixCircuit": {
+        "positiveSourceIndices": [
+          1,
+          8,
+          18
+        ],
+        "negativeSourceIndices": [
+          2,
+          9,
+          16
+        ],
+        "positiveFiveBitOwnerWords": [
+          "00001",
+          "01000",
+          "10010"
+        ],
+        "negativeFiveBitOwnerWords": [
+          "00010",
+          "01001",
+          "10000"
+        ],
+        "supportSize": 6,
+        "hasDependentProperSubset": false,
+        "eachPriorNativeMomentEven3vs3": true,
+        "eachFirstCenterNativeMomentEqual": true,
+        "anyP1ReplyNativeMomentEqual": true,
+        "initialP0FirstWinMassPlusMinus": [
+          0,
+          0
+        ],
+        "P1FirstWinMassPlusMinus": [
+          0,
+          0
+        ],
+        "offcenterP1ThenP0SecondCenterFirstWinMassPlusMinus": [
+          2,
+          2
+        ],
+        "offcenterP1ThenP0SecondCenterLiveMassPlusMinus": [
+          1,
+          1
+        ],
+        "offcenterP1ThenP0SecondCenterSurvivorPlusMinus": [
+          18,
+          9
+        ],
+        "postabsorberFirstFreePhysicalBottomP0MomentPlusMinus": [
+          1,
+          0
+        ],
+        "P1CenterThenP0CenterFirstWinMassPlusMinus": [
+          0,
+          0
+        ],
+        "P1CenterThenP0CenterLiveMassPlusMinus": [
+          3,
+          3
+        ],
+        "detectedByEachOffcenterP1ThenP0Center": true,
+        "undetectedByP1CenterThenP0Center": true,
+        "allFourPointDualImageRankAfterCenterP0AndOffcenterP1": 1,
+        "fullDualImageRankAfterCenterP0AndOffcenterP1": 2
+      }
+    }
+  ],
+  "proofDependency": "legal source states -> native boolean observation masks -> exact rational span/annihilator -> all pair-sum collisions -> all support<=5 rational dependencies -> support-minimal signed 3plus3 kernel circuit -> action-indexed firstwin survivor mask exposes circuit while scalar sinks agree",
+  "oldOOODescriptorDeltaEquivalence": "OPEN; old descriptor vertex pair-delta zero-sum triangle differs in type and additive law",
+  "qualification": {
+    "locallyExecutedPythonStandalone294": "PASS: Q fraction-free + GF1009+GF10007 and independent original physical K4/rays",
+    "locallyExecutedSympyContrastAudit": "PASS: six source anchors, 80 axis rectangles each, 496 pair-sum equalities per anchor, 242824 support<=5 subsets per edge, Q confirmation of all GF2 dependent candidates",
+    "committedExactBytesCI": "NOT_RUN",
+    "externalFormal": "NOT_RUN",
+    "historicalSolvedPremises": false,
+    "rootWinningTheorem": false
+  }
+}
