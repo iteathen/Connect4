@@ -1,0 +1,212 @@
+# Cross-era mathematical reconstruction: exact bridges, typed distinctions and missing adversarial law
+
+**Date:** 2026-10-22 Pacific. **Repository:** iteathen/Connect4, canonical research/semantic-quotient. **Research direction:** Josh Oshiro; source-level synthesis/formalization: OpenAI ChatGPT.
+
+**Status:** exploratory mathematical **partial ingestion checkpoint**. Current qualified game-theory authority remains IsoGraph 1.2 and is NOT changed here. Do not treat this file as a completed corpus-ingestion claim or as a root game win theorem. Exact new lemmas below are proved from explicitly stated source premises, and the older numeric experiment results remain scoped to their frozen carriers. See accompanying *2026-10-22-cross-era-ingestion-source-coverage-ledger.md*.
+
+## 1. What the earlier programs actually computed
+
+### CPC and ownership potential: finite causal events, not promised future owners
+
+For t=(c,r) at ply n, the zero-reservation event count derived from original gravity columns is
+
+\[
+N(t)=(W-1)H-n+r+1.
+\]
+
+Adding side-to-move bit n mod2 cancels n:
+
+\[
+q_0(c,r)=((W-1)H+r)\bmod2.
+\]
+
+On original W7H6 this is r mod2; across arbitrary W,H the constant cannot be dropped. For a *certified* strategic reserve/release correction \(\rho\), true projected owner is \(((W-1)H+r+\rho(c,r))\bmod2\), and horizontal phase and vertical seams are discrete derivatives \(\partial_x\rho,\partial_y\rho\). The commutation \(\partial_x\partial_y\rho=\partial_y\partial_x\rho\) proves geometrical plaquette flatness on the guarded domain. An unqualified opponent schedule does NOT supply such a globally valid \(\rho\).
+
+Historical source: 2026-09-14-cpc-control-potential-unification.md, 2026-09-14-gravity-adapted-domain-wall-normal-form.md, and September 9 universal-strategic-algebra.
+
+Same-column opponent/controller response pairs are exact two-event neutral moves on the pure-followup substrate. They commute while integer counters \(k_c\) count *remaining pair depth*. Unmatched top bits \(u_c\), support/deadline guards and free responses introduce nonneutral boundary events. On width path \(P_W\), all unconstrained defect locations are equivalent modulo the even subspace; the sole quotient charge is total GF2 parity. This EXCLUDES a universal static winner formula from defect position alone. The safe pure-followup phase language has finite last-two-bits automaton, \(s_m=s_{m-1}+s_{m-2}\), and is nonempty for every width; any finite winning obstruction therefore needs causal reachability/resources/stopping, not mere absence of a safe bulk word.
+
+### WSL-625 and NDC: residual obligations rather than independent jobs
+
+Original 69 windows induce exactly 625 distinct nonempty residual cell-subset requirements. For each owner, a line containing an opponent stone is dead; otherwise its still-unowned subset is a live requirement. Normalize requirements by antichain/subset absorption and carry literal gravity support. Original-q ordinary successor identity is qualified under IsoGraph 1.2, subject to action reflection transport when reflected.
+
+A blocker is a *certified impossibility of realizing an opponent completion*, which may depend on timing and resource conflicts; it is not an arbitrary occupied or nominally covered site. NDC seeks a least fixed point of monotone guarded implications whose conclusions can serve as premises of other implications. Witnesses need response resource tokens, support distances and "before earliest terminal" deadlines; eventual ownership alone is insufficient. Fixed point closure is a proof grammar, not proof of the missing universal existence of a compact grammar.
+
+Source: September 9 nested-strategic-dependency-closure and universal-strategic-algebra; originally reported nine Allis-rule sets, 331,955 generated rule instances, zero mismatch on *their particular solved-rule-group check*, not a proof of adaptive defense availability.
+
+### BSFP: compressed proofs need not compress forward action identity
+
+Backward symbolic fixed point represents all column-support strata and alternates existential/universal value predecessors with terminal win and draw sinks. Historical exact bounded evaluations covered 4x3-k3 (4,659 states / root proof DAG9), 4x4-k4 (139,625/17), 5x3-k4 (152,003/16), 4x5-k4 (1,385,521/21); count and DAG qualification scopes must remain separate. Small root dependency DAGs do not establish bounded grammar size at W7H6. Compact *proof of a value* need not preserve all action-labelled successor information; this distinction is central to interpreting later moment nonclosure.
+
+Sources: September 9 owner-searchless, backward-winline-fixed-point and searchless-symbolic-backward-solver. BSFP remains separate from IsoMax and from forward global-field transfer.
+
+### RBA: two distinct quotients
+
+At a fixed support, normalized owner residuals form finite distributive/upset lattices. The terminal-extended one-site ownership cofactor F is join-preserving and has a right adjoint R in the tested exact model:
+\[
+F(x)\le y\iff x\le R(y).
+\]
+Its closure \(RF\) is extensive/idempotent; interior \(FR\) reductive/idempotent. F does not generally preserve meets. Fixed-word composition coarsens information, whereas the union of all immediate action/owner cofactor signatures can remain injective.
+
+The upward-antichain semiring uses
+\[
+A\oplus B=\min(A\cup B),\quad
+A\otimes B=\min\{a\vee b:a\in A,b\in B\}.
+\]
+This realizes union/intersection of upward threshold sets; the exact two-ply Bellman block is \(\exists a\ \forall b\) composed with fixed cofactor preimages, terminal constants and score-threshold frontiers. The 6 partial WDL values can be represented by four nested threshold fronts in the tested algebra.
+
+In one rank35 pathological support, 491,401 q pairs had 437,545 immediate-transition signatures, but only 501 action-score-vector classes and 74 state-score/bestmove classes. Hence on this carrier the big collapse is under value/order quantifiers, not ordinary one-step graph quotient. No small closed root predicate transformer yet exists.
+
+Sources: September 18 RBA_QU, algebra core, relation refinement and literature synthesis. Do not promote finite exhaustive/adversarial tests to general root theorem.
+
+## 2. Original physical geometry versus historical typed numbers
+
+Let \(B_{\mathbb Q}:\mathbb Q^{69}\to\mathbb Q^{42}\) be original physical K4 site incidence. Exact source geometry gives \(\operatorname{rank}B_{\mathbb Q}=38\) and \(\dim\ker B_{\mathbb Q}=31\), decomposed into 18 four-step dipole-cycle relations plus 13 additional strand-base gluing relations. The two overlapping width-six sectors have 22-dimensional source dependency spaces sharing a 13-dimensional gluing space, yielding 31=22+22−13. None is a dynamic owner resource theorem by itself.
+
+Over GF2 the *different* incidence map has \(\operatorname{rank}B_{\mathbb F_2}=35\), line kernel34, and a derived type-A4 zigzag quiver
+\[
+P_{\mathrm{phase}}\leftarrow L_{\mathrm{lines}}\to C_{\mathrm{cells}}\to U_{\mathrm{axis}}.
+\]
+On W7H6 its line-connected barcode multiplicities include \(m_{22}=28\), \(m_{12}=6\), \(m_{13}=1\), \(m_{23}=27\), \(m_{24}=7\). Consequently one EXACT static identity is
+\[
+Y_{\rm cell}=m_{13}+m_{23}=1+27=28,\qquad
+69=28+6+28+7.
+\]
+This typed \(27+1\) comes from phase-coupling in the static quiver. It is NOT identified with the archive's strong-optimal 28 terminal line IDs, conditional 27 terminal-line gradient, 27 defensive alternatives, or October's six-state C6. The natural gravity-aware 28x28 line/cell dual pairing is nondegenerate on W7H6, but a static duality does not imply a legal adversarial winning continuation.
+
+The seven-clause minimal UNSAT core for a *restricted static defensive pairing family* exposes a real failure to glue two width-six stationary response policies across a shared five-column resource region. The logical inference "no static pairing certificate of that family" does not imply "no adaptive P1 strategy." The latter needs an invariant over ALL legal response policies, including role, support and firstwin chronology.
+
+Sources: September 14 A4 quiver, support-graded middle duality, board invariant family, and October 20 original69 interference/gluing research. The 28 historical terminal-line masks and 41st-ply assumptions are validation only, NEVER premises of root source proof.
+
+## 3. EW-RS-061–095: precise meaning of the old three
+
+The repaired component descriptor d encodes relative residual incidence, canonical component roles, both owners' depth structure and role-attached column remaining-capacity parity. For each identity d, compressed multiplicity uses \((P_d,O_d)=([n_d>0],n_d\bmod2)\) with composition
+\[
+(P,O)\star(P',O')=(P\vee P',O\oplus O').
+\]
+On the three declared bounded T2-O discovery carriers the complete affine and quadratic P/O feature spans failed to reproduce the relative WDL scalar contrast, whereas adjoining the *oddness-only* distinct-descriptor cubic \(O_aO_bO_c\) eliminated contradictions. There were 75,294,16 outcome-independent OOO structural rank gains for 6x3-k3,4x5-k4,6x3-k4, respectively. This is finite interpolation on a restricted, thin realizability manifold, not proof of intrinsic independent three-body physics.
+
+Crucial exact width constraint:
+\[
+\sum_d w_dn_d=W,\qquad \bigoplus_{d:w_d\ {\rm odd}}O_d=W\bmod2.
+\]
+It creates Boolean polynomial identities among OOO columns; it also rules out complete 3-coordinate O/E cubes on width4 or6 at fixed descriptor presence (three independently varied even-width types at the all-even corner consume >=12 columns). Thus a cubic fitted to this manifold need not admit an unconstrained coordinate third derivative or unique hyperedge coefficients.
+
+In the frozen EW-RS-069/070 code, a selected vertex has token vector \(v=(W,C_0,\ldots,D0_0,\ldots,D1_0,\ldots)\); for each unordered vertex pair, lexicographic string order fixes a source/target and the code records \(v_{\rm target}-v_{\rm source}\), with absent token values zero. A triangle feature is a sorted multiset of THREE pair signatures, not a vector of three independent physical control fluxes. On 4x5-k4 the support, unsigned parity and unsigned magnitude alternatives each have nine contradictions, whereas signed-support has none (rank283); signed-parity also has none (rank282). Exact signed magnitudes are not necessary in that finite ladder.
+
+The historical horizontal-only 6x3-k4 carrier still requires OOO (rank16), falsifying universal H/V/D triangle semantics. EW-RS-081 pooled domains introduce scalar-relevant incompatibilities even when local triangles pass. EW-RS-083 identifies a pooled win-code contradiction upon erasing exact owner/role/depth indexing, while the draw character transfers. EW-RS-090 has a passing rank351 observed common-carrier factor on 970 triangles, NOT a universal closed law. EW-RS-093 retains relative capacity/depth sign correlations: the 4-edge capacity star is unique minimal among its four frozen edge families and rank350; omitting it fails with 18 pooled scalar contradictions. EW-RS-095's symmetric e1/e2/e3 circuits are candidate tests, not an exact identified natural law. No sealed formula holdouts are to be opened to tune the bridge.
+
+Historical UC4A 3:1 parity-regime defect \( (\mathrm{rotation180Fixed.yCell},\mathrm{rotation180Fixed.yLine})=(3,1)\) was reproduced by diagonal-only incidence, while horizontal-only and vertical-only did not. CPCX found an opposite-parity grade2 diagonal and support/deadline-control candidates around opening 44444 but \`nestedCommonRelationCount=0\` and outside opponent residuals remained decision-relevant. There is NO typed map identifying this 3:1 ratio with the OOO three descriptor inputs or the three signed vector differences.
+
+Historical branch sources: experiment/isomax-late-xor-components-20260929 (EW-RS-069,070,071,081,083,090,093,095), research/universal-structural-policy-20260930, experiment/cpcx-20261002.
+
+## 4. October exact global operators and their different boundaries
+
+The physical gravity-colored bundle has \(127^7=532875860165503\) configurations *before reachability and firstwin exclusion*. The actual all-history absorbing transfer through rank10 yielded 1,618,398 live boards and 263,770,588 histories, counting **all legal move histories**, not quantifying optimal P1.
+
+For one prospective real landing e and player p, active same-orientation original K4 starts are an interval. Therefore
+\[
+C_{p,d}(q,e)=\sum_i a_i-\sum_i a_i a_{i+1}
+\]
+is the EXACT Boolean OR of same-direction winning windows, degree <=4 in other-owner cell variables. The complete four-direction firstwin is
+\[
+\mathrm{Win}_p(q,e)=1-\prod_{d\in\{H,V,R,F\}}(1-C_{p,d}(q,e)),
+\]
+degree <=16 and attained at eight interior physical cells. The 438 distinct (gravity-gated) orientation-subset emitters per owner compute the single-step win flux; they do NOT close under arbitrary legal action pullbacks.
+
+Already controlled failures:
+* rank8 four-versus-four parity ensembles defeat all owner moments degree<=2;
+* rank10 eight-versus-eight parity ensembles defeat degree<=3 because two overlapping K4 firstwins must be unioned, not intensity-summed;
+* six early rank4 states have identical 438 emitter fields, but the same literal P0 c3 move reveals a P4 two-owner path obligation;
+* rank12 five-switch even/odd fields match 124,314 joint site ternary histograms through degree4, all individual K4 ternary-pattern moments and both-owner 876 Euler moments. Their P0 c4 immediate terminal flux is equal, **6 vs6**, correcting the earlier false 6 vs5 forecast. Yet a physically valid rising P1 grade2 cofactor has post-absorption surviving mass **3 vs2**.
+
+With five true bottom owner switch variables, define
+\[
+A=x_1x_2x_3,\quad B=x_2x_3x_5,\quad D=x_5x_6,\quad
+W=A+B+D-AB-BD,\quad g=(1-x_1)x_2.
+\]
+On these actual legal histories,
+\[
+\boxed{g(1-W)=(1-x_1)x_2(1-x_5x_6)(1-x_3x_5).}
+\]
+The right side is a THREE-factor product of compound physical owner conditions, containing the squarefree degree5 term \(-x_1x_2x_3x_5x_6\). Thus coarse arity3 does NOT impose primitive cell Fourier degree3; this is a mathematical explanation for why coarse cubic OOO and high primitive-degree correlation might coexist, NOT a proof that they share physical variables or outcomes.
+
+The latest original7x6 edge-anchored rank12 six-board signed contrast
+\(z=+\delta_1-\delta_2+\delta_8-\delta_9-\delta_{16}+\delta_{18}\)
+on switch IDs \([1,2,8,9,16,18]\) is a chordless bipartite C6 between left and right owner-role pattern vertices. Original 69 all ternary K4-pattern and 876 two-owner Euler observables restrict to a rational five-dimensional vertex-additive potential space \(P\subset\mathbb Q^6\) on this six-state guard. Its annihilator is exactly span(z). After legal P0 center, offcenter P1, and P0 second center, the survival multiplier S satisfies
+\[
+\langle z,S\rangle=\langle z,X_L\rangle=0,\qquad \langle z,S X_L\rangle=1.
+\]
+Thus S and X_L each lie in P, but S*X_L does not: the current field is NOT a pointwise algebra. The single C6 cycle class closes this PARTICULAR guarded multiplier: span(P,S*P)=\(\mathbb Q^6\). There are 294 fixed three-action combinations tested across six anchor faces; other actions and larger domains remain open. On the different owner-slack projection, three source integer slacks forget two necessary owner anchors even for the first center-win test. These are distinct coordinate failures with different types and guards.
+
+## 5. New exact deductions made explicit in this checkpoint
+
+### T1 — Signed circulation of a zero-sum descriptor gradient
+
+**Premise:** old frozen pair-delta source, exact integer token values \(A,B,C\) at lex-sorted descriptor vertices a<b<c. Let \(\sigma(t)=[t>0]-[t<0]\). Then
+\[
+\delta_{ab}+\delta_{bc}+\delta_{ca}=0
+\]
+while
+\[
+\boxed{\kappa_j:=\sigma(\delta_{ab})+\sigma(\delta_{bc})+\sigma(\delta_{ca})
+=\sigma((B-A)(C-A)(C-B)).}
+\]
+**Proof:** if any two values tie, the two nonzero cyclic steps have opposite signs. If all are distinct, enumerate the six strict orders; in each exactly two signed steps have one sign and the third the opposite, with sign determined by the Vandermonde product. Equivalently, \(\kappa_j=\sigma(B-A)\sigma(C-A)\sigma(C-B)\), the product of the THREE lex-oriented original pair signs on that token. The old triangle feature includes the multiset of pair sign tokens, so this coordinatewise product is computable from the original SIGN representation.
+
+**Guards:** a single fixed token-count coordinate, old vertex lexicographic sorting and exact sign function, not a physical board action cocycle. **Novelty:** exact formula and test for a candidate sign-order coarsening of the old SIGN triangle, not an identified outcome rule. **Falsifier:** any original scalar dependency violating factorization through \(\{\kappa_j\}\); the scalar test is NOT RUN.
+
+### T2 — No capacity-only coordinatewise sign circulation
+
+**Premise:** historical role-capacity tokens \(C:i\) are 0/1. **Proof:** any three binary values contain a tie; T1 gives \(\kappa_{C:i}=0\). This is an exact restriction: if pooled scalar needs capacity/depth-relative sign correlations as in RS093, a κ-only explanation must carry the capacity role through *coupling to nonbinary token order or additional context*. A standalone same-token capacity circulation cannot encode it. This is not a proof κ altogether fails, because other token families may carry information.
+
+### T3 — Conditional linear chain-map no-go to the October C6 obstruction
+
+**Premise A:** exact September descriptor pair differences are gradients on a triangle, thus lie in image of a coboundary \(d_\triangle\). **Premise B:** October six-board native potential functions lie in image of bipartite vertex incidence \(d_{C6}:\mathbb Q^{V}\to\mathbb Q^E\) and are annihilated by the signed cycle \(z\), but \(S X_L\) pairs with z to1.
+
+**Statement:** For any pair of *linear* maps \(F^0,F^1\) satisfying \(F^1 d_\triangle=d_{C6}F^0\), we necessarily have \(\langle z,F^1d_\triangle v\rangle=0\) for every descriptor vertex potential v. Hence \(F^1d_\triangle v\ne SX_L\). **Proof:** substitute the commuting identity and use \(\langle z,d_{C6}u\rangle=0\).
+
+This excludes **only** a linear, coboundary-commuting identification of the two objects. An actual source bridge must involve a nonlinear projection (e.g. sign), absorption-dependent multiplication, a noncommuting contextual functor, or a different domain/type. It does not prove any one of these mechanisms is the missing value law.
+
+### T4 — Pointwise distinguishability does not imply moment mixture distinguishability
+
+On the C6 six actual board atoms, the original full per-K4 site ownership patterns separate each board pointwise (the owner bits are reconstructible from them). But their *linear span* of observable functions on this guard has rank5, not6. The two 3-board positive ensembles and negative ensembles have equal native moments. Therefore even a pointwise separating list of nonlinear observations may fail to recover arbitrary weighted ensemble mass. This is the precise reason ordinary q-state congruence, old RBA behavioral equivalence and October linear field identifiability are different abstractions: they are different types of map, not contradictory findings.
+
+### T5 — Same abstract factorization criterion, different kernels
+
+For finite-dimensional vector spaces and linear maps \(F:V\to U\), \(Y:V\to Z\), a unique-on-im(F) linear \(L\) with \(Y=L F\) exists iff
+\[
+\boxed{\ker F\subseteq\ker Y.}
+\]
+**Proof:** define \(L(Fv):=Yv\); well-defined precisely when Fv=Fw forces Yv=Yw. Extend linearly off im(F) if required. The old OOO scalar tests use this kernel inclusion for GF2 matched-dependency rows to outcome code. The October action-closure test uses it for rational ensemble native moments to action-indexed survivor moments. This is an exact *methodological algebraic equivalence* between the research programs; it is NOT an equality of their kernels, base fields, physical state supports or output semantics. The C6 signed measure is a concrete kernel witness to October failure.
+
+### T6 — Completing a robust region is sufficient, and its absence is still the problem
+
+For exact firstwin-stopped finite gravity states, take a region \(\mathcal C\) with empty in C; no P1 winning or DRAW terminal in C; every nonterminal P0 state in C has at least one legal transition either to P0 win or to C; every nonterminal P1 state in C has every legal transition either to P0 win or to C. Then, regardless of P1 policy, play cannot leave C except into P0WIN, and each legal move decreases remaining-cell count by one. Since play is finite, P0WIN must occur.
+
+This standard induction does NOT construct C; defining C by already solved WDL values or entire retrograde tree would violate our searchless target. The missing theorem is a **source-derived, compact, actionwise guarded and adversarially closed \(\mathcal C\)**, not a better terminal detector or additional homogeneous correlation class.
+
+## 6. Competing structural explanations: what is ruled out and what distinguishes them
+
+**H-E (nonlinear signed exchange order):** Sign projection of a flat three-edge descriptor gradient retains an order-type κ that a support-only/unsigned-magnitude projection loses. Test κ map on every frozen EW-RS-065 OOO matched dependency on all three original discovery carriers; reject κ-only sufficiency if its GF2 kernel contains a nonzero scalar code. κ's binary-capacity vanishing is a built-in negative control. This test is still UNEXECUTED because the published summary triple catalog gives descriptor IDs but not their full inverse vertex-string catalog; reconstruct by independently rerunning the original source generator, not outcome-selected repair.
+
+**H-C (causally conditioned connected-cluster operator):** Postabsorber cofactor products \(g(1-W)\) and six-state \(SX\) exhibit genuine connected correlations. Seek a kernel-preserving map from original descriptor odd-support weighted-multiplicity manifold to a *legal action/support-labelled* cluster functor. Demand exact factorization and per-action commutation, not matching dimensions. A negative five-switch match would disprove the proposed map.
+
+**H-P (predicate rather than moment closure):** RBA's antichain Bellman threshold operations may yield a small game-value quotient despite severe moment nonclosure. Define a complete-shell abstraction relative to legal terminal observations and P0/P1 controllable predecessors; compare its size to the old value-policy quotient on complete bounded controls. A small quotient on one support does not mean it exists at root.
+
+**H-R (causal defense response resource obstruction):** View threats as *hypergraph requirements over jointly reusable physical moves*, with response slots, column supports, shared deadlines and firstwin stopping. A single defensive move may hit several K4s, advance another line's support, and consume one shared response event. Static Hall/pairing or seven-clause UNSAT is at most a lower-bound obstruction; derive a monotone response-feasibility game transformer and show it becomes empty under a P0-controlled invariant. Legal adaptive counterexamples falsify any theorem that omits this guard.
+
+**H-Q (static quiver coupling):** A4 sectors and phase duality might constrain allowed live cofactor action maps, but any proposed effect on WDL needs explicit dynamically preserved morphisms. The exact \(27+1\) static split cannot be substituted for terminal 27/28.
+
+## 7. Immediate repeatable experiment and proof gap
+
+Frozen protocol: 2026-10-22-frozen-cross-era-sign-order-circulation-and-native-survivor-projection.md. Exact executable:
+research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-cross-era-signed-order-circulation-and-C6.mjs.
+Machine audit:
+research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/CROSS_ERA_SIGN_ORDER_C6_EXACT_CHECK_0_1.json.
+
+The committed source was read back and executed in JS V8: all125 integer descriptor-token triple tests pass, 60 strict order cases have nonzero κ, all8 binary-capacity cases have zero κ, bipartite C6 rank5/cycle1, both anchors have z(S)=z(X)=0 and z(SX)=1. An independently implemented exact Python/Fraction Gaussian elimination check reproduced these values. This is **not** a replay of all original EW-RS-069..095 scalar carriers, formal proof assistant, maintained CI, or empty-root WDL.
+
+**Required next discriminant:** reproduce old full descriptor vertex lists on the sealed-holdout-safe three discovery carriers; compute κ, cross-token signed correlations and original SIGN-triangle images on identical frozen matched dependencies; report GF2 contradiction kernels separately. In parallel, construct C6 physically action-labelled residual-cofactor signatures and test whether κ/owner-role-dependent features factor its SX circulation while preserving each of the seven legal opponent replies. If no map survives, the precise failure is valuable: nonlinear survival can create new information even from old signed-exchange sufficient features.
+
+**Global target remains open:** exhibit a source-derived compact region \(\mathcal C\), from empty, whose P0 existential and P1 universal action guards preserve it until an original P0 firstwin. Neither historical OOO interpolation, K4/Euler emission, source-only K4free tensor partition, C6 closure, RBA score quotient nor static seven-clause defense UNSAT establishes that step.
