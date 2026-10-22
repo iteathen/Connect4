@@ -422,6 +422,16 @@ width theorem and Capelli/Mengel structured quantifier projection.
 A raw source residual min-fill width-15 result is NOT a QBF bilateral-width
 bound. No unrestricted `44444` value or deep branch-elimination proof.
 
+## 2026-10-22 — route Shannon-closed source field to GSP-003/004, NOT a new strategy
+
+**Existing owner ZERO strategic fanout mandate unchanged.** The original7x6 normalized 625-mask WSL potential `Phi_p(z)` is exactly updated by own-site Shannon `z_e=1` and opponent-site Shannon `z_e=0` under a genuine gravity landing; this is already part of the qualified RBA/q_o source-cofactor semantics. The De Morgan source hitting-set dual is STATIC and cannot be mistaken for an adaptive P1 policy. `Delta_ePhi=P_e*(1-Q_e)` exposes an explicit original K4-window overlap/cross-normalization influence.
+
+Under **GSP-004** the established CPC double-playable-threat fork yields a concrete genuine original7x6 P1-ALL quantifier elimination `AND_{d legal}OR_{c neq d}t0c=OR_{c<d}t0c*t0d` when no immediate P1 win; proof holds for the entire field-defined family and requires no opponent-case exploration, but is only a short-horizon win certificate. The missing universally sound long-horizon opponent resource/causal blocker compression is OPEN, including C4-R0076/QU-GAME-02.
+
+Under **GSP-003** a separate global static source Fourier transfer evaluates original69 K4-free hypothetical binary site assignments using width3 boundary tensors, NOT full game states: exact `Z=439428365759`, center r3/r4 pivotality `149598088717`, confirmed independently with original69 literal windows. This is not a game value, optimal-move recommendation or a new all-game no-search proof. It should be retained as source geometric and nonlinear-influence evidence, not a replacement for quantifier-order constraints.
+
+Theorem/proof and exact evidence: `docs/research/2026-10-22-original7x6-Shannon-field-Fourier-pivotality-and-robust-fork-certificate.md`; preregs and four source verification/evidence files in `research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/`. No new GSP ID, solver adoption or IsoGraph game authority promotion.
+
 ## Current proposals
 
 | ID | Proposal | Current status | What it changes | Primary implementation seam | Proof/qualification burden | Next action |
