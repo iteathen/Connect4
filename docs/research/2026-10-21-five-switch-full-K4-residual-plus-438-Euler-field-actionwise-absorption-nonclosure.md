@@ -51,6 +51,11 @@ matching **grade-two residual counts 3 versus 2**, while `sum_even g=sum_odd g=4
 
 This is a nonclosure result about the *absorbing Koopman pullback*: a source-K4 residual observable multiplied by the correct other-orientation firstwin survival factor induces a connected five-switch correlation missing from the per-line and emission fields. It is not a generic lower bound of five on every different abstract representation, nor evidence that all fifth-order Fourier modes are needed. The failure may admit a local connected-cluster repair.
 
+
+### Second, separately implemented execution in this resynchronization
+
+An independent pure-JavaScript implementation (not a translation or import of the Python tester) reconstructed the 69 H/V/R/F windows, replayed all 32 alternating/firstwinner-free histories with its own directional-ray win detector, independently recomputed all 124,314 ternary histograms through degree4, 69 complete K4 line-pattern histograms, 876 owner-indexed Euler frontier moment comparisons, and the fixed P0 column4 physical firstwin absorption. It reproduced exactly 6/6 firstwinner sinks, 10/10 completed-K4 incidences, 10/10 surviving states, P1 original rising grade2 4/4 before -> **3/2** after, and P0 bottom-c1 4/5 on survivors, all assertions passing. The independent JavaScript source was executed in an isolated V8 JavaScript environment and immediately checkpointed as `research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-five-switch-absorber-independent.mjs`. **Its committed bytes were not separately executed under Node/maintained CI.** This is an independent implementation control, not independent formal proof or external validation.
+
 ## Scope and proof dependency
 
 Original K4 rule → physically legal alternating two-stone-column ensembles → parity marginal lemma → exact four-window Euler hazard identity → action-specific **first-win survivor mask** → new fifth-order joint cofactor/absorber correlation → rigorous F-nonclosure.
