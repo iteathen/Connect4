@@ -179,5 +179,5 @@ sourceGamma:1,sourceTropicalDeficits:hist,localLabelledNontrapResponseControls:r
 actualFirstEntryTrapP1Firstwin:true,matroidOwnerPolicyFullBound:available+2},
 theorem:"Every D residual monomial in the WSL antichain is killed by a CAUSALLY realizable matroid monomial ideal. After every prescribed legal D/A nontrap response pair, the exact Shannon cofactor and matroid contraction/delete commute, with tropical nullity gamma nondecreasing; existing online trap theorem then forces A FIRSTWIN.",
 strategicValueAtGuardedSource:"P1_WIN by source-only exact certificate",
-rootEmptyWin:"NOT_PROVED",actualWholeGameStatesEnumerated:0,childStrategicFutureValuesComputed:0,solvedOutcomeInputs:false,CI:"NOT_RUN",externalFormal:"NOT_RUN"};
+rootEmptyWin:"NOT_PROVED",completeGameStateSpaceEnumeration:false,localOriginal22PlySourceAndFiveNamedResponsePairs:true,childStrategicFutureValuesComputed:0,solvedOutcomeInputs:false,CI:"NOT_RUN",externalFormal:"NOT_RUN"};
 console.log(JSON.stringify(json,null,2));
