@@ -20,6 +20,18 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
+## Original7x6 WSL antichain and firstwin: exact cross-era bridge (2026-10-22)
+
+**ACTIVE FOUNDATION / GUARDED EXACT, not a root perfect-win theorem.** The September WSL minimal residual antichain operator, when applied to genuine original7x6 rank12 edge-anchor 32-board source faces, introduces a between-K4-window correlation absent from linear moments of all 69 original individual K4 ternary patterns and both owners' 876 Euler emitters. On the known legal C6 signed six-board circuit, before WSL strict-subset absorption the P1 per-line and unique residual counts have signed contrast0; after absorption the P1 minimal-antichain cardinality contrast is -1 (c1) or +1 (c7). Exactly ONE P1 diagonal three-cell requirement is dominated by the P1 horizontal singleton at the common unoccupied center landing. Its exact guarded Boolean is `D_L=x3(1-x5)(1-x6)(1-x7)` on anchor c1, or `D_R=x5(1-x1)(1-x2)(1-x3)` on anchor c7. Multiplying by actual P0-center firstwinner survival adds the remaining fifth owner-bit factor; EVEN/ODD 16-board masses move 1/1 -> 0/1. This is the first explicit WSL-to-Fourier/firstwin cross-window algebraic relation in this guarded source setting. The resulting D*survival is an **absorber-conditioned SOURCE** WSL predicate, not a still-existing P1 post-action diagonal requirement.
+
+**OOO TYPE WARNING:** All 1,632 checked live RFG occurrences in the rank12 and P0center/P1-any/P0center family have just ONE width7 component, so the September oddness-only **distinct-component cubic** is identically zero there. Full exact September single-component ROLE_CAPPAR descriptor one-hots DO distinguish all six C6 atoms per edge (7! permutations, rank6); do not call the entire old descriptor information-losing on this guard. These are different mathematical layers, not contradictory claims. No solved-game knowledge or below-five geometry used.
+
+- [Guarded theorem and explicit proof](2026-10-22-original7x6-WSL-antichain-firstwin-fifth-order-cross-era-theorem.md)
+- [Updated source coverage / outstanding corpus](2026-10-22-cross-era-ingestion-source-coverage-ledger.md)
+- Frozen controls: `2026-10-22-frozen-original7x6-september-RFG-OOO-to-causal-C6-bridge.md`, `2026-10-22-frozen-full-RFG-component-identity-versus-original7x6-hexagon.md`, `2026-10-22-frozen-independent-recheck-edge-WSL-dominance-five-switch-survival.md`.
+- Reproduction and exact JSON packets: `research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-september-RFG-one-component-versus-C6.js`, `verify-original7x6-full-RFG-component-descriptor-hexagon.js`, `verify-original7x6-WSL-diagonal-H-singleton-five-switch.js`; accompanying `ORIGINAL7X6_FULL_RFG_DESCRIPTOR_C6_ORBIT_0_1.json`, `ORIGINAL7X6_WSL_ANTICHAIN_C6_FIVE_SWITCH_MOBIUS_0_1.json`.
+- **Missing theorem remains**: a source-derived empty-root P0 existential/P1 universal controlled region, including causal defender response slots, deadlines and firstwinner/draw exclusion.
+
 ## Geometry-validity guard for cross-era OOO testing (2026-10-22)
 
 **NEGATIVE CONTROL / CORRECTION — do not extrapolate below-five discovery carriers to original7x6.** The historical EW-RS-069/070 discovery geometries (6x3-k3, 4x5-k4, 6x3-k4) all have a dimension below five. On 4x5-k4, horizontal Connect-4 exists but has exactly ONE window per row and NO H-window overlap. Original7x6 has four H windows per row and 36 overlapping H-window pairs. Two original 4x5 signed-OOO dependency cases disprove a coordinatewise cyclic-sign-only factor for that **scoped** T2-O scalar corpus, not a 7x6 signed-exchange/absorber/defender mechanism.
