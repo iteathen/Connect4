@@ -1,6 +1,6 @@
 # Connect4 research index
 
-**Updated:** 2026-10-21  
+**Updated:** 2026-10-22  
 **Purpose:** route durable research without turning chronology, handoffs, or historical experiments into current authority.
 
 Research direction / structural architecture / invariant-first program: **Josh Oshiro**.  
@@ -19,6 +19,12 @@ Status classes:
 Unlisted dated notes remain repository evidence. Being unlisted means “not primary routing,” not “invalid.” Git history is the archive for superseded handoffs, chat summaries, temporary publication checkpoints, and obsolete scaffolding, except where an untouched current authority file still routes one explicitly.
 
 ---
+
+## Exact original7x6 six-anchor actionwise rank and forbidden-111 center window law — 2026-10-22
+
+- [2026-10-22-six-anchor-center-Euler-tribonacci-transfer-and-actionwise-six-rank-leakage.md](2026-10-22-six-anchor-center-Euler-tribonacci-transfer-and-actionwise-six-rank-leakage.md) — **ACTIVE EXACT GUARDED OPERATOR/INTERFERENCE RESULT.** Original source fixed-height [2,2,2,0,2,2,2] has six authentic alternating firstwinner-free 32-state anchored owner-switch faces. All seven *individual* P0 actions were checked per anchor. Native full single-K4 ternary + 876 both-owner Euler observables gain exactly **six rank directions** on physical P0 c4 FIRSTWIN-ABSORBING action: 18→24 (anchors1/7),16→22 (2/6),13→19 (3/5); ZERO new directions and ZERO firstwins under any noncenter action on these faces. Every center postabsorber field contains a physical owner-degree5 observable missed by all degree≤4 primitive moments. True original H center windows form a consecutive triple-111 predicate on SIX peripheral P0 owner bits; exact 3-state no-111 transfer produces c4 firstwin mass 12/14/16/16/14/12 across anchor positions, equally divided into EVEN/ODD 5-switch fields. Connects to, but DOES NOT identify with, September's no-000/no-111 Fibonacci phase safety. No root game WIN theorem.
+- Source program: research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-six-anchor-original7x6-K4-Euler-action-kernel-independent.py ; structured packet: ORIGINAL7X6_SIX_ANCHOR_SEVEN_ACTION_EULER_K4_RANK_PLUS6_0_1.json in the same directory. 42 action rank tests passed independent exact rational/Python GF1009 and V8 rational/GF1009/GF10007 controls. Maintained Node26 CI, separately downloaded committed Python-byte rerun and external formal proof checker NOT RUN. Frozen before experiment in 2026-10-21-frozen-six-anchor-original7x6-multi-ensemble-action-kernel-survey.md.
+- Detailed cross-era synthesis: 2026-10-21-cross-era-OOO-signed-slack-kernel-invariance-and-seven-action-rank-synthesis.md ; canonical typed number/navigation map: research/maps/INTERFERENCE_PATTERN_TYPED_NUMBER_RELATIONSHIPS_MAP.md. Older three OOO descriptor-vertex pair deltas, new physical three signed slacks, and the six linear rank directions remain separate mathematical objects until an explicit action-preserving correspondence is proved.
 
 ## Global original7x6 action-indexed absorbing K4 field nonclosure — 2026-10-21
 
