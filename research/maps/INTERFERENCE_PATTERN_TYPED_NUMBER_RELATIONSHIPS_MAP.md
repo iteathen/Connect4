@@ -1,5 +1,9 @@
 # Interference-pattern typed number relations — navigation map
 
+## 2026-10-22 GEOMETRY VALIDITY GUARD — historic 4x5 signs do not falsify 7x6
+
+**TYPE/SCOPE CORRECTION.** Frozen September OOO 4x5-k4 **does** have H winning lines (5 total), but with width exactly K4 they have zero H/H overlaps. Standard original7x6 has H24 and 36 H/H overlapping pairs, and four H candidate windows through a central landing. The old OOO discovery carriers 6x3-k3 / 4x5-k4 / 6x3-k4 each have at least one dimension below five, and 6x3-k4 has NO V/R/F K4 windows. The two original GF2 matched dependencies 91,134 with relative code2 and all-zero coordinatewise cyclic kappa form a **4x5-only** witness, NOT a falsifier of a 7x6-specific signed exchange, causal-gluing, or firstwin-survival law. Require W,H>=5 to screen generalizations, then test actual 7x6 legal firstwinner-stopped actions independently. See `docs/research/2026-10-22-subfive-geometry-guard-and-OOO-kappa-scope-correction.md` and checked-in `verify-subfive-k4-and-old-ooo-circulation-scope.mjs` (executed from read-back source, original full generator not rerun).
+
 ## 2026-10-22 NEW exact C6 source-state matching obstruction: native owner observables are additive, firstwin survivor coupling is not
 
 **DEDUCTIVE EXACT with explicit original 7×6 legal rank12 edge-anchor guard, NOT a global winner theorem.** The latest intrinsic source theorem is `docs/research/2026-10-22-original7x6-two-matching-hexagon-cohomology-firstwin-circulation.md`, following the rigorously checked 6-board edge circuit, all-294 third-action survey, and earlier Sept EW-RS-069/070 signed-exchange research. Fixed anchor c1/c7, five peripheral bottom-owner switch bits, firstwinfree genuine gravity/alternating histories, 69 original K4s and 438 Euler hazards *per owner*, P0 first center absorbing actual action.
