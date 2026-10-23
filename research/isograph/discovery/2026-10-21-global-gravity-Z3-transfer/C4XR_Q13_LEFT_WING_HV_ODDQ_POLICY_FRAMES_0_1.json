@@ -1,0 +1,983 @@
+{
+  "schema": "c4.original7x6_q8_grade3_vertical_to_horizontal_trap.v1",
+  "status": "EXACT_SOURCE_Q8_SAME_COLUMN_VERTICAL_DEFENSE_CREATES_H3_READY_TRAP_BUT_NO_COMPLETE_POLICY_CERTIFICATE",
+  "sourceHistory": "42142544",
+  "initialSupport": [
+    1,
+    2,
+    0,
+    4,
+    1,
+    0,
+    0
+  ],
+  "originalK4": {
+    "H": 24,
+    "V": 21,
+    "R": 12,
+    "F": 12
+  },
+  "sourceP0MinimumMasks": 39,
+  "sourceP0GradeHistogram": {
+    "3": 13,
+    "4": 26
+  },
+  "chosenSourceG3": {
+    "originalH4": [
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ]
+    ],
+    "initialMissing": [
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ]
+    ],
+    "P0FulfilledTwo": [
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ]
+    ],
+    "futureReadyTarget": [
+      [
+        1,
+        3
+      ]
+    ],
+    "sourceBooleanUnderF": 0,
+    "sourceBooleanUnderFplusTarget": 1
+  },
+  "physicalLocalFiveEventTranscript": [
+    {
+      "column": 2,
+      "row": 3,
+      "player": 0
+    },
+    {
+      "column": 2,
+      "row": 4,
+      "player": 1
+    },
+    {
+      "column": 3,
+      "row": 1,
+      "player": 0
+    },
+    {
+      "column": 3,
+      "row": 2,
+      "player": 1
+    },
+    {
+      "column": 3,
+      "row": 3,
+      "player": 0
+    }
+  ],
+  "finalHistory": "4214254422333",
+  "finalRank": 13,
+  "finalSupport": [
+    1,
+    4,
+    3,
+    4,
+    1,
+    0,
+    0
+  ],
+  "finalP0CurrentReadyTrapColumns": [
+    1,
+    5
+  ],
+  "finalP0SourceWSL": 27,
+  "finalP1SourceWSL": 30,
+  "finalOddNontrapBases": [
+    3
+  ],
+  "oldOnlineP0ResponderSourceFrame": "INELIGIBLE_NO_MATCHING",
+  "interpretation": "A legal samecolumn P1 reply c2r4 prevents P0 V c2r2..r5 but another samecolumn P1 reply c3r2 supplies gravity needed for P0 c3r3. This activates source H row3 c1..4 as actual P0 ready trap c1r3. Thus naive claim SAMECOLUMN response to each vertical prevents all P0 traps by rank13 is false on genuine board. Single source trap alone does not establish P0 WLD; investigate unshadowed P1 original K4s and alternative policies.",
+  "noKnownSolvedValues": true,
+  "fullGameStateEnumeration": false,
+  "childStrategicWLDCalls": 0,
+  "maintainedCI": "NOT_RUN",
+  "externalFormalProver": "NOT_RUN",
+  "parityRepairAndLowerRowFirstwinCounter": {
+    "frozenProtocol": "docs/research/2026-10-23-frozen-C4Q13-to-Q17-odd-repair-row4-deadline-and-row5-P1-lower-shadow-counterexample.md",
+    "rank13OriginalWord": "4214254422333",
+    "rank13P0ReadyTraps": [
+      1,
+      5
+    ],
+    "rank13OddUnmatchedNontraps": [
+      3
+    ],
+    "actualP0FirstwinOnOriginalTrapEntry": [
+      {
+        "Dcolumn": 1,
+        "Drow": 2,
+        "P0winnerColumn": 1,
+        "P0winnerRow": 3
+      },
+      {
+        "Dcolumn": 5,
+        "Drow": 2,
+        "P0winnerColumn": 5,
+        "P0winnerRow": 3
+      }
+    ],
+    "originalFourEventDeadlineExchange": [
+      {
+        "column": 3,
+        "row": 4,
+        "player": 1,
+        "firstwin": false
+      },
+      {
+        "column": 1,
+        "row": 2,
+        "player": 0,
+        "firstwin": false
+      },
+      {
+        "column": 1,
+        "row": 3,
+        "player": 1,
+        "firstwin": false
+      },
+      {
+        "column": 1,
+        "row": 4,
+        "player": 0,
+        "firstwin": false
+      }
+    ],
+    "stateFieldAtEveryRank": [
+      {
+        "rank": 13,
+        "h": [
+          1,
+          4,
+          3,
+          4,
+          1,
+          0,
+          0
+        ],
+        "P0ready": [
+          1,
+          5
+        ],
+        "P0immediate": [],
+        "P1immediate": []
+      },
+      {
+        "rank": 14,
+        "move": {
+          "column": 3,
+          "row": 4,
+          "player": 1,
+          "firstwin": false
+        },
+        "h": [
+          1,
+          4,
+          4,
+          4,
+          1,
+          0,
+          0
+        ],
+        "P0ready": [
+          1,
+          5
+        ],
+        "P0immediate": [],
+        "P1immediate": []
+      },
+      {
+        "rank": 15,
+        "move": {
+          "column": 1,
+          "row": 2,
+          "player": 0,
+          "firstwin": false
+        },
+        "h": [
+          2,
+          4,
+          4,
+          4,
+          1,
+          0,
+          0
+        ],
+        "P0ready": [
+          5
+        ],
+        "P0immediate": [
+          1
+        ],
+        "P1immediate": []
+      },
+      {
+        "rank": 16,
+        "move": {
+          "column": 1,
+          "row": 3,
+          "player": 1,
+          "firstwin": false
+        },
+        "h": [
+          3,
+          4,
+          4,
+          4,
+          1,
+          0,
+          0
+        ],
+        "P0ready": [
+          5
+        ],
+        "P0immediate": [],
+        "P1immediate": [
+          1
+        ]
+      },
+      {
+        "rank": 17,
+        "move": {
+          "column": 1,
+          "row": 4,
+          "player": 0,
+          "firstwin": false
+        },
+        "h": [
+          4,
+          4,
+          4,
+          4,
+          1,
+          0,
+          0
+        ],
+        "P0ready": [
+          5
+        ],
+        "P0immediate": [],
+        "P1immediate": []
+      }
+    ],
+    "rank17Word": "42142544223333111",
+    "rank17Heights": [
+      4,
+      4,
+      4,
+      4,
+      1,
+      0,
+      0
+    ],
+    "rank17P0ReadyTrapColumns": [
+      5
+    ],
+    "rank17BoddNontrap": [],
+    "rank17OriginalP1MinWSL": 22,
+    "rank17OriginalP0MinWSL": 20,
+    "rank17P1MatroidGapHistogram": {
+      "0": 1,
+      "1": 6,
+      "2": 10,
+      "3": 1,
+      "4": 4
+    },
+    "rank17SingleIndependentP1OriginalH4": {
+      "residual": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "sourceOriginalK4": [
+        {
+          "t": "H",
+          "cells": [
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        }
+      ],
+      "firstwinningShadowByP0LowerH4": false
+    },
+    "fixedUpperMateCounterPolicy": {
+      "P1lowerRow5ColumnPlan": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "P0upperRow6ColumnMates": [
+        1,
+        2,
+        3
+      ],
+      "fullNamedSevenEventRecord": [
+        {
+          "column": 1,
+          "row": 5,
+          "player": 1,
+          "firstwin": false
+        },
+        {
+          "column": 1,
+          "row": 6,
+          "player": 0,
+          "firstwin": false
+        },
+        {
+          "column": 2,
+          "row": 5,
+          "player": 1,
+          "firstwin": false
+        },
+        {
+          "column": 2,
+          "row": 6,
+          "player": 0,
+          "firstwin": false
+        },
+        {
+          "column": 3,
+          "row": 5,
+          "player": 1,
+          "firstwin": false
+        },
+        {
+          "column": 3,
+          "row": 6,
+          "player": 0,
+          "firstwin": false
+        },
+        {
+          "column": 4,
+          "row": 5,
+          "player": 1,
+          "firstwin": true
+        }
+      ],
+      "P1FirstwinningPly": 24,
+      "originalP1FirstwinH4": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "P0C4R6UpperMateWouldBeTooLate": true
+    },
+    "guardedConclusion": "Parity restoration and one live P0 terminal trap do NOT certify responding P0 WIN; matroid gap stays0 due an original P1 lower-row H4 which FIRSTWINS before blind P0 upper mates. Fixed policy fails, true q17 WLD UNKNOWN."
+  },
+  "q13P1AllReplyHybridSourceDesign": [
+    {
+      "firstP1Column": 2,
+      "chosenP0Primer": [
+        1,
+        2
+      ],
+      "DsecondMandatoryBlock": [
+        1,
+        3
+      ],
+      "P1currentImmediateAfterBlock": [],
+      "chosenP0Followup": [
+        1,
+        4
+      ],
+      "resultingRank17History": "42142544223332111",
+      "sourceRank17Height": [
+        4,
+        5,
+        3,
+        4,
+        1,
+        0,
+        0
+      ],
+      "allGenuineTrapColumns": [
+        5
+      ],
+      "oddNontrapBases": [
+        2,
+        3
+      ],
+      "testedFinitePolicyFrames": 4,
+      "firstSourceWinningFrame": null,
+      "bestSourceFrame": {
+        "horizontalSourceHeightMirrorPairs": [],
+        "oddBaseFirstEntryQ": [
+          [
+            2,
+            3
+          ]
+        ],
+        "traps": [
+          5
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "sourceP1WSL": 26,
+        "sourceP1RawOriginalUnblockedK4": 30,
+        "dependencyHistogram": {
+          "0": 1,
+          "1": 6,
+          "2": 12,
+          "3": 4,
+          "4": 3
+        },
+        "matroidGamma": 0,
+        "augmentedGamma": 0,
+        "excludedByMatroid": 25,
+        "firstwinShadowed": 0,
+        "remainingIndependentUnshadowed": 1,
+        "remainingSourceCounterrequirements": [
+          {
+            "gap": 0,
+            "shadow": false,
+            "missing": [
+              [
+                1,
+                5
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "sourceOriginalLines": [
+              {
+                "kind": "H",
+                "cells": [
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    5
+                  ],
+                  [
+                    3,
+                    5
+                  ],
+                  [
+                    4,
+                    5
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "result": "MISSING_THIS_SOURCE_RESPONSE_POLICY_NOT_GAME_WLD"
+    },
+    {
+      "firstP1Column": 3,
+      "chosenP0Primer": [
+        1,
+        2
+      ],
+      "DsecondMandatoryBlock": [
+        1,
+        3
+      ],
+      "P1currentImmediateAfterBlock": [
+        1
+      ],
+      "chosenP0Followup": [
+        1,
+        4
+      ],
+      "resultingRank17History": "42142544223333111",
+      "sourceRank17Height": [
+        4,
+        4,
+        4,
+        4,
+        1,
+        0,
+        0
+      ],
+      "allGenuineTrapColumns": [
+        5
+      ],
+      "oddNontrapBases": [],
+      "testedFinitePolicyFrames": 20,
+      "firstSourceWinningFrame": {
+        "horizontalSourceHeightMirrorPairs": [
+          [
+            2,
+            3
+          ]
+        ],
+        "oddBaseFirstEntryQ": [],
+        "traps": [
+          5
+        ],
+        "B": [],
+        "sourceP1WSL": 22,
+        "sourceP1RawOriginalUnblockedK4": 30,
+        "dependencyHistogram": {
+          "1": 7,
+          "2": 10,
+          "3": 4,
+          "4": 1
+        },
+        "matroidGamma": 1,
+        "augmentedGamma": 1,
+        "excludedByMatroid": 22,
+        "firstwinShadowed": 0,
+        "remainingIndependentUnshadowed": 0,
+        "remainingSourceCounterrequirements": []
+      },
+      "bestSourceFrame": {
+        "horizontalSourceHeightMirrorPairs": [
+          [
+            2,
+            3
+          ]
+        ],
+        "oddBaseFirstEntryQ": [],
+        "traps": [
+          5
+        ],
+        "B": [],
+        "sourceP1WSL": 22,
+        "sourceP1RawOriginalUnblockedK4": 30,
+        "dependencyHistogram": {
+          "1": 7,
+          "2": 10,
+          "3": 4,
+          "4": 1
+        },
+        "matroidGamma": 1,
+        "augmentedGamma": 1,
+        "excludedByMatroid": 22,
+        "firstwinShadowed": 0,
+        "remainingIndependentUnshadowed": 0,
+        "remainingSourceCounterrequirements": []
+      },
+      "result": "GUARDED_SOURCE_P0_WIN"
+    },
+    {
+      "firstP1Column": 4,
+      "chosenP0Primer": [
+        1,
+        2
+      ],
+      "DsecondMandatoryBlock": [
+        1,
+        3
+      ],
+      "P1currentImmediateAfterBlock": [],
+      "chosenP0Followup": [
+        1,
+        4
+      ],
+      "resultingRank17History": "42142544223334111",
+      "sourceRank17Height": [
+        4,
+        4,
+        3,
+        5,
+        1,
+        0,
+        0
+      ],
+      "allGenuineTrapColumns": [
+        5
+      ],
+      "oddNontrapBases": [
+        3,
+        4
+      ],
+      "testedFinitePolicyFrames": 4,
+      "firstSourceWinningFrame": null,
+      "bestSourceFrame": {
+        "horizontalSourceHeightMirrorPairs": [
+          [
+            1,
+            2
+          ]
+        ],
+        "oddBaseFirstEntryQ": [
+          [
+            3,
+            4
+          ]
+        ],
+        "traps": [
+          5
+        ],
+        "B": [
+          3,
+          4
+        ],
+        "sourceP1WSL": 27,
+        "sourceP1RawOriginalUnblockedK4": 30,
+        "dependencyHistogram": {
+          "0": 1,
+          "1": 7,
+          "2": 15,
+          "3": 3,
+          "4": 1
+        },
+        "matroidGamma": 0,
+        "augmentedGamma": 0,
+        "excludedByMatroid": 26,
+        "firstwinShadowed": 0,
+        "remainingIndependentUnshadowed": 1,
+        "remainingSourceCounterrequirements": [
+          {
+            "gap": 0,
+            "shadow": false,
+            "missing": [
+              [
+                3,
+                5
+              ],
+              [
+                4,
+                6
+              ]
+            ],
+            "sourceOriginalLines": [
+              {
+                "kind": "R",
+                "cells": [
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    2,
+                    4
+                  ],
+                  [
+                    3,
+                    5
+                  ],
+                  [
+                    4,
+                    6
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "result": "MISSING_THIS_SOURCE_RESPONSE_POLICY_NOT_GAME_WLD"
+    },
+    {
+      "firstP1Column": 6,
+      "chosenP0Primer": [
+        1,
+        2
+      ],
+      "DsecondMandatoryBlock": [
+        1,
+        3
+      ],
+      "P1currentImmediateAfterBlock": [],
+      "chosenP0Followup": [
+        1,
+        4
+      ],
+      "resultingRank17History": "42142544223336111",
+      "sourceRank17Height": [
+        4,
+        4,
+        3,
+        4,
+        1,
+        1,
+        0
+      ],
+      "allGenuineTrapColumns": [
+        5
+      ],
+      "oddNontrapBases": [
+        3,
+        6
+      ],
+      "testedFinitePolicyFrames": 4,
+      "firstSourceWinningFrame": null,
+      "bestSourceFrame": {
+        "horizontalSourceHeightMirrorPairs": [
+          [
+            1,
+            2
+          ]
+        ],
+        "oddBaseFirstEntryQ": [
+          [
+            3,
+            6
+          ]
+        ],
+        "traps": [
+          5
+        ],
+        "B": [
+          3,
+          6
+        ],
+        "sourceP1WSL": 26,
+        "sourceP1RawOriginalUnblockedK4": 30,
+        "dependencyHistogram": {
+          "0": 1,
+          "1": 10,
+          "2": 8,
+          "3": 4,
+          "4": 3
+        },
+        "matroidGamma": 0,
+        "augmentedGamma": 0,
+        "excludedByMatroid": 25,
+        "firstwinShadowed": 0,
+        "remainingIndependentUnshadowed": 1,
+        "remainingSourceCounterrequirements": [
+          {
+            "gap": 0,
+            "shadow": false,
+            "missing": [
+              [
+                5,
+                2
+              ],
+              [
+                6,
+                2
+              ]
+            ],
+            "sourceOriginalLines": [
+              {
+                "kind": "H",
+                "cells": [
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    5,
+                    2
+                  ],
+                  [
+                    6,
+                    2
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "result": "MISSING_THIS_SOURCE_RESPONSE_POLICY_NOT_GAME_WLD"
+    },
+    {
+      "firstP1Column": 7,
+      "chosenP0Primer": [
+        1,
+        2
+      ],
+      "DsecondMandatoryBlock": [
+        1,
+        3
+      ],
+      "P1currentImmediateAfterBlock": [],
+      "chosenP0Followup": [
+        1,
+        4
+      ],
+      "resultingRank17History": "42142544223337111",
+      "sourceRank17Height": [
+        4,
+        4,
+        3,
+        4,
+        1,
+        0,
+        1
+      ],
+      "allGenuineTrapColumns": [
+        5
+      ],
+      "oddNontrapBases": [
+        3,
+        7
+      ],
+      "testedFinitePolicyFrames": 4,
+      "firstSourceWinningFrame": {
+        "horizontalSourceHeightMirrorPairs": [
+          [
+            1,
+            2
+          ]
+        ],
+        "oddBaseFirstEntryQ": [
+          [
+            3,
+            7
+          ]
+        ],
+        "traps": [
+          5
+        ],
+        "B": [
+          3,
+          7
+        ],
+        "sourceP1WSL": 25,
+        "sourceP1RawOriginalUnblockedK4": 30,
+        "dependencyHistogram": {
+          "1": 10,
+          "2": 8,
+          "3": 4,
+          "4": 3
+        },
+        "matroidGamma": 1,
+        "augmentedGamma": 1,
+        "excludedByMatroid": 25,
+        "firstwinShadowed": 0,
+        "remainingIndependentUnshadowed": 0,
+        "remainingSourceCounterrequirements": []
+      },
+      "bestSourceFrame": {
+        "horizontalSourceHeightMirrorPairs": [
+          [
+            1,
+            2
+          ]
+        ],
+        "oddBaseFirstEntryQ": [
+          [
+            3,
+            7
+          ]
+        ],
+        "traps": [
+          5
+        ],
+        "B": [
+          3,
+          7
+        ],
+        "sourceP1WSL": 25,
+        "sourceP1RawOriginalUnblockedK4": 30,
+        "dependencyHistogram": {
+          "1": 10,
+          "2": 8,
+          "3": 4,
+          "4": 3
+        },
+        "matroidGamma": 1,
+        "augmentedGamma": 1,
+        "excludedByMatroid": 25,
+        "firstwinShadowed": 0,
+        "remainingIndependentUnshadowed": 0,
+        "remainingSourceCounterrequirements": []
+      },
+      "result": "GUARDED_SOURCE_P0_WIN"
+    }
+  ],
+  "executableSourcePath": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-q13-mixed-even-H-oddQ-policy-source-algebra.js",
+  "executableSourceGitBlob": "85d5a6f060d13a01783e954d7d752bf99ce8c8d2",
+  "frozenProspectiveProtocol": "docs/research/2026-10-23-frozen-C4XR-q13-P1ALL-b-adaptive-hybrid-even-odd-matroid-formation.md",
+  "qualification": {
+    "sourceGitHubReadbackAndV8Execution": "PASS",
+    "originalGameGeometry": "W7 H6 K4 true H/V/R/F original69",
+    "wholeGameTreePositionsNotEnumerated": true,
+    "childWLDOracleCalls": 0,
+    "solvedGameWinnerUsedAsPremise": false,
+    "sourceValueQualifier": "guarded P0 WIN only when full online legal policy/matroid/source trap certified",
+    "emptyBoardNonsearchWLD": "OPEN",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalProofChecker": "NOT_RUN",
+    "IsoGraphGameTheoryAuthority": "UNCHANGED"
+  }
+}
