@@ -151,4 +151,50 @@ const result={
  noKnownSolvedValues:true,fullGameStateEnumeration:false,childStrategicWLDCalls:0,
  maintainedCI:"NOT_RUN",externalFormalProver:"NOT_RUN"
 };
+
+// Exact FOUR physical-cell source Boolean/signed field on the two
+// original adjacent horizontal H row3 windows that share two future
+// P0 missing owner sites: f1=c2r3, f2=c3r3, yL=c1r3,yR=c5r3.
+// With all other hypothetical future sites set0, the original WSL
+// source restriction is EXACTLY f1*f2*(yL OR yR).
+// Squarefree rational polynomial: f1f2yL +f1f2yR -f1f2yLyR.
+const newSourceWingSites=[bit(1,2),bit(2,2),bit(0,2),bit(4,2)];
+const f1mask=newSourceWingSites[0],f2mask=newSourceWingSites[1],
+ leftY=newSourceWingSites[2],rightY=newSourceWingSites[3];
+const sourceField=(z)=>Number(sourceWSL.min.some(x=>(x.mask&z)===x.mask));
+let fullFourFieldChecks=0,coefficients={},observations=[];
+for(let bits4=0;bits4<16;bits4++){
+ let active=0n;
+ for(let j=0;j<4;j++)if(bits4&(1<<j))active|=newSourceWingSites[j];
+ const f1=Number(Boolean(bits4&1)),f2=Number(Boolean(bits4&2)),
+  yl=Number(Boolean(bits4&4)),yr=Number(Boolean(bits4&8));
+ const v=sourceField(active);
+ const predicted=f1*f2*(yl+yr-yl*yr);
+ ok(v===predicted,"entire original source Phi restricted to four real cells equals Boolean wing OR");
+ observations.push({binaryOwnerMask:bits4,field:v,factor:predicted});
+ fullFourFieldChecks++;
+}
+const both=f1mask|f2mask;
+const v0=sourceField(both),vL=sourceField(both|leftY),
+ vR=sourceField(both|rightY),vLR=sourceField(both|leftY|rightY);
+const signedWingInteraction=vLR-vL-vR+v0;
+ok(v0===0&&vL===1&&vR===1&&vLR===1&&signedWingInteraction===-1,
+ "two-wing source Boolean OR saturation has exact negative mixed endpoint curvature -1");
+result.sourceTwoWingBooleanSaturation={
+ sourcePhysicalCells:{f1:[2,3],f2:[3,3],leftY:[1,3],rightY:[5,3]},
+ sourceOriginalH4Windows:[
+  [[1,3],[2,3],[3,3],[4,3]],
+  [[2,3],[3,3],[4,3],[5,3]]
+ ],
+ exactRestrictedBooleanFormula:"f1*f2*(leftY OR rightY)",
+ exactSquarefreeRationalPolynomial:"f1*f2*leftY + f1*f2*rightY - f1*f2*leftY*rightY",
+ sourceFieldUnderAlreadyFulfilledBoth:v0,
+ sourceFieldAfterLeft:vL,
+ sourceFieldAfterRight:vR,
+ sourceFieldAfterBoth:vLR,
+ signedEndpointMixedDerivativeAfterF:signedWingInteraction,
+ originalPhysicalSourceTruthAssignmentsChecked:fullFourFieldChecks,
+ truthControls:observations,
+ meaning:"genuine original source residual potential, not a strategic P0 WIN probability or signed historical C6/OOO identity"
+};
 console.log(JSON.stringify(result,null,2));
