@@ -99,6 +99,31 @@ Frozen protocols:
 
 **No full game-state enumeration, no history-based minimax recursion, no known strong solved input, no below-five Connect4 board generalization, no new qualified IsoGraph game authority, no maintained Node26 CI/external proof assistant.** Unrestricted empty-root perfect-play WLD and all tied moves remain OPEN.
 
+## 5A. A second tropical operation: strict MAX-plus firstwin-order potential
+
+This proof's timed shadow has an exact **MAX-plus** formulation, not merely a qualitative causal diagram. For source-certified paired column events \(a_i=(A\text{ acquires physical lower site }s_i^-)\) and \(d_i=(D\text{ acquires corresponding one-row-higher site }s_i)\), the online policy proves a strictly ordered edge \(t(a_i)<t(d_i)\) for all four real original column target cells of the K4. Some a_i may already belong to A at source, while d_i must occur later.
+
+If an original shifted A line is \(L^-\) and the matching D line is L, their would-be completion times under any legally consistent time assignment are
+\[
+T_A(L^-)=\max_{i=1}^4 t(a_i),\qquad
+T_D(L)=\max_{i=1}^4 t(d_i).
+\]
+Pick i where t(a_i) is maximal; then \(\max_j t(a_j)=t(a_i)<t(d_i)\le\max_j t(d_j)\). Therefore:
+
+\[
+\boxed{\bigwedge_{i=1}^4 [t(a_i)<t(d_i)]
+\quad\Rightarrow\quad
+T_A(L^-)<T_D(L).}\tag{10}
+\]
+
+The tropical structure is **typed**: original \(\Gamma_M=\min_G(|G|-\rho_M(G))\) uses MIN across source residual requirements and matroid owner-capacity deficits; the STRICT firstwinner shadow uses MAX across the source physical completion-event clocks and column precedence edges. Both are source-measurable under an actual legal response policy, but their scalar outputs are not interchangeable or a two-bit game-value gauge.
+
+Independent abstract event poset \(\{A_i,D_i:i=1,\ldots,4\}\) has all 8! = 40,320 total distinct linear event orders, of which 8!/16 = **2,520** respect the four independently constrained strict mate edges \(A_i<D_i\). In every one of those 2,520 abstract orders the MAX-plus firstwinner inequality above holds, with zero exceptions. No genuine game states or histories are involved in this small abstract proof; the real original7x6 support and old online policy supply its physical \(A_i<D_i\) guards.
+
+**New independent source:** \`research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-four-site-maxplus-firstwin-shadow-event-order.js\`; machine packet \`ORIGINAL7X6_FOUR_EVENT_PAIR_MAXPLUS_FIRSTWIN_SHADOW_0_1.json\`; pretest freeze \`docs/research/2026-10-23-frozen-bi-tropical-matroid-nullity-and-firstwin-maxplus-event-order.md\`.
+
+**Critical boundary:** in arbitrary Connect4 actual play, it is false that a site one row below a D winning line must belong to A. The statement becomes a causal WIN operator only AFTER source q owner-depth and a real online policy prove those four strict *opposite-owner* events. This result is NOT an independent all-positions bounded Fourier-degree closure or unrestricted root WLD theorem.
+
 ## 6. Next exact root formation obligation
 
 This new relation **repairs the former rank9 row5 \(\Gamma=0\) blocker for source B** via real firstwinner precedence. Thus the missing object is not necessarily a positive STATIC matroid Γ from EMPTY; a **joint matroid-dependence OR certified-firstwinning-shadow field** could yield a richer single-lane P0-controlled winning region.
