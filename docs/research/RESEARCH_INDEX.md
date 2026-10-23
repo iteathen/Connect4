@@ -20,6 +20,20 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
+## 2026-10-23 C4XR LIVE — q17 heterogeneous H/V P0 WIN; restricted q13 c3; poisoned-trap guard
+
+**NEW CURRENT ACTIVE GUARDED WLD SOURCE, EMPTY ROOT ZERO-STRATEGIC-BRANCHING WLD OPEN.** Old C4XR note below was frozen when q17 original rank17 source \`42142544223333111\` had WLD UNKNOWN because both PURE source P0 online policies failed: only V upper mates leave original P1 lower H row5 c1–c4 winning first on ply24; only H same-row mirrors give P1 rising diagonal gravity support. The NEW SOURCE-GUARDED successful solution combines **H same-row mirrors c1/c2 at row5+6, V upper mates c3,c4,c6,c7 and P0 FIRSTWIN trap c5r2→c5r3**. On TRUE original69 P1 normalized WSL all22 minimal residuals are dependent in its ONLINE source matroid: nullity histogram (1:8,2:9,3:3,4:2), minimum Gamma=1; physically legal mates + finite trap progress certify \`P0 WIN\` from q17 by rank39, no child-game WLD calls or known solved-game values.
+
+**Restricted q13 predecessor and OPEN q13 P1-ALL:** True rank13 P1-turn \`4214254422333\` with P0 READY traps c1/c5: if P1 first c3r4, P0 c1r2 yields P0 immediately WINNING original H row3 c1r3 unless P1 uses its unique block c1r3; blocking creates immediate P1 upper H row4 c1r4 so P0 c1r4 reaches certified q17. This proves P0 winning against P1 FIRST choice c3 without strategic child-value enumeration, not against ALL q13 responses. A source frame also certifies b7 under a mixed proof class, while b2/b4/b6 expose genuine original P1 independent unshadowed sources H row5 (c1,c3,c4), rising (c3r5,c4r6), and H row2 (c5r2,c6r2). A separate exact actual b6 trace proves **P1 FIRSTWIN rank20 while entering nominal P0 trap** (P1 c6r2, P0 c3r4, P1 c5r2 completes P1 H row2 c3–c6): terminal PRIORITY on trap entrance is a load-bearing response-policy guard, not a game-WLD label on q13.
+
+- [Current verified reconciliation and exact positive/negative source provenance](2026-10-23-C4XR-live-resync-hybrid-q17-WIN-and-q13-partial-source-boundary.md)
+- Runnable q17 hybrid WIN program \`research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-q17-hybrid-vertical-horizontal-online-matroid.js\` + \`C4XR_Q17_HV_HYBRID_P0_WIN_0_1.json\`
+- Runnable q13 c3 restricted WIN \`verify-original7x6-q13-P1c3-source-quantifier-collapse-into-q17-hybrid-WIN.js\` + \`C4XR_Q13_P1C3_FORCED_TO_P0_WIN_0_1.json\`
+- Runnable q13 unresolved mixed Q frame \`verify-original7x6-q13-mixed-even-H-oddQ-policy-source-algebra.js\` + \`C4XR_Q13_LEFT_WING_HV_ODDQ_POLICY_FRAMES_0_1.json\`
+- Runnable P1 nominal-trap FIRSTWIN counter \`verify-original7x6-q17-b6-P1-trap-entry-H2-firstwin-preemption.js\` + \`C4XR_Q17_B6_P1_FIRSTWIN_TRAP_PREEMPTION_0_1.json\`
+
+**Next:** exact source-only generalized mixed H/V/odd-Q online obligation formation that handles the remaining q13 b2,b4,b6 P1 source requirements, carries backwards from q13 to q8/q7/EMPTY under ALL P1 replies and checks FIRSTWIN priority on trap entry. Nothing here proves original EMPTY root WLD or all equally strong-optimal actions; original IsoGraph1.2 logic authority remains unchanged.
+
 ## 2026-10-23 C4XR exact original7x6 cross-ribbon threat reflection and firstwin-order counterpolicy
 
 **NEW ACTIVE SOURCE FOUNDATION / GUARDED LOCAL OPERATOR, EMPTY ROOT WLD OPEN.** Two true original P0 H row3 source grade3 residuals share both f1=c2r3, f2=c3r3; other endpoint wings are yL=c1r3,yR=c5r3. Exact original69 source WSL restriction `Phi=f1*f2*(yL OR yR)` has signed mixed endpoint -1 (all16 four-site truth settings). From genuine q8 `42142544`, the legal continuation `22333` blocks a P0 vertical via P1 c2r4 and supplies P0 H row3 via P1 c3r2, producing real q13 `4214254422333` with TWO P0 READY terminal traps at c1,c5. Its odd nontrap B={c3} is unmatched: existing Oct20 Q policy is INELIGIBLE; no automatic P0 WIN.
