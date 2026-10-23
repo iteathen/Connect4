@@ -1,0 +1,349 @@
+{
+  "schema": "c4.original7x6_center_first_rank9_shadow_WLD.v1",
+  "status": "EXACT_CENTER_FIRST_RANK9_P0_WIN_GUARDED_SOURCE_PLUS_ROLE_DEPTH_NEGATIVE_CONTROL",
+  "geometry": {
+    "H": 24,
+    "V": 21,
+    "R": 12,
+    "F": 12
+  },
+  "originalSources": [
+    {
+      "word": "421424534",
+      "firstColumnP0": 4,
+      "sourceRank": 9,
+      "support": [
+        1,
+        2,
+        1,
+        4,
+        1,
+        0,
+        0
+      ],
+      "P0ownsRow3Center": false,
+      "P1ownsRow3Center": true,
+      "P0trapColumn": [
+        3
+      ],
+      "oddQ": [
+        1,
+        5
+      ],
+      "originalP1ResidualWindows": 43,
+      "minimalP1Residuals": 40,
+      "rankNullityHistogram": {
+        "0": 2,
+        "1": 14,
+        "2": 18,
+        "3": 1,
+        "4": 5
+      },
+      "rawMatroidGamma": 0,
+      "strictFirstwinShadowGamma": 0,
+      "matroidIndependentRequirements": [
+        {
+          "missing": [
+            [
+              5,
+              3
+            ],
+            [
+              6,
+              3
+            ],
+            [
+              7,
+              3
+            ]
+          ],
+          "originalK4": [
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              3
+            ],
+            [
+              6,
+              3
+            ],
+            [
+              7,
+              3
+            ]
+          ],
+          "shadowByP0Row4": false
+        },
+        {
+          "missing": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "originalK4": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "shadowByP0Row4": true
+        }
+      ]
+    },
+    {
+      "word": "421425434",
+      "firstColumnP0": 4,
+      "sourceRank": 9,
+      "support": [
+        1,
+        2,
+        1,
+        4,
+        1,
+        0,
+        0
+      ],
+      "P0ownsRow3Center": true,
+      "P1ownsRow3Center": false,
+      "P0trapColumn": [
+        3
+      ],
+      "oddQ": [
+        1,
+        5
+      ],
+      "originalP1ResidualWindows": 35,
+      "minimalP1Residuals": 31,
+      "rankNullityHistogram": {
+        "0": 1,
+        "1": 8,
+        "2": 16,
+        "3": 1,
+        "4": 5
+      },
+      "rawMatroidGamma": 0,
+      "strictFirstwinShadowGamma": 1,
+      "matroidIndependentRequirements": [
+        {
+          "missing": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "originalK4": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "shadowByP0Row4": true
+        }
+      ]
+    }
+  ],
+  "policyFirstwinControls": {
+    "P1UnshadowedRow3AttackerFromNegative": {
+      "P1script": [
+        5,
+        5,
+        6,
+        6,
+        7,
+        7
+      ],
+      "actualFirstWin": "P1_FIRSTWIN",
+      "ply": 20,
+      "winningOriginalK4": [
+        {
+          "type": "H",
+          "cells": [
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              3
+            ],
+            [
+              6,
+              3
+            ],
+            [
+              7,
+              3
+            ]
+          ]
+        }
+      ]
+    },
+    "P1Row5AttemptFromPositive": {
+      "P1script": [
+        4,
+        5,
+        5,
+        5,
+        6,
+        6,
+        6,
+        7,
+        7,
+        7
+      ],
+      "actualFirstWin": "P0_FIRSTWIN",
+      "ply": 27,
+      "winningOriginalK4": [
+        {
+          "type": "H",
+          "cells": [
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              4
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              7,
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    "positiveSourceEveryP1FirstAction": [
+      {
+        "P1col": 1,
+        "sourceResponseP0col": 5,
+        "P0firstwinsImmediately": false,
+        "guardedSourceOutcome": "P0_WIN WLD-only",
+        "WLDOnlyP1MoveOptimal": true
+      },
+      {
+        "P1col": 2,
+        "sourceResponseP0col": 2,
+        "P0firstwinsImmediately": false,
+        "guardedSourceOutcome": "P0_WIN WLD-only",
+        "WLDOnlyP1MoveOptimal": true
+      },
+      {
+        "P1col": 3,
+        "sourceResponseP0col": 3,
+        "P0firstwinsImmediately": true,
+        "guardedSourceOutcome": "P0_WIN WLD-only",
+        "WLDOnlyP1MoveOptimal": true
+      },
+      {
+        "P1col": 4,
+        "sourceResponseP0col": 4,
+        "P0firstwinsImmediately": false,
+        "guardedSourceOutcome": "P0_WIN WLD-only",
+        "WLDOnlyP1MoveOptimal": true
+      },
+      {
+        "P1col": 5,
+        "sourceResponseP0col": 1,
+        "P0firstwinsImmediately": false,
+        "guardedSourceOutcome": "P0_WIN WLD-only",
+        "WLDOnlyP1MoveOptimal": true
+      },
+      {
+        "P1col": 6,
+        "sourceResponseP0col": 6,
+        "P0firstwinsImmediately": false,
+        "guardedSourceOutcome": "P0_WIN WLD-only",
+        "WLDOnlyP1MoveOptimal": true
+      },
+      {
+        "P1col": 7,
+        "sourceResponseP0col": 7,
+        "P0firstwinsImmediately": false,
+        "guardedSourceOutcome": "P0_WIN WLD-only",
+        "WLDOnlyP1MoveOptimal": true
+      }
+    ]
+  },
+  "theorem": "From live P1-turn rank9 center-first 421425434, old legally guaranteed online P0 upper-mate/odd-Q/trap response policy forbids every P1 firstwinning K4: 30 minimal P1 requirements are matroid-dependent and the only independent residual H4 row5 c4..7 is strictly shadowed by P0 H4 row4 c4..7, which FIRSTWINS earlier. Nontrap exhaustion forces P1 to enter current P0 firstwin trap c3 if P0 did not already win. Thus P0 WIN and each of seven legal P1 first actions is WLD-only losing for P1 without child-value evaluations.",
+  "scope": "individual genuine 7x6 center-first legal-source WLD certificate; NOT an empty-root strategy or strong mate-depth optimality",
+  "fullGameStateEnumeration": false,
+  "childStrongValueCalls": 0,
+  "noSolvedGameOutcomePremises": true,
+  "externalFormalProver": "NOT_RUN",
+  "maintainedCI": "NOT_RUN",
+  "sourcePath": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-center-first-rank9-firstwin-shadow-policy-WLD.js",
+  "sourceGitBlob": "c06333b59842f9b9964cc9768ed698a1d4787aed",
+  "pretestProtocol": "docs/research/2026-10-23-frozen-center-first-rank9-twin-owner-depth-P0-shadow-formation.md",
+  "priorOnlineResponder": "docs/research/2026-10-20-frozen-interference-odd-base-pair-matroid-response-theorem.md",
+  "newTemporalShadowTheorem": "docs/research/2026-10-23-original7x6-firstwin-precedence-shadow-augmented-tropical-matroid-policy-theorem.md",
+  "qualification": {
+    "actualCenterFirstP0Source": true,
+    "sevenLiteralP1MoveWLDOutcomesFromSingleUniversalPolicyProof": true,
+    "allStrongMateDepthOptimalMoveTiesProved": false,
+    "rootP0CanForceSource": false,
+    "unknownRootWLDByIndependentNoSearchProof": true,
+    "physicalFirstwinnerStopped": true,
+    "solvedGameOracleInputs": false,
+    "gameTreeEnumeration": false,
+    "node26CI": "NOT_RUN",
+    "externalFormal": "NOT_RUN",
+    "isographAuthority": "UNCHANGED"
+  }
+}
