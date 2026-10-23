@@ -1,0 +1,782 @@
+{
+  "schema": "c4.original7x6_WSL_strict_firstwin_shadow_policy.v1",
+  "status": "EXACT_GUARDED_RANK9_P0_WIN_VIA_UPPER_ROW_SHADOW_DESPITE_STATIC_MATROID_GAMMA_ZERO",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K4": {
+      "H": 24,
+      "V": 21,
+      "R": 12,
+      "F": 12
+    }
+  },
+  "sources": [
+    {
+      "word": "143224454",
+      "sourceHeights": [
+        1,
+        2,
+        1,
+        4,
+        1,
+        0,
+        0
+      ],
+      "originalP1ResidualWindows": 36,
+      "minimalP1WSL": 34,
+      "sourceMatroidGamma": 0,
+      "firstwinShadowAugmentedGamma": 0,
+      "deficitHistogram": {
+        "0": 2,
+        "1": 10,
+        "2": 15,
+        "3": 2,
+        "4": 5
+      },
+      "unconstrainedSourceRequirements": [
+        {
+          "required": [
+            [
+              6,
+              1
+            ],
+            [
+              7,
+              1
+            ]
+          ],
+          "lineType": "H",
+          "fullLine": [
+            [
+              4,
+              1
+            ],
+            [
+              5,
+              1
+            ],
+            [
+              6,
+              1
+            ],
+            [
+              7,
+              1
+            ]
+          ],
+          "shadowCertified": false,
+          "reason": "not the certified row5 c4..7 source H4"
+        },
+        {
+          "required": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "lineType": "H",
+          "fullLine": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "shadowCertified": true,
+          "reason": "strict P0 row4 H4 FIRSTWIN before P1 row5 H4 under legal response tails",
+          "shadowProof": [
+            {
+              "col": 4,
+              "row4AlreadyP0": true
+            },
+            {
+              "col": 5,
+              "row4AlreadyP0": false,
+              "mandatoryPrior": [
+                {
+                  "Drow": 3
+                },
+                {
+                  "Arow": 4
+                },
+                {
+                  "laterPossibleDrow": 5
+                }
+              ]
+            },
+            {
+              "col": 6,
+              "row4AlreadyP0": false,
+              "mandatoryPrior": [
+                {
+                  "Drow": 3
+                },
+                {
+                  "Arow": 4
+                },
+                {
+                  "laterPossibleDrow": 5
+                }
+              ]
+            },
+            {
+              "col": 7,
+              "row4AlreadyP0": false,
+              "mandatoryPrior": [
+                {
+                  "Drow": 3
+                },
+                {
+                  "Arow": 4
+                },
+                {
+                  "laterPossibleDrow": 5
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "word": "122454434",
+      "sourceHeights": [
+        1,
+        2,
+        1,
+        4,
+        1,
+        0,
+        0
+      ],
+      "originalP1ResidualWindows": 35,
+      "minimalP1WSL": 33,
+      "sourceMatroidGamma": 0,
+      "firstwinShadowAugmentedGamma": 1,
+      "deficitHistogram": {
+        "0": 1,
+        "1": 10,
+        "2": 16,
+        "3": 1,
+        "4": 5
+      },
+      "unconstrainedSourceRequirements": [
+        {
+          "required": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "lineType": "H",
+          "fullLine": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "shadowCertified": true,
+          "reason": "strict P0 row4 H4 FIRSTWIN before P1 row5 H4 under legal response tails",
+          "shadowProof": [
+            {
+              "col": 4,
+              "row4AlreadyP0": true
+            },
+            {
+              "col": 5,
+              "row4AlreadyP0": false,
+              "mandatoryPrior": [
+                {
+                  "Drow": 3
+                },
+                {
+                  "Arow": 4
+                },
+                {
+                  "laterPossibleDrow": 5
+                }
+              ]
+            },
+            {
+              "col": 6,
+              "row4AlreadyP0": false,
+              "mandatoryPrior": [
+                {
+                  "Drow": 3
+                },
+                {
+                  "Arow": 4
+                },
+                {
+                  "laterPossibleDrow": 5
+                }
+              ]
+            },
+            {
+              "col": 7,
+              "row4AlreadyP0": false,
+              "mandatoryPrior": [
+                {
+                  "Drow": 3
+                },
+                {
+                  "Arow": 4
+                },
+                {
+                  "laterPossibleDrow": 5
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sourceBWinsForP0ByNonbranchingCertificate": true,
+  "oldPolicySourceAProvedUnsoundByConcreteP1Firstwin": true,
+  "uniformLogicalLaw": "Under the existing October20 legally executable A=P0 upper-mate/odd-base policy, D=P1 cannot finish aligned H4 row5 c4..7 without first allowing A to occupy aligned H4 row4 c4..7 and terminate EARLIER. All other P1 source WSL generators are matroid-dependent. Existing policy trap C and finite nontrap-pair progress make P0 FIRSTWIN inevitable from source B.",
+  "sourceLocalFirstResponseShannonControls": [
+    {
+      "Dcol": 1,
+      "Drow": 2,
+      "Acol": 5,
+      "Arow": 2,
+      "AwinImmediately": false,
+      "exactSourceShannonMatch": true
+    },
+    {
+      "Dcol": 2,
+      "Drow": 3,
+      "Acol": 2,
+      "Arow": 4,
+      "AwinImmediately": false,
+      "exactSourceShannonMatch": true
+    },
+    {
+      "Dcol": 4,
+      "Drow": 5,
+      "Acol": 4,
+      "Arow": 6,
+      "AwinImmediately": false,
+      "exactSourceShannonMatch": true
+    },
+    {
+      "Dcol": 5,
+      "Drow": 2,
+      "Acol": 1,
+      "Arow": 2,
+      "AwinImmediately": false,
+      "exactSourceShannonMatch": true
+    },
+    {
+      "Dcol": 6,
+      "Drow": 1,
+      "Acol": 6,
+      "Arow": 2,
+      "AwinImmediately": false,
+      "exactSourceShannonMatch": true
+    },
+    {
+      "Dcol": 7,
+      "Drow": 1,
+      "Acol": 7,
+      "Arow": 2,
+      "AwinImmediately": false,
+      "exactSourceShannonMatch": true
+    }
+  ],
+  "oneUpperRowGoalScript": {
+    "opponentColumns": [
+      4,
+      5,
+      5,
+      5,
+      6,
+      6,
+      6,
+      7,
+      7,
+      7
+    ],
+    "stoppedAtPly": 27,
+    "firstWinner": "P0WIN",
+    "winningK4": [
+      {
+        "dir": "H",
+        "cells": [
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            7,
+            4
+          ]
+        ]
+      }
+    ],
+    "actualDandAEvents": [
+      {
+        "D": {
+          "column": 4,
+          "row": 5,
+          "p": 1,
+          "firstwin": false,
+          "winning": []
+        },
+        "A": {
+          "column": 4,
+          "row": 6,
+          "p": 0,
+          "firstwin": false,
+          "winning": []
+        },
+        "terminal": null
+      },
+      {
+        "D": {
+          "column": 5,
+          "row": 2,
+          "p": 1,
+          "firstwin": false,
+          "winning": []
+        },
+        "A": {
+          "column": 1,
+          "row": 2,
+          "p": 0,
+          "firstwin": false,
+          "winning": []
+        },
+        "terminal": null
+      },
+      {
+        "D": {
+          "column": 5,
+          "row": 3,
+          "p": 1,
+          "firstwin": false,
+          "winning": []
+        },
+        "A": {
+          "column": 5,
+          "row": 4,
+          "p": 0,
+          "firstwin": false,
+          "winning": []
+        },
+        "terminal": null
+      },
+      {
+        "D": {
+          "column": 5,
+          "row": 5,
+          "p": 1,
+          "firstwin": false,
+          "winning": []
+        },
+        "A": {
+          "column": 5,
+          "row": 6,
+          "p": 0,
+          "firstwin": false,
+          "winning": []
+        },
+        "terminal": null
+      },
+      {
+        "D": {
+          "column": 6,
+          "row": 1,
+          "p": 1,
+          "firstwin": false,
+          "winning": []
+        },
+        "A": {
+          "column": 6,
+          "row": 2,
+          "p": 0,
+          "firstwin": false,
+          "winning": []
+        },
+        "terminal": null
+      },
+      {
+        "D": {
+          "column": 6,
+          "row": 3,
+          "p": 1,
+          "firstwin": false,
+          "winning": []
+        },
+        "A": {
+          "column": 6,
+          "row": 4,
+          "p": 0,
+          "firstwin": false,
+          "winning": []
+        },
+        "terminal": null
+      },
+      {
+        "D": {
+          "column": 6,
+          "row": 5,
+          "p": 1,
+          "firstwin": false,
+          "winning": []
+        },
+        "A": {
+          "column": 6,
+          "row": 6,
+          "p": 0,
+          "firstwin": false,
+          "winning": []
+        },
+        "terminal": null
+      },
+      {
+        "D": {
+          "column": 7,
+          "row": 1,
+          "p": 1,
+          "firstwin": false,
+          "winning": []
+        },
+        "A": {
+          "column": 7,
+          "row": 2,
+          "p": 0,
+          "firstwin": false,
+          "winning": []
+        },
+        "terminal": null
+      },
+      {
+        "D": {
+          "column": 7,
+          "row": 3,
+          "p": 1,
+          "firstwin": false,
+          "winning": []
+        },
+        "A": {
+          "column": 7,
+          "row": 4,
+          "p": 0,
+          "firstwin": true,
+          "winning": [
+            {
+              "dir": "H",
+              "cells": [
+                [
+                  4,
+                  4
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ]
+              ]
+            }
+          ]
+        },
+        "terminal": "P0WIN"
+      }
+    ]
+  },
+  "namedCounterPolicySourceA": {
+    "opponentColumns": [
+      6,
+      7
+    ],
+    "stoppedAtPly": 12,
+    "firstWinner": "P1WIN",
+    "winningK4": [
+      {
+        "dir": "H",
+        "cells": [
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            1
+          ]
+        ]
+      }
+    ]
+  },
+  "futureValueBranchEvaluations": 0,
+  "rootWLDUnproved": true,
+  "originalGameSpaceNotEnumerated": true,
+  "knownSolvedLabelsNotUsed": true,
+  "maintainedCI": "NOT_RUN",
+  "independentFormalChecker": "NOT_RUN",
+  "firstResponsePolicyMinorAugmentedCertificates": [
+    {
+      "Dcolumn": 1,
+      "Acolumn": 5,
+      "rawGamma": 0,
+      "firstwinAugmentedGamma": 1,
+      "matroidIndependentChildRequirements": [
+        {
+          "deficit": 0,
+          "shadow": true,
+          "remaining": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "Dcolumn": 2,
+      "Acolumn": 2,
+      "rawGamma": 0,
+      "firstwinAugmentedGamma": 1,
+      "matroidIndependentChildRequirements": [
+        {
+          "deficit": 0,
+          "shadow": true,
+          "remaining": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "Dcolumn": 4,
+      "Acolumn": 4,
+      "rawGamma": 0,
+      "firstwinAugmentedGamma": 1,
+      "matroidIndependentChildRequirements": [
+        {
+          "deficit": 0,
+          "shadow": true,
+          "remaining": [
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "Dcolumn": 5,
+      "Acolumn": 1,
+      "rawGamma": 0,
+      "firstwinAugmentedGamma": 1,
+      "matroidIndependentChildRequirements": [
+        {
+          "deficit": 0,
+          "shadow": true,
+          "remaining": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "Dcolumn": 6,
+      "Acolumn": 6,
+      "rawGamma": 0,
+      "firstwinAugmentedGamma": 1,
+      "matroidIndependentChildRequirements": [
+        {
+          "deficit": 0,
+          "shadow": true,
+          "remaining": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "Dcolumn": 7,
+      "Acolumn": 7,
+      "rawGamma": 0,
+      "firstwinAugmentedGamma": 1,
+      "matroidIndependentChildRequirements": [
+        {
+          "deficit": 0,
+          "shadow": true,
+          "remaining": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "sourcePath": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-rank9-firstwin-shadow-tropical-certificate.js",
+  "sourceBlob": "19a78209843916c7d91e4a0a4f8d6bc69491685c",
+  "frozenProtocol": "docs/research/2026-10-23-frozen-P0-respondent-rank9-upper-horizontal-shadow-firstwin-precedence.md",
+  "independentResearchRole": "actual live original7x6 rank9 source, old causal online P0 matroid policy and firstwin shadow",
+  "qualification": {
+    "sourceReadbackExactAndExecutedInIsolatedV8": true,
+    "mathematicalProofType": "guarded source-firstwinner causality and original K4 geometry",
+    "fullGameTreeEnumerated": false,
+    "allTiedOptimalMovesSolved": false,
+    "emptyRootWLD": "OPEN",
+    "oldOctober20ResponderPreviouslyEstablished": true,
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalProver": "NOT_RUN",
+    "qualifiedIsoGraphAuthorityChange": "NONE"
+  }
+}
