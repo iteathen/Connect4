@@ -219,4 +219,71 @@ const report={
   noKnownSolvedOracleValues:true,subfiveBoardRefutations:"NONE",
   maintainedCI:"NOT_RUN",externalFormalProver:"NOT_RUN"}
 };
+
+// Both owners' SOURCE grades remain live: a competing P1 singleton can
+// outrun a formed P0 trap. Original7x6 physical 69/ray controls below.
+// Source P1 graded source masks are 2:1, 3:5, 4:35; of its five grade3
+// one source vertical c5r1..r4 has P1 missing c5r2,r3,r4.
+ok(JSON.stringify(DGrades)===JSON.stringify({"2":1,"3":5,"4":35}),"P1 source 1/5/35 degree2/3/4");
+const dualImmediateSite20261023=(q,p)=>{
+ const m=minWSL(q,p);
+ return Array.from({length:7},(_,i)=>i).filter(c=>q.h[c]<6&&m.some(x=>x.G.length===1&&x.G[0][0]===c&&x.G[0][1]===q.h[c])).map(c=>c+1);
+};
+let dualSourceChecks20261023=0;
+const P1current20261023=[],P0current20261023=[];
+for(let bOne20261023=1;bOne20261023<=7;bOne20261023++){
+ if(bOne20261023===4)continue;
+ const q9Dual20261023=cp(initial);
+ ok(!move(q9Dual20261023,bOne20261023,1).firstwin,"first P1 source nonterminal");
+ ok(!move(q9Dual20261023,4,0).firstwin,"first P0 c4 nonterminal");
+ for(let bTwo20261023=1;bTwo20261023<=7;bTwo20261023++){
+  const q10Dual20261023=cp(q9Dual20261023);
+  ok(!move(q10Dual20261023,bTwo20261023,1).firstwin,"P1 cannot WIN before P0 rank11 response");
+  const dWins20261023=dualImmediateSite20261023(q10Dual20261023,1);
+  const aWins20261023=dualImmediateSite20261023(q10Dual20261023,0);
+  const expectedD20261023=(bOne20261023===5&&bTwo20261023===5)?[5]:[];
+  const expectedA20261023=(bOne20261023===3&&bTwo20261023===3)?[3]:[];
+  ok(dWins20261023.join(",")===expectedD20261023.join(","),"sole P1 immediate V threat from double c5");
+  ok(aWins20261023.join(",")===expectedA20261023.join(","),"sole P0 immediate R win from double c3");
+  if(dWins20261023.length)P1current20261023.push({b1:bOne20261023,b2:bTwo20261023,winningColumn:5,row:4});
+  if(aWins20261023.length)P0current20261023.push({b1:bOne20261023,b2:bTwo20261023,winningColumn:3,row:3});
+  dualSourceChecks20261023++;
+ }
+}
+ok(dualSourceChecks20261023===42&&P1current20261023.length===1&&P0current20261023.length===1,"42 physical graded dual WIN obligations");
+const q10Urgent20261023=cp(initial);
+for(const [col20261023,p20261023] of [[5,1],[4,0],[5,1]])ok(!move(q10Urgent20261023,col20261023,p20261023).firstwin,"urgent q10 literal firstwinner-free");
+ok(dualImmediateSite20261023(q10Urgent20261023,1).join(",")==="5"&&dualImmediateSite20261023(q10Urgent20261023,0).length===0,"opponent owns unique immediate deadline");
+const q11Trap20261023=cp(q10Urgent20261023);
+ok(!move(q11Trap20261023,3,0).firstwin,"P0 support move creates trap not direct win");
+ok(q11Trap20261023.h[2]===1&&minWSL(q11Trap20261023,0).some(x=>x.G.length===1&&x.G[0][0]===2&&x.G[0][1]===2),"P0 ready trap c3r3");
+const firstwinP120261023=move(q11Trap20261023,5,1);
+ok(firstwinP120261023.firstwin&&firstwinP120261023.row===4,"P1 c5r4 FIRSTWINS physically before P0 uses trap");
+const q11Block20261023=cp(q10Urgent20261023);
+ok(!move(q11Block20261023,5,0).firstwin,"P0 blocks at physical c5r4");
+ok(dualImmediateSite20261023(q11Block20261023,1).length===0,"P0 claims opponent winning cell");
+ok(!minWSL(q11Block20261023,0).some(x=>x.G.length===1&&x.G[0][0]===2&&x.G[0][1]===2&&q11Block20261023.h[2]===1),"P0 center diagonal not yet READY after blocking P1");
+let losingFixed20261023=0;
+for(let aCol20261023=1;aCol20261023<=7;aCol20261023++)if(aCol20261023!==5){
+ const q11Trial20261023=cp(q10Urgent20261023);
+ ok(!move(q11Trial20261023,aCol20261023,0).firstwin,"P0 no immediate own WIN on this q10 urgent source");
+ const last20261023=move(q11Trial20261023,5,1);
+ ok(last20261023.firstwin&&last20261023.row===4,"any unblocked opponent singleton is P1 FIRSTWIN");
+ losingFixed20261023++;
+}
+ok(losingFixed20261023===6,"all six P0 non-c5 source replies allow P1 immediate V firstwinner");
+report.dualRoleGrade3Urgency={
+ sourceP1SourceMinGrades:DGrades,
+ originalP1VerticalGrade3:{originalK4:[[5,1],[5,2],[5,3],[5,4]],sourceMissing:[[5,2],[5,3],[5,4]]},
+ checked42LocalP1ResponsePairs:dualSourceChecks20261023,
+ onlyP1ImmediatelyPlayableWinningPair:P1current20261023,
+ onlyP0ImmediatelyPlayableWinningPair:P0current20261023,
+ competingResourceSource:{actualRank10Word:prefix+"545",
+   P0WantedTrapSupport:[3,1],P0RequiredP1ImmediateWINInterception:[5,4],
+   P0c3ThenP1c5:"P1 original vertical c5r1-r4 FIRSTWINS on ply12",
+   P0c5BlocksP1ButHasNoReadyC3Trap:true,
+   allOtherSixP0RepliesLoseImmediately:true},
+ theoremBoundary:"Dual P1/P0 SOURCE graded immediacy versus owner-turn resource conflict at q10. Does not classify P0 WLD after blocking c5 or all alternatives to first response P0 c4."
+};
+
 console.log(JSON.stringify(report,null,2));
