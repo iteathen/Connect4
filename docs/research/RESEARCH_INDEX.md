@@ -1,6 +1,18 @@
 # Connect4 research index
 
 
+## 2026-10-23 C4TR — exact original7x6 H2/H3/F trap interception source transfer, NOT q13/empty WIN
+
+**ACTIVE SOURCE THEOREM / NEW NEGATIVE RESOURCE BOUND.** After a frozen protocol, independent original69/ray and owner-labelled WSL source controls proved a real forced four-move source exchange on previously poisoned b6 q17: P1 c6r2, P0 c5r2 (intercept original D H2), P1 c5r3 (mandatory block of A H3), P0 c7r1 (mandatory block of D falling F diagonal). Seven current P1 reply and seven current P0 reply source controls establish the claimed immediate-loss-avoiding uniqueness; rank21 has NO P0 ready trap, P1 retains a ready F singleton c3r5; WLD remains OPEN. Four q13 first-reply b2/b4/b6/b7 fixed-primer frames have a shared original P1 grade<=2 source H4/H2/R three-mask skeleton but DIFFERENT owner-depth, parity/height, higher-grade D K4 and proof policy frames. Source code and machine evidence were saved and byte-for-byte source readback independently reexecuted in isolated JavaScript V8; a separately written original69 Python physical source verifier independently agrees. Node26 maintained CI / external proof assistant NOT_RUN.
+
+- [C4TR guarded derivation, claims, falsifiers and reproduction](2026-10-23-C4TR-exact-H2-H3-F-trap-interception-forced-obligation-transfer.md).
+- [Frozen source preregistration](2026-10-23-frozen-C4TR-poisoned-trap-interception-resource-exchange.md).
+- Source: research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-C4TR-poison-interception-diagonal-obligation-transfer.js.
+- Evidence: research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/C4TR_ORIGINAL7X6_B6_H2_H3_F_CAUSAL_TRANSFER_0_1.json.
+- Cross-era integration: [C4SYN](2026-10-23-C4SYN-typed-cross-era-operator-and-controlled-predecessor-synthesis.md) §9.
+
+
+
 ## 2026-10-23 C4SYNC/C4SYN — historically typed source audit, falsifier ledger and controllable-predecessor synthesis
 
 **ACTIVE FOUNDATION / ACTIVE SEAM; NOT A FULL-CORPUS AUDIT OR ROOT WLD.** The owner-directed cross-era reload now has two substantive newly written canonical source-grounded records: [C4SYNC corpus completeness, theorem and negative-results ledger](2026-10-23-C4SYNC-cross-era-corpus-audit-theorem-ledger.md) and [C4SYN typed operators, explicit nonidentities and controlled WIN region](2026-10-23-C4SYN-typed-cross-era-operator-and-controlled-predecessor-synthesis.md). September original OOO pair-delta generator and signed-triangle experiments were fetched from live experimental branch; CPCX Class-C original theorem/response-totality gap and UC4A board-outcome triangle design retrieved. SEPT distinct-odd component cubic, OCT actual six-state C6 moment obstruction and OCT causal matroid + firstwin precedence are DIFFERENT carriers. Same factorization-kernel question does not imply equal kernels. The successful q17 original WIN hybrid is preserved (not superseded by older pure policy losses), q13 b2/b4/b6 missing policy frames and root formation remain OPEN. Historical ingest is honest SECTIONAL/OUTSTANDING for the 10k+ tree; no maintained CI/new authority claims.
