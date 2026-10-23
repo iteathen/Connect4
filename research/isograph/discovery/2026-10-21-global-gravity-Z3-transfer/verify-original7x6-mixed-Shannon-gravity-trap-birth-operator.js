@@ -165,4 +165,68 @@ const report={
  knownSolvedResultsPremises:false,rootWLDWithoutSearchStillOpen:true,
  CI:"NOT_RUN",externalFormalChecker:"NOT_RUN"
 };
+
+// New grade<=2 and unique complete one-pair root trap preimage controls.
+// These are source-cofactor action tests, NEVER future strategic WLD calls.
+let abstractLowGradePass=0;
+for(const aa2 of antichains)for(let de2=0;de2<4;de2++)for(let af2=0;af2<4;af2++)if(af2!==de2)
+for(let yy2=0;yy2<4;yy2++)if(yy2!==de2&&yy2!==af2){
+ const E2=1<<de2,F2=1<<af2,Y2=1<<yy2;
+ if(val(aa2,0)||val(aa2,F2))continue;
+ const after2=normalize(aa2.filter(mask=>(mask&E2)===0).map(mask=>mask&~F2));
+ const exact2=Number(after2.includes(Y2));
+ const low2=Number(aa2.includes(Y2)||aa2.includes(F2|Y2));
+ ok(exact2===low2,"abstract source grade<=2 iff true post-pair singleton");
+ abstractLowGradePass++;
+}
+ok(abstractLowGradePass===3552,"all abstract 4-site live nonterminal lower-grade controls");
+const sourceGradeHist2={};
+for(const srcMask2 of p0.minimal){
+ let bits2=0,copy2=srcMask2.mask;
+ while(copy2>0n){copy2&=(copy2-1n);bits2++;}
+ sourceGradeHist2[bits2]=(sourceGradeHist2[bits2]||0)+1;
+}
+ok(JSON.stringify(sourceGradeHist2)===JSON.stringify({"2":1,"3":14,"4":33}),
+ "original rank7 48 WSL minimal masks with one unique grade2");
+const grade2Min2=p0.minimal.filter(x=>x.mask===(targetF|targetY));
+ok(grade2Min2.length===1,"unique root P0 grade2 f+y");
+let pairs2=0,only2=[];
+const exhaustiveLocalGuardRows2=[];
+for(let dcol2=1;dcol2<=7;dcol2++){
+ const rank8b2=copy(root),D2=place(rank8b2,dcol2,1);
+ ok(!D2.firstwin,"no P1 firstwinner from this rank7 one move");
+ for(let acol2=1;acol2<=7;acol2++){
+  const newState2=copy(rank8b2),A2=place(newState2,acol2,0);
+  ok(!A2.firstwin,"no P0 firstwinner from this rank7 in one P0 reply");
+  const minAfter2=WSL(newState2,0).minimal;
+  const directReady2=[],lowGradeReady2=[];
+  for(let column2=0;column2<7;column2++)if(newState2.h[column2]+1<H){
+   const y2=bit(column2,newState2.h[column2]+1);
+   const physical2=Number(minAfter2.some(term=>term.mask===y2));
+   const predicted2=Number(p0.minimal.some(term=>term.mask===y2||term.mask===(A2.physicalMask|y2)));
+   ok(physical2===predicted2,"source grade2 field vs physical after 2 moves");
+   if(physical2)directReady2.push(column2+1);
+   if(predicted2)lowGradeReady2.push(column2+1);
+  }
+  ok(directReady2.join(",")===lowGradeReady2.join(","),"source/physical full trap-set identity");
+  ok(directReady2.join(",")===(dcol2===3&&acol2===4?"3":""),
+    "only (P1 c3,P0 c4) creates P0 ready FIRSTWIN trap from selected rank7");
+  if(directReady2.length)only2.push({P1:dcol2,P0:acol2,traps:directReady2});
+  exhaustiveLocalGuardRows2.push({P1:dcol2,P0:acol2,traps:directReady2});
+  pairs2++;
+ }
+}
+ok(pairs2===49&&only2.length===1,"unique full 7x7 primitive SOURCE pair-certificate");
+report.gradeTwoTrapPreimage={
+ exactAbstractLowGrade2Controls:abstractLowGradePass,
+ sourceP0MinGradeHistogram:sourceGradeHist2,
+ sourceUniqueGradeTwo:{missing:[[3,3],[4,4]],original:"R c1r1-c4r4"},
+ allPhysicalLocalTwoActionPairs:49,
+ actualSourceTrapPairs:only2,
+ exactFieldFormula:"Any ready P0 trap after 2 moves = [P1 first column3] AND [P0 next column4]",
+ fullLocalGuardResults:exhaustiveLocalGuardRows2,
+ universalP1ToReadyP0TrapFromThisRank7:false,
+ P1OtherSixResponseWLD:"UNKNOWN - failure of this one proof frame is not LOSS"
+};
+
 console.log(JSON.stringify(report,null,2));
