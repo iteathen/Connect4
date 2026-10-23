@@ -1,0 +1,157 @@
+{
+  "schema": "c4.original7x6_center_triple_causal_fork_deadline.v1",
+  "status": "EXACT_CENTER_THREE_RUN_TWIN_THREAT_CAUSAL_DEFENSE_DEADLINE_ON_ORIGINAL7X6",
+  "originalPhysicalK4": {
+    "H": 24,
+    "V": 21,
+    "R": 12,
+    "F": 12
+  },
+  "sourceP0OwnColumns": [
+    4,
+    3,
+    5
+  ],
+  "exactRank5Field": {
+    "U": "[b1!=3][b1!=5][b2!=5]",
+    "T2": "U[b1!=2][b2!=2]",
+    "T6": "U[b1!=6][b2!=6]",
+    "fork": "[b1 notin {2,3,5,6}][b2 notin {2,5,6}]",
+    "conditionP1MustSatisfyToAvoidTHISFork": "b1 in {2,3,5,6} OR b2 in {2,5,6}",
+    "responseDeadline": "P1 own ply4: source rank5 fork if not met",
+    "physicalP0FirstwinUponFork": "next P0 ply7 after ANY P1 ply6 response"
+  },
+  "proofSupport": "At rank5 P0 has 3 stones in three different columns with c4 at bottom; no V or diagonal three-line is completable by one legal new P0 cell. Only bottom horizontal c2..5 or c3..6 can complete. P1 has only two stones, no immediate win. Two distinct playable threats survive any one P1 placement.",
+  "exactSymbolicControl": {
+    "b1LabelsWithoutDefense": 3,
+    "b2LabelsWithoutDefense": 4,
+    "forkSourceWordCountByProduct": 12,
+    "allTwoReplyWordsByCardinality": 49,
+    "abstractReplyLabelPairsAlgebraChecked": 49,
+    "completeP1GameTreeEnumerated": false
+  },
+  "originalPhysicalLocalWitnesses": [
+    {
+      "P1ReplyColumns": [
+        4,
+        3
+      ],
+      "sourceFivePlyWord": "44335",
+      "P0ImmediateWinningColumns": [
+        2,
+        6
+      ],
+      "P1ImmediateWinningColumns": [],
+      "fork": 1,
+      "P0BottomTriple": true,
+      "reason": "both follow latest P0 column; true fork"
+    },
+    {
+      "P1ReplyColumns": [
+        7,
+        3
+      ],
+      "sourceFivePlyWord": "47335",
+      "P0ImmediateWinningColumns": [
+        2,
+        6
+      ],
+      "P1ImmediateWinningColumns": [],
+      "fork": 1,
+      "P0BottomTriple": true,
+      "reason": "unproductive P1 early cross; STILL true fork"
+    },
+    {
+      "P1ReplyColumns": [
+        3,
+        7
+      ],
+      "sourceFivePlyWord": "43375",
+      "P0ImmediateWinningColumns": [],
+      "P1ImmediateWinningColumns": [],
+      "fork": 0,
+      "P0BottomTriple": false,
+      "reason": "P1 preempts planned c3 bottom"
+    },
+    {
+      "P1ReplyColumns": [
+        4,
+        5
+      ],
+      "sourceFivePlyWord": "44355",
+      "P0ImmediateWinningColumns": [],
+      "P1ImmediateWinningColumns": [],
+      "fork": 0,
+      "P0BottomTriple": false,
+      "reason": "P1 preempts planned c5 bottom"
+    },
+    {
+      "P1ReplyColumns": [
+        2,
+        4
+      ],
+      "sourceFivePlyWord": "42345",
+      "P0ImmediateWinningColumns": [
+        6
+      ],
+      "P1ImmediateWinningColumns": [],
+      "fork": 0,
+      "P0BottomTriple": true,
+      "reason": "P1 already occupies c2 bottom"
+    },
+    {
+      "P1ReplyColumns": [
+        7,
+        6
+      ],
+      "sourceFivePlyWord": "47365",
+      "P0ImmediateWinningColumns": [
+        2
+      ],
+      "P1ImmediateWinningColumns": [],
+      "fork": 0,
+      "P0BottomTriple": true,
+      "reason": "P1 already occupies c6 bottom"
+    },
+    {
+      "P1ReplyColumns": [
+        4,
+        2
+      ],
+      "sourceFivePlyWord": "44325",
+      "P0ImmediateWinningColumns": [
+        6
+      ],
+      "P1ImmediateWinningColumns": [],
+      "fork": 0,
+      "P0BottomTriple": true,
+      "reason": "P1 blocks c2 bottom on second reply"
+    },
+    {
+      "P1ReplyColumns": [
+        7,
+        5
+      ],
+      "sourceFivePlyWord": "47355",
+      "P0ImmediateWinningColumns": [],
+      "P1ImmediateWinningColumns": [],
+      "fork": 0,
+      "P0BottomTriple": false,
+      "reason": "P1 preempts c5 on second reply"
+    }
+  ],
+  "rootPerfectPlayWDL": "NOT_PROVED; P1 has productive choices meeting the deadline",
+  "solvedOracleInput": false,
+  "maintainedCI": "NOT_RUN",
+  "sourceFile": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-root-center-three-fork-causal-deadline.js",
+  "sourceGitBlob": "a53b2829f190e3758c84890812e36498339a7ae6",
+  "prereg": "docs/research/2026-10-22-frozen-root-center-three-fork-defender-deadline-field.md",
+  "provenance": {
+    "committedSourceReadBackExecuted": true,
+    "rank5EightNamedGenuineOriginalSources": true,
+    "abstractSevenLabelPairTruthTests": 49,
+    "noFullGameplayStateSpaceOrSolvedLabels": true,
+    "noMaintainedCI": true,
+    "sourceP0BestMoveClaim": false
+  }
+}
