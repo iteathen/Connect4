@@ -1,0 +1,45 @@
+{
+  "schema": "c4.generic_four_site_firstwin_maxplus_event_order.v1",
+  "status": "EXACT_2520_LINEAR_EXTENSIONS_PROVE_STRICT_MAXPLUS_FIRSTWIN_SHADOW",
+  "abstractEightDistinctEventTokens": true,
+  "pairwiseConstraints": [
+    "A1<D1",
+    "A2<D2",
+    "A3<D3",
+    "A4<D4"
+  ],
+  "enumeratedAbstractPermutations": 40320,
+  "acceptedStrictEventLinearExtensions": 2520,
+  "expectedLinearExtensionsByIndependentPairConstraints": 2520,
+  "violations": 0,
+  "completionGapSupport": {
+    "minGap": 1,
+    "maxGap": 4,
+    "histogram": {
+      "1": 360,
+      "2": 720,
+      "3": 864,
+      "4": 576
+    }
+  },
+  "theorem": "max_i time(A_i) < max_i time(D_i) whenever all four time(A_i)<time(D_i). For a genuine original7x6 H/R/F row-down aligned source K4 whose policy guarantees these strict four edges, A FIRSTWINS the shifted K4 before D could FIRSTWIN its upper K4.",
+  "sourceConnection": "original7x6 source 122454434, D=P1 row5 c4..7, A=P0 aligned row4 c4..7; old online respondent mate policy establishes four strict edges, including c4r4 already P0-owned at source",
+  "gamePositionsEnumerated": 0,
+  "gameHistoriesEnumerated": 0,
+  "necessaryCausalPolicyProofStillRequired": true,
+  "emptyRootWINProved": false,
+  "noSolvedLabels": true,
+  "CI": "NOT_RUN",
+  "sourceFile": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-four-site-maxplus-firstwin-shadow-event-order.js",
+  "sourceBlob": "4a057f51cc84aab26c136ce05fe13983ccfbf00e",
+  "frozenProtocol": "docs/research/2026-10-23-frozen-bi-tropical-matroid-nullity-and-firstwin-maxplus-event-order.md",
+  "witnessPhysicalSource": "docs/research/2026-10-23-original7x6-firstwin-precedence-shadow-augmented-tropical-matroid-policy-theorem.md",
+  "proofStatus": {
+    "abstractEventOrder": "EXACT",
+    "originalRank9PolicyGuards": "EXACT_PREVIOUS_WITNESS",
+    "rootPerfectPlayWLD": "OPEN",
+    "Node26CI": "NOT_RUN",
+    "externalFormalProver": "NOT_RUN",
+    "oracleBlind": true
+  }
+}
