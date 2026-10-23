@@ -32,3 +32,7 @@ Let source \(M_{\mathrm{hyb}}\) be the P1-owner **partition matroid** with two r
 7. Preserve all failures/incomplete sources. Qualify source/terminal semantics separately from IsoGraph 1.2 authority, no unsupported new C4-R ID. ZERO strategic fanout root proof stays OPEN.
 
 **Interpretation:** this result, if confirmed, is a concrete SOURCE field realization of dynamically asymmetric response resources: one column pair needs HORIZONTAL opposite-column mate to eliminate P1 lower H4, while nearby columns require VERTICAL same-column mate to eliminate P1 higher diagonal. The actual responder strategy is a single legal policy from one source q, not a recursive minimax search. It repairs *both* prior policy-specific negative controls by using a spatially heterogeneous partition matroid.
+
+## Verification harness negative control (2026-10-23)
+
+The first independent V8 checker run failed at its **illustrative nontrap action schedule**, not the source-rank/matroid assertion. Its named ten-entry control reused a horizontal-mirror column after both paired columns had already filled to physical row6; that was an invalid *example schedule*. The policy guard correctly rejected it. This is saved as a first-class negative harness control before revising the demonstration to a D sequence with exactly two entries in horizontal pair c1/c2, one each in c3/c4, and three each in c6/c7. The general legal policy itself forbids D selecting full columns. Preserve strict physical firstwinner stop; do not allow this first run to count as a passed complete verification.
