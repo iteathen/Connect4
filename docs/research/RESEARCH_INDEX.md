@@ -1,5 +1,11 @@
 # Connect4 research index
 
+
+## 2026-10-23 C4SYNC/C4SYN — historically typed source audit, falsifier ledger and controllable-predecessor synthesis
+
+**ACTIVE FOUNDATION / ACTIVE SEAM; NOT A FULL-CORPUS AUDIT OR ROOT WLD.** The owner-directed cross-era reload now has two substantive newly written canonical source-grounded records: [C4SYNC corpus completeness, theorem and negative-results ledger](2026-10-23-C4SYNC-cross-era-corpus-audit-theorem-ledger.md) and [C4SYN typed operators, explicit nonidentities and controlled WIN region](2026-10-23-C4SYN-typed-cross-era-operator-and-controlled-predecessor-synthesis.md). September original OOO pair-delta generator and signed-triangle experiments were fetched from live experimental branch; CPCX Class-C original theorem/response-totality gap and UC4A board-outcome triangle design retrieved. SEPT distinct-odd component cubic, OCT actual six-state C6 moment obstruction and OCT causal matroid + firstwin precedence are DIFFERENT carriers. Same factorization-kernel question does not imply equal kernels. The successful q17 original WIN hybrid is preserved (not superseded by older pure policy losses), q13 b2/b4/b6 missing policy frames and root formation remain OPEN. Historical ingest is honest SECTIONAL/OUTSTANDING for the 10k+ tree; no maintained CI/new authority claims.
+
+
 **Updated:** 2026-10-22  
 **Purpose:** route durable research without turning chronology, handoffs, or historical experiments into current authority.
 
