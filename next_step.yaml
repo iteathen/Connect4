@@ -1,3 +1,61 @@
+owner_20261023_C4XR_CROSS_RIBBON_GRAVITY_REFLECTED_THREAT:
+  priority: CURRENT_DISCOVERY_FRONTIER
+  branch: research/semantic-quotient
+  owner_goal: "Original 7x6 empty-board rule-only exact WLD and every equally optimal action with ZERO strategic future-value branching; oracle blind"
+  status: "EXACT_GUARDED_CROSS_RIBBON_THREAT_OPERATOR_NOT_EMPTY_ROOT_WLD"
+  checked_in_source_theorem: docs/research/2026-10-23-C4XR-cross-ribbon-trap-reflection.md
+  original_source:
+    q8: "42142544"
+    q13: "4214254422333"
+    q14: "42142544223333"
+    q17: "42142544223333111"
+    original_K4: {H: 24,V: 21,R: 12,F: 12}
+  exact_two_wing_source_boolean:
+    f1: c2r3
+    f2: c3r3
+    left_y: c1r3
+    right_y: c5r3
+    formula: "Phi=f1*f2*(left_y OR right_y)"
+    squarefree_rational: "f1*f2*left_y + f1*f2*right_y - f1*f2*left_y*right_y"
+    mixed_endpoint_Mobius_after_f1f2: -1
+    literal_original_source_Boolean_mask_controls: 16
+  real_rank13:
+    source_firstwinnerfree: true
+    P0_ready_traps: [1,5]
+    heights: [1,4,3,4,1,0,0]
+    P0_trap_capacity_parity: "both odd remaining5"
+    odd_nontrap_B: [3]
+    old_Oct20_source_matroid_Q_perfect_matching: "NOT_FEASIBLE"
+  generic_threat_reflection:
+    geometry: "Original H4 starts 1..4 on adjacent row pairs lower r2..r5 and upper r3..r6"
+    static_original_line_coordinate_controls: 16
+    guard: "A owns right-side triple on original H row r, D owns right-side triple on row r+1, initial left-column height r-2, source LIVE with A to move and no competing firstwin"
+    owner_gravity_event_ladder: "A left row r-1 creates A currently playable lower H winner; D blocking at left row r exposes D currently playable upper H winner; A left row r+1 blocks D, NOT necessarily A WIN"
+    actual_live_rank14_to_rank17_example: "P0 c1r2, P1 c1r3, P0 c1r4"
+  signed_firstwin_countercontrol:
+    q17_heights: [4,4,4,4,1,0,0]
+    P0_current_trap: [5]
+    odd_nontrap_B: []
+    source_P1_normalized_WSL: 22
+    source_matroid_Gamma: 0
+    matroid_independent_P1_K4: "H row5 c1-c4, physically original, UNSHADOWED"
+    P1_firstwinning_on_fixed_samecolumn_P0_upper_mates: "ply24, H row5 c1-c4 before prospective P0 row6 H4"
+    scope: "Counterexample to fixed policy, not q17 actual WLD LOSS or EMPTY root outcome"
+  next_mathematical_target: "Exact P0 response-selection and capacity-contraction law transporting both owner-labelled WSL source fields across vertical/horizontal ribbons, pairing parity resource, gravity and signed firstwinning precedence under every adaptive P1 response, from EMPTY without strategic child WLD search"
+  forbid: ["P0 WIN assertion from two READY traps", "assuming odd B matching exists when |B| odd", "swapping lower/upper firstwinning shadow sign", "solved-game labels as proof premises", "sub-five K4 boards as original geometry falsifiers", "hidden minimax/BDD/QBF valued futures"]
+  durable_source:
+    synthesis: docs/research/2026-10-23-C4XR-cross-ribbon-trap-reflection.md
+    frozen_precheck_1: docs/research/2026-10-23-frozen-C4Q8-vertical-mate-to-row3-horizontal-trap-transfer.md
+    frozen_precheck_2: docs/research/2026-10-23-frozen-C4Q13-to-Q17-odd-repair-row4-deadline-and-row5-P1-lower-shadow-counterexample.md
+    frozen_precheck_3: docs/research/2026-10-23-frozen-original7x6-adjacent-H3-row-threat-reflection-operator.md
+    source_dir: research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/
+    source_files: [verify-original7x6-q8-vertical-to-horizontal-grade3-trap-transfer.js, verify-original7x6-q13-double-trap-q17-lower-row-precedence-counter.js, verify-original7x6-H3-adjacent-row-gravity-threat-reflection.js]
+    machine_packets: [C4Q8_VERTICAL_BLOCK_H3_DOUBLE_TRAP_0_1.json, C4Q13_Q17_SIGNED_FIRSTWIN_ORDER_LOWER_P1_0_1.json, C4XR_ADJACENT_H3_THREAT_REFLECTION_0_1.json]
+  source_V8_readback_replay: PASSED
+  maintained_Node26_CI: NOT_RUN
+  independent_formal_prover: NOT_RUN
+  qualified_IsoGraph_1p2_semantics_changed: false
+
 owner_20261023_Q8_C4_HARD_BRANCH_SOURCE_G3_WIN_G4_TRAP:
   priority: CURRENT_DISCOVERY_FRONTIER
   branch: research/semantic-quotient
