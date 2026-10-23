@@ -1,0 +1,218 @@
+{
+  "schema": "c4.original7x6_odd_capacity_P0_trap_earliest_source.v1",
+  "status": "EXACT_RANK9_EARLIEST_P0_ODD_TRAP_AND_UPPER_HORIZONTAL_RIBBON_GAMMA_ZERO",
+  "geometry": {
+    "H": 24,
+    "V": 21,
+    "R": 12,
+    "F": 12
+  },
+  "necessaryRoleParity": "P1-turn rank odd implies odd number of odd-capacity columns; an even nontrap odd-base Q pairing demands at least one odd-capacity trap",
+  "lowerBound": {
+    "minimumMandatoryOccupiedCells": 8,
+    "minimumRankWithP1Next": 9,
+    "sourcePhysicalWindowTargetChecks": 72,
+    "Hminimum": 10,
+    "diagonalMinimum": 8
+  },
+  "originalRank9LiveSources": [
+    {
+      "word": "143224454",
+      "sourceRank": 9,
+      "heights": [
+        1,
+        2,
+        1,
+        4,
+        1,
+        0,
+        0
+      ],
+      "sourceFirstwinnerFree": true,
+      "P0OddRemainingTrapColumns": [
+        3
+      ],
+      "oddNontrapBases": [
+        1,
+        5
+      ],
+      "P1WinningLineResiduals": 36,
+      "P1NormalizedWSLRequirements": 34,
+      "tropicalGamma": 0,
+      "deficitHistogram": {
+        "0": 2,
+        "1": 10,
+        "2": 15,
+        "3": 2,
+        "4": 5
+      },
+      "independentOriginalK4Residuals": [
+        {
+          "type": "H",
+          "remaining": [
+            [
+              6,
+              1
+            ],
+            [
+              7,
+              1
+            ]
+          ],
+          "physicalK4": [
+            [
+              4,
+              1
+            ],
+            [
+              5,
+              1
+            ],
+            [
+              6,
+              1
+            ],
+            [
+              7,
+              1
+            ]
+          ],
+          "gap": 0
+        },
+        {
+          "type": "H",
+          "remaining": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "physicalK4": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "gap": 0
+        }
+      ],
+      "genuineP1EntryAndP0AboveTrapFirstwin": true
+    },
+    {
+      "word": "122454434",
+      "sourceRank": 9,
+      "heights": [
+        1,
+        2,
+        1,
+        4,
+        1,
+        0,
+        0
+      ],
+      "sourceFirstwinnerFree": true,
+      "P0OddRemainingTrapColumns": [
+        3
+      ],
+      "oddNontrapBases": [
+        1,
+        5
+      ],
+      "P1WinningLineResiduals": 35,
+      "P1NormalizedWSLRequirements": 33,
+      "tropicalGamma": 0,
+      "deficitHistogram": {
+        "0": 1,
+        "1": 10,
+        "2": 16,
+        "3": 1,
+        "4": 5
+      },
+      "independentOriginalK4Residuals": [
+        {
+          "type": "H",
+          "remaining": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "physicalK4": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "gap": 0
+        }
+      ],
+      "genuineP1EntryAndP0AboveTrapFirstwin": true
+    }
+  ],
+  "verdict": "P0 trap formation at earliest feasible rank DOES NOT suffice: normalized P1 WSL still contains a matroid-independent physical upper horizontal row5 K4. Return INCOMPLETE, not opponent WDL.",
+  "fullGameStateEnumeration": false,
+  "childStrategicWDLValues": false,
+  "solvedOutcomeInput": false,
+  "maintainedCI": "NOT_RUN",
+  "sourcePath": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-earliest-odd-P0-trap-and-upper-ribbon-Gamma.js",
+  "sourceGitBlob": "6016d32bfa51b0781c8a2eb138a7d71940823958",
+  "frozenPriorToSourceCheck": "docs/research/2026-10-22-frozen-earliest-P0-odd-capacity-trap-formation-and-Gamma-source-test.md",
+  "meaning": "universal original69 gravity occupancy rank bound and two actual rank9 P0-odd-trap counterexamples with surviving matroid-independent P1 upper horizontal K4",
+  "qualification": {
+    "checkedInSourceReadbackAndExecutedExactV8": true,
+    "independentlyDerivedMathematicalSourceProof": true,
+    "actualUserGoal": "ROOT ZERO-STRATEGIC-FANOUT WLD UNPROVED",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalProof": "NOT_RUN",
+    "qualifiedIsoGraphAuthority": "UNCHANGED",
+    "previousOracleValuesUsed": false
+  }
+}
