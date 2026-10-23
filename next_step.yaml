@@ -1,3 +1,44 @@
+owner_20261023_Q8_C4_HARD_BRANCH_SOURCE_G3_WIN_G4_TRAP:
+  priority: CURRENT_DISCOVERY_FRONTIER
+  branch: research/semantic-quotient
+  current_status: "SOURCE_GEOMETRY_EXACT; ORIGINAL_EMPTY_ROOT_WLD_OPEN"
+  source:
+    legal_firstwinnerfree_original7x6_history: "42142544"
+    next_player: P0
+    support_heights: [1,2,0,4,1,0,0]
+    opponent_P1_center_claim: "c4r4 blocks q7 only source P0 grade2 diagonal"
+    normalized_P0_WSL: {grade1: 0,grade2: 0,grade3: 13,grade4: 26,total: 39}
+  proven_source_envelopes_within_P0_three_more_moves:
+    grade3_direct_firstwinning:
+      - {original_line: "V c1r1..r4", needed_P0: ["c1r2","c1r3","c1r4"], minimum_P1_support: 0}
+      - {original_line: "V c2r2..r5", needed_P0: ["c2r3","c2r4","c2r5"], minimum_P1_support: 0}
+    grade4_ready_trap:
+      original_line: "R c1r2,c2r3,c3r4,c4r5"
+      target: c3r4
+      needed_P0: ["c1r2","c2r3","c4r5"]
+      mandatory_P1_support: ["c3r1","c3r2"]
+    static_support_eligible_grade3: 2
+    static_support_eligible_grade4_target: 1
+    genuine_original_7x6_five_event_order_checks: 36
+    grade3_actual_terminal_event_orders: 4
+    grade4_actual_live_ready_trap_event_orders: 6
+    status: "PHYSICALLY REALIZABLE, NOT P0-FORCED"
+  prior_rank7_results:
+    six_noncenter_P1_first_replies: "P0 c4 then height-based c3/c6 gives 41 ready traps and one direct P0 firstwin across 42 second P1 choices"
+    source_matroid_and_shadow: "34 of 41 live ready traps P0 WIN-certified; seven incomplete"
+    two_rank9_P0WIN_sources: ["421425424","421425474"]
+    immediate_P1_v5_deadline: "P1 double c5 creates c5r4 winning singleton; P0 cannot simultaneously take c3r1 trap support"
+  next_exact_test: "Derive source-level multi-column two-owner interception/response capacity: P1 may use two turns to block vertical c1/c2 grade3 potentials, while grade4 rising trap requires BOTH P1 moves to supply c3 support; prove whether this produces a new P0 favorable field, without evaluating game futures."
+  forbid: ["solved root oracle proof premises","sub-five Connect4 falsifiers","using physically possible event scripts as forced WLD","recursive minimax/BDD/QBF disguised as zero strategic fanout"]
+  reproducible:
+    frozen_protocol: docs/research/2026-10-23-frozen-q8-P1-c4-source-third-P0-turn-grade4-and-grade3-support-envelope.md
+    verified_theorem: docs/research/2026-10-23-C4Q8-center-blocked-P0-grade3-vertical-win-grade4-diagonal-trap.md
+    verifier: research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-q8-center-c4-grade3-grade4-support-envelope.js
+    packet: research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/C4Q8_C4_BLOCK_G3_WIN_G4_TRAP_0_1.json
+  qualified_game_authority: UNCHANGED
+  maintained_Node26_CI: NOT_RUN
+  external_formal_prover: NOT_RUN
+
 owner_20261023_SOURCE_GRADED_SHANNON_GRAVITY_TRAP_BIRTH_AFTER_R7:
   priority: CURRENT_DISCOVERY_FRONTIER
   canonical_branch: research/semantic-quotient
