@@ -1,0 +1,136 @@
+{
+  "schema": "c4.original7x6_source_terminal_trap_preempted_by_P1_firstwin.v1",
+  "status": "EXACT_C4XR_B6_Q17_P1_FIRSTWIN_ON_P0_TRAP_ENTRY_DISPROVES_NAIVE_ONLINE_Q_POLICY",
+  "geometry": {
+    "H": 24,
+    "V": 21,
+    "R": 12,
+    "F": 12
+  },
+  "sourceHistory": "42142544223336111",
+  "sourceRank": 17,
+  "sourceHeights": [
+    4,
+    4,
+    3,
+    4,
+    1,
+    1,
+    0
+  ],
+  "P0ReadyTrapColumns": [
+    5
+  ],
+  "P1OriginalImmediateSourceDefect": {
+    "originalK4": [
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        6,
+        2
+      ]
+    ],
+    "sourceMissing": [
+      [
+        5,
+        2
+      ],
+      [
+        6,
+        2
+      ]
+    ],
+    "grade": 2
+  },
+  "sourceOldPolicyPairing": {
+    "oddSourceColumns": [
+      3,
+      6
+    ],
+    "DoddFirst": [
+      6,
+      2
+    ],
+    "Amate": [
+      3,
+      4
+    ]
+  },
+  "threeActualFirstwinnerStoppedMoves": [
+    {
+      "column": 6,
+      "row": 2,
+      "owner": 1,
+      "firstwin": false,
+      "originalWinLines": []
+    },
+    {
+      "column": 3,
+      "row": 4,
+      "owner": 0,
+      "firstwin": false,
+      "originalWinLines": []
+    },
+    {
+      "column": 5,
+      "row": 2,
+      "owner": 1,
+      "firstwin": true,
+      "originalWinLines": [
+        {
+          "kind": "H",
+          "physical": [
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              5,
+              2
+            ],
+            [
+              6,
+              2
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "firstWinningAtRank": 20,
+  "winningPlayer": "P1 under THIS old online responder policy",
+  "causalLesson": "The A=P0 c5 terminal ready trap is not sufficient against an adaptive D that first completes the OTHER source H row2 missing cell c6r2; D c5r2 then FIRSTWINS on trap ENTRY before the A reply. Original matroid rank0 exposes precisely this firstwinner preemption. This does NOT prove actual q17 P0 LOSS or full q13/EMPTY WLD.",
+  "gameTreeValuesComputed": 0,
+  "sourceOracleBlind": true,
+  "maintainedCI": "NOT_RUN",
+  "formalAssistant": "NOT_RUN",
+  "executableSourcePath": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-q17-b6-P1-trap-entry-H2-firstwin-preemption.js",
+  "executableSourceGitBlob": "e52317bddd271825330bc170d22f10d6d53001c3",
+  "frozenProspectiveProtocol": "docs/research/2026-10-23-frozen-C4XR-q13-b6-trap-entry-P1-H-row2-preemption.md",
+  "qualification": {
+    "sourceGitHubReadbackAndV8Execution": "PASS",
+    "originalGameGeometry": "W7 H6 K4 true H/V/R/F original69",
+    "wholeGameTreePositionsNotEnumerated": true,
+    "childWLDOracleCalls": 0,
+    "solvedGameWinnerUsedAsPremise": false,
+    "sourceValueQualifier": "guarded P0 WIN only when full online legal policy/matroid/source trap certified",
+    "emptyBoardNonsearchWLD": "OPEN",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalProofChecker": "NOT_RUN",
+    "IsoGraphGameTheoryAuthority": "UNCHANGED"
+  }
+}
