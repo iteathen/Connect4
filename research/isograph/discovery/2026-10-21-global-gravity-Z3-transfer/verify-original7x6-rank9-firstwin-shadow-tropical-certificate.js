@@ -200,4 +200,40 @@ const result={
  futureValueBranchEvaluations:0,rootWLDUnproved:true,originalGameSpaceNotEnumerated:true,
  knownSolvedLabelsNotUsed:true,maintainedCI:"NOT_RUN",independentFormalChecker:"NOT_RUN"
 };
+// Policy-relative minor check of the FIRSTWIN-PRECEDENCE augmented deficit.
+// Source proof already establishes aligned P0 row4 K4 strictly before
+// possible P1 row5 K4 for ANY policy-consistent history; the six named
+// local cofactor checks here are diagnostics, not the universal proof.
+const shiftedRow5=lines.find(L=>L.d==="H"&&L.cells.map(([c,r])=>[c+1,r+1].join(",")).join("|")==="4,5|5,5|6,5|7,5");
+check(Boolean(shiftedRow5),"source original P1 upper H4 exists");
+const localMinor=[];
+for(let c=0;c<W;c++)if(!b.fr.C.includes(c)&&b.q.h[c]<H) {
+ const live=copy(b.q),policyState={matched:false};
+ const response=policy(live,b.fr,c+1,policyState);
+ check(response.terminal!=="P1WIN","opponent cannot immediately firstwin");
+ if(response.terminal)continue;
+ const e=bit(c,b.fr.sourceH[c]),f=bit(response.A.column-1,response.A.row-1);
+ const rankMinor=m=>b.fr.rank(m|e)-b.fr.rank(e);
+ const newMin=residual(live,1).min;
+ const computed=newMin.map(x=>{
+  const deficit=size(x.m)-rankMinor(x.m);
+  // The selected ORIGINAL source row5 K4 is one certified shadow
+  // provenance witness even after its missing set shrinks at successor.
+  const retainsOriginalRow5Witness=x.L===shiftedRow5 ||
+    x.L.cells.map(([a,rr])=>a+","+rr).join("|")===shiftedRow5.cells.map(([a,rr])=>a+","+rr).join("|");
+  const shadow=retainsOriginalRow5Witness&&b.zero[0].shadow.cert;
+  return {deficit,shadow,remaining:cells(x.m)};
+ });
+ const gammaPlus=Math.min(...computed.map(x=>x.deficit+Number(x.shadow)));
+ check(gammaPlus>=1,"augmented strict firstwin shadow certificate preserved by matroid minor");
+ localMinor.push({
+  Dcolumn:c+1,Acolumn:response.A.column,rawGamma:Math.min(...computed.map(x=>x.deficit)),
+  firstwinAugmentedGamma:gammaPlus,
+  matroidIndependentChildRequirements:computed.filter(x=>x.deficit===0)
+ });
+}
+check(localMinor.length===6&&localMinor.every(x=>x.rawGamma===0&&x.firstwinAugmentedGamma===1),
+ "all six first-response mini-checks preserve enhanced positive firstwin shadow");
+result.firstResponsePolicyMinorAugmentedCertificates=localMinor;
+
 console.log(JSON.stringify(result,null,2));
