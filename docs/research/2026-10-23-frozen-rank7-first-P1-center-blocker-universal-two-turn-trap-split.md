@@ -1,0 +1,24 @@
+# Frozen stronger rank7 formation split: P1 first c4 blocks EVERY two-turn trap; P1 first not-c4 permits P0 self-support trap by rank11
+
+**Date:** 2026-10-23 Pacific. **Research direction:** Josh Oshiro. **Canonical pretest HEAD:** 9ba9336918a9ea3013216c1318c0e040c85bdecd. **Status:** source Boolean/gravity candidate noted AFTER exploratory 14 grade3 static/poset reduction; frozen now BEFORE independent physical new checker. It is not a rank7 WLD or original EMPTY WIN proof. Source original7x6 genuine rank7 legal 4214254 with P1 D to move, h=[1,2,0,3,1,0,0]; P0 MIN WSL source grades1:0,2:1,3:14,4:33. Earlier exact one-pair ready trap only D b3/A a4; earlier grade3 check found only seven gravity candidates for two A own placements and each required TWO specific D support stones not in center c4.
+
+## Freeze candidate theorem A: if first P1 b1 != c4, P0 can guarantee ONE ready c3 terminal trap or firstwin by its second additional move
+
+Proposed source-certified **ADAPTIVE ACTION RULE** through rank11:
+1. D=P1 first plays arbitrary b1≠4 at rank8. Respond A=P0 in column4, landing actual c4r4, fulfilling original sole grade2 R obligation \(c1r1,c2r2,c3r3,c4r4\) except \(y=c3r3\).
+2. D=P1 next plays any legal b2 at rank10. Let k be the actual occupancy height of c3 after the two P1 placements (A first response was c4, c3 initially empty).
+   - if k=0, A next plays c3r1, supplying its own support so c3 reaches h3=1: y=c3r3 becomes a READY terminal trap one above next frontier c3r2.
+   - if k=1, A next plays a legal column other than c3 (e.g. c6, with fallback to any genuinely legal and non-firstwinning action if c6 full) so c3 height stays1 and y remains the same ready trap.
+   - if k=2, A next plays c3r3 and FIRSTWINS the actual source R diagonal immediately (because P1 supplied both support stones c3r1,c3r2).
+No P1 already-FIRSTWIN by rank10 is expected under this q7 specific source and b1≠4, to be independently checked by source P1 grade and original69 rays. For b1!=4 this gives \(\forall b1,\forall b2,\exists\) chosen P0 moves a1,a2 with a1=4 and A FIRSTWIN by rank11 OR a ready P0 terminal trap by rank11. **The latter is NOT itself a WLD win certificate**: online Q mate availability, all P1 WSL residuals and firstwin-shadow must still be checked in the resultant q11 region. A trap alone does not imply P0 WIN, as the previous rank9 negative examples demonstrate.
+
+## Freeze candidate theorem B: first P1 b1 = c4 blocks EVERY ready P0 trap AND P0 firstwin through rank11
+
+If D first enters c4 at rank8, actual physical c4r4 is now P1-owned, permanently blocking the UNIQUE original P0 grade2 source requirement. Source grade1 is empty. P0 gets only TWO own new placements by rank11, so no grade4 source mask can be reduced to singleton or completed. A source grade3 can in principle shrink to a singleton after two P0 moves; however the frozen **seven** static source grade3 ready-trap candidates from the previous \`verify-original7x6-rank7-grade3-support-event-trap-envelopes.js\` each require exactly TWO physically specific D support cells among c1/c3/c5 and **none** is c4r4. Since D spent its first of two moves on c4r4, it cannot supply both required grade3 support cells before rank11. Thus **for ALL later D b2 and P0 a1/a2 actions that remain live**, no P0 ready trap is formed at rank11 and P0 cannot FIRSTWIN by rank11 (initial sole grade2 completed mask already blocked, other min grades>=3 require at least3 new P0 site claims to FIRSTWIN). This is a source-field/type-level **universal NO-READY-TRAP certificate**, not proof that P1 wins or draws thereafter.
+
+## Independent checks and risks
+
+- Reconstruct all69 real W7H6K4 windows, source owner field and actual h/rays; independently enumerate only local primitive (b1,b2) label combinations and the named A reply (at most6×7 short physical controls). Do NOT compute WLD of child states. If b1!=4 but P1 can make a firstwin at rank10, or the suggested P0 c6 source action is unsafe, preserve exact counterexample and weaken rule.
+- Independently verify the previous grade3 seven support-packages do NOT require the c4r4 P1 claim. Check the FIRST b1=c4 source claim PERMANENTLY BLOCKS grade2 and no other source minimum singleton or pair occurs. Verify b1=c4 cannot make any grade3 ready trap after two A turns by the exact supply budget proof, not a growing game tree.
+- Derive the exact k∈{0,1,2} partition under first b1!=4 by source height and legal moves. Distinguish actual A FIRSTWIN terminal branch at k2 from a LIVE trap class at k0/1.
+- **No root value inference:** this is a bounded trap-forming OR early-firstwin family, not a full P0 forcing policy. To upgrade the source to WLD, must prove the resulting q11 trapped region has one universal P0 winning response frame annihilating/preceding every P1 original residual and ensuring progress, and handle b1=c4 by a different multi-turn source grade4/ribbon law.
