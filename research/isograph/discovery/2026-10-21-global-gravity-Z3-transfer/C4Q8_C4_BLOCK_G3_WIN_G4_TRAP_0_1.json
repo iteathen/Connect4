@@ -1,0 +1,200 @@
+{
+  "schema": "c4.original7x6_q8_center_block_hard_grade3grade4_source_envelopes.v1",
+  "status": "EXACT_CENTER_BLOCK_Q8_TWO_VERTICAL_GRADE3_WIN_AND_ONE_RISING_GRADE4_TRAP_SOURCE_ENVELOPES",
+  "board": "true original7x6 K4",
+  "lineInventory": {
+    "H": 24,
+    "V": 21,
+    "R": 12,
+    "F": 12
+  },
+  "source": {
+    "originalLegalFirstwinnerFreeHistory": "42142544",
+    "playerToMove": "P0",
+    "heights": [
+      1,
+      2,
+      0,
+      4,
+      1,
+      0,
+      0
+    ],
+    "P1C4R4Owner": true,
+    "P0minimumWSL": 39,
+    "P0sourceGradeHistogram": {
+      "3": 13,
+      "4": 26
+    }
+  },
+  "methodology": "Static original source missing-site grade, column-prefix support budget with at most two D source support placements, and chronological D/A physical event order A,D,A,D,A checked only on at-most-five specified source events, no future WLD tree.",
+  "counts": {
+    "sourceGrade3Candidates": 13,
+    "sourceGrade4Candidates": 26,
+    "grade4SourceTargetCandidates": 104,
+    "sourceGrade3DirectWinSupportEligible": 2,
+    "sourceGrade4ReadyTrapSupportEligible": 1,
+    "finiteEventRoleOrderChecks": 36,
+    "physicalLegalGrade3TerminalFirstwinEventSchedules": 4,
+    "physicalLegalGrade4NonterminalReadyTrapEventSchedules": 6
+  },
+  "physicalSourceCandidates": {
+    "grade3DirectWIN": [
+      {
+        "K4type": "V",
+        "originalK4": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "P0sourceMissing": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "minimumDsupport": [],
+        "oneLegalRank13FirstwinnerWord": "4214254416171",
+        "trueOriginalPhysicalWitness": true
+      },
+      {
+        "K4type": "V",
+        "originalK4": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "P0sourceMissing": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "minimumDsupport": [],
+        "oneLegalRank13FirstwinnerWord": "4214254426272",
+        "trueOriginalPhysicalWitness": true
+      }
+    ],
+    "grade4ReadyTrap": [
+      {
+        "K4type": "R",
+        "originalK4": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "trapTarget": [
+          3,
+          4
+        ],
+        "P0requiredClaims": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "minimumDsupport": [
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "oneLegalRank13TrapFormationWord": "4214254413234",
+        "trueOriginalPhysicalWitness": true
+      }
+    ]
+  },
+  "epistemic": {
+    "provesAnyP0WinningPolicyFromQ8": false,
+    "noAdversarialP1UniversalClosure": true,
+    "noOriginalEmptyBoardWLD": true,
+    "localSupportPosetEventsNotStrategicHistoryWLD": true,
+    "noSolvedGameInput": true,
+    "noSubfiveGameBoardExperiments": true,
+    "maintainedNode26CI": "NOT_RUN",
+    "externalProofAssistant": "NOT_RUN"
+  },
+  "verifiedSourceFile": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-q8-center-c4-grade3-grade4-support-envelope.js",
+  "verifiedGitHubSourceBlob": "63f1066b2d25f69c1f54e339279d334bfc4f915b",
+  "frozenProspectiveSource": "docs/research/2026-10-23-frozen-q8-P1-c4-source-third-P0-turn-grade4-and-grade3-support-envelope.md",
+  "historyToThisExperiment": [
+    "original center-first legal prefix 4214254",
+    "P1 next c4, forms q8 42142544"
+  ],
+  "validation": {
+    "original69K4AndIndependentRays": "PASS",
+    "sourceMinWSLAndExactGravity": "PASS",
+    "five_event_local_P0_P1_original_schedule": "PASS",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormal": "NOT_RUN",
+    "independentAlternativeLanguageImplementation": "NOT_RUN",
+    "root7x6PerfectPlayWLD": "OPEN"
+  }
+}
