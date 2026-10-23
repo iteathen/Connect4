@@ -1,0 +1,239 @@
+{
+  "schema": "c4.original7x6_center_wing_time_interception.v1",
+  "status": "EXACT_SIX_WING_BLOCKERS_AND_96_ORDERED_FIRSTWIN_INTERCEPTION_FIELDS_WITH_PHASE_NONCONGRUENCE",
+  "geometry": {
+    "board": "original7x6-k4",
+    "K4": {
+      "H": 24,
+      "V": 21,
+      "R": 12,
+      "F": 12
+    }
+  },
+  "centerBlocker": {
+    "sourceP0BottomCenterColumn": 4,
+    "originalBottomH4Windows": 4,
+    "staticSixWingMasks": 64,
+    "staticHittingMasks": 44,
+    "minimalCrossWingPairs": [
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        3,
+        7
+      ]
+    ],
+    "bipartiteVertices": 6,
+    "bipartiteEdges": 6,
+    "singleCycleRank": 1,
+    "primitiveOrientedSquare": "v25+v36-v26-v35=0"
+  },
+  "temporalInterception": {
+    "originalBottomH4Windows": 4,
+    "attackScriptsWithDistinct4Columns": 96,
+    "centerFirstAttackScripts": 24,
+    "sourceK4CompletionCandidatesChecked": 96,
+    "edgeLabels": [
+      {
+        "replySlot": 1,
+        "targetSlot": 2,
+        "from": 4,
+        "to": 3,
+        "phase": 3
+      },
+      {
+        "replySlot": 1,
+        "targetSlot": 3,
+        "from": 4,
+        "to": 5,
+        "phase": 5
+      },
+      {
+        "replySlot": 1,
+        "targetSlot": 4,
+        "from": 4,
+        "to": 2,
+        "phase": 9
+      },
+      {
+        "replySlot": 2,
+        "targetSlot": 3,
+        "from": 3,
+        "to": 5,
+        "phase": 6
+      },
+      {
+        "replySlot": 2,
+        "targetSlot": 4,
+        "from": 3,
+        "to": 2,
+        "phase": 10
+      },
+      {
+        "replySlot": 3,
+        "targetSlot": 4,
+        "from": 5,
+        "to": 2,
+        "phase": 12
+      }
+    ],
+    "GF2PhaseEdgeRank": 3,
+    "GF2Nullity": 3,
+    "exactP0Ply7FirstWin": "PRODUCT_{j<k}(1-[P1 reply slot j == future P0 column k])",
+    "noForwardInterceptReplyWordCountByProduct": 120,
+    "firstProductiveInterceptReplyWordCounts": [
+      147,
+      56,
+      20
+    ],
+    "interceptedReplyWordCountBySum": 223,
+    "totalThreeReplyWordsByCardinality": 343,
+    "completeThreeReplyGameHistoriesEnumerated": 0,
+    "sourcePhysicalWitnesses": [
+      {
+        "id": "matched",
+        "P1ReplyWords": "435",
+        "firstwin": true,
+        "interceptions": [],
+        "P0LandingRows": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "nonproductive_cross",
+        "P1ReplyWords": "735",
+        "firstwin": true,
+        "interceptions": [],
+        "P0LandingRows": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "productive_first",
+        "P1ReplyWords": "335",
+        "firstwin": false,
+        "interceptions": [
+          [
+            1,
+            2
+          ]
+        ],
+        "P0LandingRows": [
+          1,
+          2,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "productive_second",
+        "P1ReplyWords": "455",
+        "firstwin": false,
+        "interceptions": [
+          [
+            2,
+            3
+          ]
+        ],
+        "P0LandingRows": [
+          1,
+          1,
+          2,
+          1
+        ]
+      },
+      {
+        "id": "productive_third",
+        "P1ReplyWords": "432",
+        "firstwin": false,
+        "interceptions": [
+          [
+            3,
+            4
+          ]
+        ],
+        "P0LandingRows": [
+          1,
+          1,
+          1,
+          2
+        ]
+      },
+      {
+        "id": "useless_then_productive",
+        "P1ReplyWords": "755",
+        "firstwin": false,
+        "interceptions": [
+          [
+            2,
+            3
+          ]
+        ],
+        "P0LandingRows": [
+          1,
+          1,
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  "phaseNoncongruence": {
+    "fourPlySourceA": "4335",
+    "fourPlySourceB": "4533",
+    "samePhysicalHeightBeforeP0Move": true,
+    "sameGF2ParityBeforeP0Move": true,
+    "differentOwnerDepthAtC3": true,
+    "sameP0FollowupColumn": 2,
+    "P0ImmediateWinningColumnsAfter5A": [],
+    "P0ImmediateWinningColumnsAfter5B": [
+      1
+    ],
+    "differentOriginalNormalizedWSL": true
+  },
+  "epistemic": {
+    "fullyEnumeratedOriginalGameplayPositions": false,
+    "sourceHistoryControls": 8,
+    "exactWDLFromEmpty": false,
+    "noSolvedGameKnowledgeInputs": true,
+    "noBelowFiveBoardTests": true,
+    "qualifiedIsoGraphAuthorityChanged": false
+  },
+  "sourcePath": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-center-wing-causal-interception-field.js",
+  "sourceGitBlob": "9119a894a457ed2b265e2fa1b29d1bc54c34a8f7",
+  "frozenPriorToSourceCheck": "docs/research/2026-10-22-frozen-center-wing-hitting-dual-and-temporal-forward-interception-field.md",
+  "meaning": "original7x6 first-ply center ownership static H4 blocker dual and original96 four-cell order short causal source field",
+  "qualification": {
+    "checkedInSourceReadbackAndExecutedExactV8": true,
+    "independentlyDerivedMathematicalSourceProof": true,
+    "actualUserGoal": "ROOT ZERO-STRATEGIC-FANOUT WLD UNPROVED",
+    "maintainedNode26CI": "NOT_RUN",
+    "externalFormalProof": "NOT_RUN",
+    "qualifiedIsoGraphAuthority": "UNCHANGED",
+    "previousOracleValuesUsed": false
+  }
+}
