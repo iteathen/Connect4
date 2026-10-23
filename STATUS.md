@@ -1,5 +1,23 @@
 # Connect4 current research status
 
+## NEW 2026-10-22 original7x6 two-wing interception, root fork deadline, and rank9 upper-row matroid obstruction
+
+**Independent no-search original EMPTY-root WLD theorem remains OPEN.** Owner priority is ZERO strategic branching plus all equally optimal moves, not a larger BDD/QBF state set. All new findings below use the original 69 physical K4 windows on 7x6; small abstract Boolean controls do not constitute sub-five Connect4 games.
+
+**Exact STATIC center-root bottom defense dual:** When P0 owns actual c4r1, there are four original bottom-row H4 windows through that cell. To block all on a completed bottom row without an earlier P0 firstwin, P1 must occupy both wings. Exactly six minimal two-site bottom blockers: (1,5),(2,5),(2,6),(3,5),(3,6),(3,7). The bipartite six-edge incidence graph is connected with ONE independent square cycle. This is not the old six-board C6 or OOO sign triangle.
+
+**Exact time-ordered forward interception:** For each of 96 orders of attacking the four cells of an original bottom H4 on P0 plies1/3/5/7 (24 center-first), actual P0 firstwinner at ply7 occurs iff NONE of P1's three previous replies occupies a FUTURE as-yet unplayed target column. This is a chronological resource requirement, not an arbitrary off-column parity change. The 7^3 possible reply LABEL words split by symbolic product into 120 nonintercepting and 223 intercepting words; these are abstract choice-word counts, not separately game-valued strategic futures.
+
+**Exact causal rank5 deadline:** For the illustrative P0 opening c4,c3,c5 (three P0 moves), if P1's first replies b1,b2 satisfy b1 outside {2,3,5,6} AND b2 outside {2,5,6}, rank5 has TWO independently playable P0 singleton firstwins c2 and c6, so P0 wins on ply7 against every next P1 reply. Thus P1 must make at least one productive near-center bottom claim by ply4 to avoid THIS fork. Its converse does not establish a P1 draw or a P0 win. The 49 b1/b2 legal LABEL pairs have 12 satisfying the fork expression, proven by direct Boolean factorization and named physical original69/ray checks.
+
+**Owner-depth vs GF2 phase:** Legitimate original 4-ply histories 4335 and 4533 have the same physical column heights and GF2 parity but different owner depth. After the same P0 c2 follow-up, the immediate P0 c1 firstwinner is present only in the latter. A phase-only q quotient therefore loses physical future-winning observables. The static original42-site K4-free Fourier/Boolean site curl between c4r1 and c4r2 equals -7,341,694,966 from independent two-site width-three tensor counts; this is a STATIC influence datum, not game WLD or a swapped legal root.
+
+**Exact earliest P0 odd-capacity terminal trap + negative source test:** Under the pre-existing October20 online response-matroid theorem at a P1 turn, odd overall height parity and even matched odd nontrap Q bases force an ODD-capacity P0 trap. Genuine H/V/R/F gravity source geometry shows minimum occupied support8, hence earliest relevant P1 turn rank9. Two actual firstwinnerfree histories 143224454 and 122454434 attain the P0 trap c3 with odd nontrap bases c1,c5, but source tropical Gamma is ZERO in both. An actual independent P1 horizontal K4 on physical ROW FIVE c4-c7 survives the first trap: formation of the P0 trap alone is INCOMPLETE for WLD. The previous causal positive-Gamma/online trap theorem still proves guarded WIN where all its conditions hold.
+
+**Latest exact synthesis:** docs/research/2026-10-22-original7x6-root-two-wing-temporal-interception-curvature-and-rank9-upper-wave.md. Four checked-in JavaScript original69 verifiers, four matching machine packets and four frozen protocols are under research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/. The final synthesis commit 30b08fbb7a0ed578fa245de773ddc29fb41100ed was verified completed after UI desynchronization. The current next_step.yaml routes a multi-row, time-oriented ribbon-obligation transfer: establish P0-favorable positive-Gamma and legally maintained terminal progress from EMPTY against all adaptive P1 actions while cancelling the row5 upper-band counterexample. No qualified IsoGraph authority/production solver change; maintained Node26 CI and external formal prover NOT run.
+
+---
+
 
 ## NEW 2026-10-22 exact nonenumerative causal WSL/tropical matroid field and root formation boundary
 
