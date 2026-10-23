@@ -1,5 +1,11 @@
 # Interference-pattern typed number relations — navigation map
 
+
+## 2026-10-23 C4SYNC typed-sign, C6 and causal-policy synthesis checkpoint
+
+**NEW DURABLE CROSS-ERA SOURCE AUDIT, NO UNSUPPORTED TRIAD EQUALITY.** C4SYNC (docs/research/2026-10-23-C4SYNC-cross-era-corpus-audit-theorem-ledger.md) records live historical source branch, exact September original OOO triangle generator, CPCX forward theorem history and current q13/q17 signed causal gates, with explicit source-coverage and falsifier status. C4SYN (docs/research/2026-10-23-C4SYN-typed-cross-era-operator-and-controlled-predecessor-synthesis.md) maps true physical 69-line K4 -> owner-labelled 625 residual antichains -> Shannon/gravity -> event/deadline resources -> guarded H/V/Q/X response matroid -> strict P0-firstwinner shadows -> terminal-progress WIN region -> still-MISSING realizable P0-exists/P1-forall empty predecessor. Old three deltas sum zero as gradients on descriptor triples. Under any linear coboundary-commuting transfer they CANNOT realize October signed C6 nonlinear survivor class. Old OOO distinct connected-component cubic VANISHES on original early rank12 C6 one-component cases, while complete per-component descriptors still distinguish. The fact that q17 heterogeneous H(c1,c2)/V(c3,c4,c6,c7)/X(c5) carries Gamma=1 and an online terminal win by rank39 **does not pull backward** through all q13 replies. See source audit for surviving claims and honest reexecution qualifications.
+
+
 ## 2026-10-23 UPDATED C4XR: heterogeneous H/V matroid defeats both pure-policy poison patterns
 
 **Verified new ORIGINAL7x6 source-positive relation; older q17 unknown below is superseded.** Real rank17 q=\`42142544223333111\`, P1 to move: pure same-column P0 upper mates lose to original P1 LOWER H row5 c1..4; pure same-row P0 horizontal pair mirroring loses to actual P1 rising R c1r3,c2r4,c3r5,c4r6 because P0 c4r5 supplies support. NEW legal **heterogeneous** H/V respondent online partition matroid: horizontal mirrored pair (c1,c2) each at future rows5/6, V upper samecolumn mates c3,c4,c6,c7, P0 FIRSTWIN trap c5. Original real owner-labelled P1 WSL22 minimal K4 source masks all matroid-dependent, gap histogram 1:8,2:9,3:3,4:2, Γ=1, source terminal progress P0 FIRSTWIN by ply39. The opponent cannot FIRSTWIN either pure-policy bad line; no complete future q values were computed.
