@@ -1,0 +1,145 @@
+{
+  "schema": "c4.original7x6_q8_grade3_vertical_to_horizontal_trap.v1",
+  "status": "EXACT_SOURCE_Q8_SAME_COLUMN_VERTICAL_DEFENSE_CREATES_H3_READY_TRAP_BUT_NO_COMPLETE_POLICY_CERTIFICATE",
+  "sourceHistory": "42142544",
+  "initialSupport": [
+    1,
+    2,
+    0,
+    4,
+    1,
+    0,
+    0
+  ],
+  "originalK4": {
+    "H": 24,
+    "V": 21,
+    "R": 12,
+    "F": 12
+  },
+  "sourceP0MinimumMasks": 39,
+  "sourceP0GradeHistogram": {
+    "3": 13,
+    "4": 26
+  },
+  "chosenSourceG3": {
+    "originalH4": [
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ]
+    ],
+    "initialMissing": [
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ]
+    ],
+    "P0FulfilledTwo": [
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ]
+    ],
+    "futureReadyTarget": [
+      [
+        1,
+        3
+      ]
+    ],
+    "sourceBooleanUnderF": 0,
+    "sourceBooleanUnderFplusTarget": 1
+  },
+  "physicalLocalFiveEventTranscript": [
+    {
+      "column": 2,
+      "row": 3,
+      "player": 0
+    },
+    {
+      "column": 2,
+      "row": 4,
+      "player": 1
+    },
+    {
+      "column": 3,
+      "row": 1,
+      "player": 0
+    },
+    {
+      "column": 3,
+      "row": 2,
+      "player": 1
+    },
+    {
+      "column": 3,
+      "row": 3,
+      "player": 0
+    }
+  ],
+  "finalHistory": "4214254422333",
+  "finalRank": 13,
+  "finalSupport": [
+    1,
+    4,
+    3,
+    4,
+    1,
+    0,
+    0
+  ],
+  "finalP0CurrentReadyTrapColumns": [
+    1,
+    5
+  ],
+  "finalP0SourceWSL": 27,
+  "finalP1SourceWSL": 30,
+  "finalOddNontrapBases": [
+    3
+  ],
+  "oldOnlineP0ResponderSourceFrame": "INELIGIBLE_NO_MATCHING",
+  "interpretation": "A legal samecolumn P1 reply c2r4 prevents P0 V c2r2..r5 but another samecolumn P1 reply c3r2 supplies gravity needed for P0 c3r3. This activates source H row3 c1..4 as actual P0 ready trap c1r3. Thus naive claim SAMECOLUMN response to each vertical prevents all P0 traps by rank13 is false on genuine board. Single source trap alone does not establish P0 WLD; investigate unshadowed P1 original K4s and alternative policies.",
+  "noKnownSolvedValues": true,
+  "fullGameStateEnumeration": false,
+  "childStrategicWLDCalls": 0,
+  "maintainedCI": "NOT_RUN",
+  "externalFormalProver": "NOT_RUN",
+  "checkedInSourcePath": "research/isograph/discovery/2026-10-21-global-gravity-Z3-transfer/verify-original7x6-q8-vertical-to-horizontal-grade3-trap-transfer.js",
+  "sourceGitBlob": "d8830df35c6e6c362bc528d4922c705204f5d807",
+  "pretestProtocol": "docs/research/2026-10-23-frozen-C4Q8-vertical-mate-to-row3-horizontal-trap-transfer.md",
+  "verification": {
+    "sourceGitHubReadbackExactExecutedV8": true,
+    "original7x6Literal69AndIndependentPhysicalRays": true,
+    "fullGameStateSpaceEnumeration": false,
+    "childStrategicWLDValuesQueried": false,
+    "solvedGameLabelsInputs": false,
+    "rootNonsearchWLDProof": "OPEN",
+    "node26MaintainedCI": "NOT_RUN",
+    "externalFormalChecker": "NOT_RUN",
+    "gameTheoryAuthority": "UNCHANGED"
+  }
+}
